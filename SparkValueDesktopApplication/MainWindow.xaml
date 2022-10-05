@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SparkValueDesktopApplication"
+        xmlns:views="clr-namespace:SparkValueDesktopApplication.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen"
+        FontSize="15"
+        Title="Spark Value" Height="450" Width="800">
     <Grid>
-
+        <Viewbox MaxHeight="600" MaxWidth="1300">
+            <views:SignInView/>
+        </Viewbox>
     </Grid>
 </Window>
