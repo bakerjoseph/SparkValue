@@ -9,10 +9,10 @@
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         FontSize="15"
-        Title="Spark Value" Height="450" Width="800">
-    <Grid>
-        <Viewbox MaxHeight="600" MaxWidth="1300">
-            <views:SignInView/>
-        </Viewbox>
-    </Grid>
+        Title="Spark Value" Height="500" Width="850">
+    <Viewbox MaxHeight="725" MaxWidth="1232.5">
+        <Border BorderBrush="Black" BorderThickness="0.25">
+            <views:UserSettings/>
+        </Border>
+    </Viewbox>
 </Window>

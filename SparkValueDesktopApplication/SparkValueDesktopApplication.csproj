@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\SettingsGear.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\SettingsGear.png" />
+  </ItemGroup>
+
 </Project>
