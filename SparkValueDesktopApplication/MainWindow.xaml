@@ -12,7 +12,7 @@
         Title="Spark Value" Height="500" Width="850">
     <Viewbox MaxHeight="725" MaxWidth="1232.5">
         <Border BorderBrush="Black" BorderThickness="0.25">
-            <views:UserSettings/>
+            <views:BreadboardView/>
         </Border>
     </Viewbox>
 </Window>

@@ -27,12 +27,19 @@
 
         <DockPanel Grid.Row="1">
             <Border DockPanel.Dock="Left" Background="LightSlateGray" MaxWidth="200">
-                <StackPanel MinWidth="150">
-                    <Button Content="Virtual Breadboard" Command=""/>
-                </StackPanel>
+                <DockPanel LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Top" MinWidth="150">
+                        <Button Content="General" Command=""/>
+                        <Button Content="Account" Command=""/>
+                    </StackPanel>
+                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command=""/>
+                </DockPanel>
+                
             </Border>
 
-            <views:SignInView DockPanel.Dock="Right"/>
+            <ScrollViewer DockPanel.Dock="Right">
+                <views:GeneralSettingsView/>
+            </ScrollViewer>
         </DockPanel>
         
     </Grid>
