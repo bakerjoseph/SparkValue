@@ -22,8 +22,8 @@
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Spark Value"/>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Text="Username"/>
-                <Button Command="" Background="White" BorderThickness="0.1">
+                <TextBlock VerticalAlignment="Center" Text="{Binding Username}"/>
+                <Button Command="{Binding SettingsNavigateCommand}" Background="White" BorderThickness="0.1">
                     <Image Source="/Images/SettingsGear.png" Width="25"/>
                 </Button>
             </StackPanel>
@@ -32,21 +32,17 @@
         <DockPanel Grid.Row="1">
             <Border DockPanel.Dock="Left" Background="LightSlateGray" MaxWidth="200">
                 <DockPanel LastChildFill="False">
-                    <StackPanel DockPanel.Dock="Top" MinWidth="150">
-                        <Button Content="General" Command=""/>
-                        <Button Content="Account" Command=""/>
-                    </StackPanel>
-                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command=""/>
+                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command="{Binding MenuNavigateCommand}"/>
                 </DockPanel>
 
             </Border>
 
             <StackPanel DockPanel.Dock="Right" Margin="20">
-                <TextBlock Text="Unit # Title - Lesson # Title"/>
+                <TextBlock Text="{Binding Title}"/>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Content="&lt;-"/>
-                    <Button Content="->"/>
-                    <TextBlock VerticalAlignment="Center" Text="1/4"/>
+                    <Button Content="&lt;-" Command="{Binding PreviousPageCommand}"/>
+                    <Button Content="->" Command="{Binding NextPageCommand}"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Progress}"/>
                 </StackPanel>
                 <!-- Insert template -->
             </StackPanel>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SparkValueDesktopApplication.Views
 {
     /// <summary>
-    /// Interaction logic for MainUserView.xaml
+    /// Interaction logic for DashboardView.xaml
     /// </summary>
-    public partial class MainUserView : UserControl
+    public partial class DashboardView : UserControl
     {
-        public MainUserView()
+        public DashboardView()
         {
             InitializeComponent();
         }

@@ -4,16 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:converter="clr-namespace:SparkValueDesktopApplication.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
+    <UserControl.Resources>
+        <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
+    </UserControl.Resources>
     <DockPanel>
         <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
             <ScrollViewer>
-                <ItemsControl>
-                    <ListItem/>
-                    <ListItem/>
-                    <ListItem/>
-                    <ListItem/>
+                <ItemsControl ItemsSource="{Binding ComponentCategories}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel IsItemsHost="True">
@@ -24,15 +24,10 @@
                         <DataTemplate>
                             <Border Background="LightSlateGray">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="Component Category"/>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding CategoryTitle}"/>
 
                                     <Expander VerticalAlignment="Center">
                                         <ItemsControl>
-                                            <ListItem/>
-                                            <ListItem/>
-                                            <ListItem/>
-                                            <ListItem/>
-                                            <ListItem/>
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel IsItemsHost="True">
@@ -42,7 +37,7 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid Margin="5">
-                                                        <Image Source="/Images/SettingsGear.png" Width="20" />
+                                                        <Image Source="{Binding ComponentPicture}" Width="20" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
@@ -64,8 +59,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Clear the Breadboard" Command=""/>
-                <Button Grid.Column="2" Content="Return to Menu" Command=""/>
+                <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand}"/>
+                <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
             </Grid>
             
             <Canvas Margin="20" Width="550" Height="200" Background="LightGoldenrodYellow">
@@ -82,15 +77,21 @@
                 <Border Grid.Column="0" Background="LightSlateGray">
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Center" Text="Filters"/>
-                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only"/>
-                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values"/>
+                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only" Command="{Binding FilterComponentsCommand}"/>
+                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}"/>
                     </StackPanel>
                 </Border>
                 
                 <Border Grid.Column="2" Background="LightSlateGray" MinWidth="250">
+                    <Border.Visibility>
+                        <MultiBinding Converter="{StaticResource ComponentDescriptionBoxVisibilityConverter}">
+                            <Binding Path="SelectedComponentName"/>
+                            <Binding Path="SelectedComponentDescription"/>
+                        </MultiBinding>
+                    </Border.Visibility>
                     <StackPanel>
-                        <TextBlock HorizontalAlignment="Center" Text="Component Title"/>
-                        <TextBlock Text="Component Description"/>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedComponentName}"/>
+                        <TextBlock Text="{Binding SelectedComponentDescription}" TextWrapping="Wrap"/>
                     </StackPanel>
                 </Border>
             </Grid>

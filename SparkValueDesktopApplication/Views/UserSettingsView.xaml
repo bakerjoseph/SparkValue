@@ -23,7 +23,7 @@
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Spark Value"/>
             
-            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="Username"/>
+            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Username}"/>
         </Grid>
 
         <DockPanel Grid.Row="1">

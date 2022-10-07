@@ -9,10 +9,10 @@
     <StackPanel HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" Text="Account Settings"/>
         <Separator/>
-        <Button Content="Change your Username" Command=""/>
-        <Button Content="Update your Email Address" Command=""/>
-        <Button Content="Reset your Password" Command=""/>
+        <Button Content="Change your Username" Command="{Binding ResetUsernameCommand}"/>
+        <Button Content="Update your Email Address" Command="{Binding ResetEmailAddressCommand}"/>
+        <Button Content="Reset your Password" Command="{Binding ResetPasswordCommand}"/>
         <Separator/>
-        <Button Content="Reset your Account" Command="" Background="PaleVioletRed"/>
+        <Button Content="Reset your Account" Command="{Binding ResetAccountCommand}" Background="PaleVioletRed"/>
     </StackPanel>
 </UserControl>

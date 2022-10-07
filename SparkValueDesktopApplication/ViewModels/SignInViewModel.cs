@@ -40,6 +40,7 @@ namespace SparkValueDesktopApplication.ViewModels
         public ICommand CreateAccountCommand { get; }
         public ICommand BreadboardNavigateCommand { get; }
         public ICommand SignInCommand { get; }
+        public ICommand ForgotPasswordNavigateCommand { get; }
 
         /// <summary>
         /// Used in conjunction with SignInView.xaml

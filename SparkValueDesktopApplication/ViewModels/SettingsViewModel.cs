@@ -39,7 +39,7 @@ namespace SparkValueDesktopApplication.ViewModels
 
         public ICommand SwitchToGeneralCommand { get; }
         public ICommand SwitchToAccountCommand { get; }
-        public ICommand MenuReturnCommand { get; }
+        public ICommand MenuNavigateCommand { get; }
 
         /// <summary>
         /// Used in conjunction with UserSettingsView.xaml

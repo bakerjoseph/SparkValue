@@ -8,6 +8,11 @@ namespace SparkValueDesktopApplication.ViewModels
 {
     public class SettingsGeneralViewModel : ViewModelBase
     {
+        // TODO: Implement commands here for general settings!
 
+        public SettingsGeneralViewModel()
+        {
+            
+        }
     }
 }
