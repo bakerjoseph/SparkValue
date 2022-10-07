@@ -27,7 +27,7 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Password:"/>
-                        <PasswordBox TextInput="{Binding Password}" MinWidth="200" MaxWidth="200"/>
+                        <PasswordBox x:Name="PasswordEntry" MinWidth="200" MaxWidth="200"/>
                     </StackPanel>
 
                     <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -37,7 +37,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Content="Cancel" Command="{Binding CancelCommand}"/>
-                        <Button Grid.Column="2" Content="Create Account" Command="{Binding CreateAccountCommand}"/>
+                        <Button Grid.Column="2" Content="Create Account" Command="{Binding CreateAccountCommand}" CommandParameter="{Binding ElementName=PasswordEntry}"/>
                     </Grid>
                 </StackPanel>
             </Border>

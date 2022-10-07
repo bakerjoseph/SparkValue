@@ -42,9 +42,9 @@
                     </TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="5 0 5 5">
                         <TextBlock Text="Password:"/>
-                        <PasswordBox TextInput="{Binding Password}" MinWidth="150" MaxWidth="150"/>
+                        <PasswordBox x:Name="PasswordEntry" MinWidth="150" MaxWidth="150"/>
                     </StackPanel>
-                    <Button Content="Sign in" Command="{Binding SignInCommand}" MaxWidth="80" MinWidth="60"/>
+                    <Button Content="Sign in" Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=PasswordEntry}" MaxWidth="80" MinWidth="60"/>
                 </StackPanel>
             </Border>
             

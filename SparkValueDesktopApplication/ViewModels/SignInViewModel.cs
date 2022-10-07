@@ -23,20 +23,6 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
-        private string _password;
-        public string Password
-        {
-            get
-            {
-                return _password;
-            }
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
-        }
-
         public ICommand CreateAccountCommand { get; }
         public ICommand BreadboardNavigateCommand { get; }
         public ICommand SignInCommand { get; }
@@ -48,7 +34,6 @@ namespace SparkValueDesktopApplication.ViewModels
         public SignInViewModel()
         {
             _username = string.Empty;
-            _password = string.Empty;
 
 
         }

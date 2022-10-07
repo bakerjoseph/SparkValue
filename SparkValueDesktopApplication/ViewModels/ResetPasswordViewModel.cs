@@ -9,20 +9,6 @@ namespace SparkValueDesktopApplication.ViewModels
 {
     public class ResetPasswordViewModel : ViewModelBase
     {
-        private string _password;
-        public string Password 
-        { 
-            get 
-            { 
-                return _password; 
-            } 
-            set 
-            { 
-                _password = value; 
-                OnPropertyChanged(nameof(Password));
-            } 
-        }
-
         public ICommand CancelCommand { get; }
         public ICommand ResetPasswordCommand { get; }
 
@@ -31,9 +17,7 @@ namespace SparkValueDesktopApplication.ViewModels
         /// </summary>
         public ResetPasswordViewModel()
         {
-            _password = string.Empty;
-
-
+            
         }
     }
 }
