@@ -19,7 +19,7 @@
                 <StackPanel VerticalAlignment="Center" Margin="10">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="New Email Address:"/>
-                        <TextBox MinWidth="150" MaxWidth="150"/>
+                        <TextBox Text="{Binding EmailAddress}" MinWidth="150" MaxWidth="150"/>
                     </StackPanel>
 
                     <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -28,8 +28,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Cancel" Command=""/>
-                        <Button Grid.Column="2" Content="Update Email Address" Command=""/>
+                        <Button Grid.Column="0" Content="Cancel" Command="{Binding CancelCommand}"/>
+                        <Button Grid.Column="2" Content="Update Email Address" Command="{Binding ResetEmailAddressCommand}"/>
                     </Grid>
                 </StackPanel>
             </Border>

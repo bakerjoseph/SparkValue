@@ -19,15 +19,15 @@
                 <StackPanel VerticalAlignment="Center" Margin="10">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Username:"/>
-                        <TextBox MinWidth="200" MaxWidth="200"/>
+                        <TextBox Text="{Binding Username}" MinWidth="200" MaxWidth="200"/>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Email Address:"/>
-                        <TextBox MinWidth="200" MaxWidth="200"/>
+                        <TextBox Text="{Binding EmailAddress}" MinWidth="200" MaxWidth="200"/>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Password:"/>
-                        <PasswordBox MinWidth="200" MaxWidth="200"/>
+                        <PasswordBox TextInput="{Binding Password}" MinWidth="200" MaxWidth="200"/>
                     </StackPanel>
 
                     <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -36,8 +36,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Cancel" Command=""/>
-                        <Button Grid.Column="2" Content="Create Account" Command=""/>
+                        <Button Grid.Column="0" Content="Cancel" Command="{Binding CancelCommand}"/>
+                        <Button Grid.Column="2" Content="Create Account" Command="{Binding CreateAccountCommand}"/>
                     </Grid>
                 </StackPanel>
             </Border>

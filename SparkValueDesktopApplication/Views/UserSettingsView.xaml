@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
              xmlns:views="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:vms="clr-namespace:SparkValueDesktopApplication.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
     <Grid Height="500" Width="850">
@@ -29,16 +30,26 @@
             <Border DockPanel.Dock="Left" Background="LightSlateGray" MaxWidth="200">
                 <DockPanel LastChildFill="False">
                     <StackPanel DockPanel.Dock="Top" MinWidth="150">
-                        <Button Content="General" Command=""/>
-                        <Button Content="Account" Command=""/>
+                        <Button Content="General" Command="{Binding SwitchToGeneralCommand}"/>
+                        <Button Content="Account" Command="{Binding SwitchToAccountCommand}"/>
                     </StackPanel>
-                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command=""/>
+                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command="{Binding MenuReturnCommand}"/>
                 </DockPanel>
                 
             </Border>
 
             <ScrollViewer DockPanel.Dock="Right">
-                <views:GeneralSettingsView/>
+                <Grid>
+                    <Grid.Resources>
+                        <DataTemplate DataType="{x:Type vms:SettingsGeneralViewModel}">
+                            <views:GeneralSettingsView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vms:SettingsAccountViewModel}">
+                            <views:AccountSettingsView />
+                        </DataTemplate>
+                    </Grid.Resources>
+                    <ContentControl Content="{Binding CurrentSettingViewModel}"/>
+                </Grid>
             </ScrollViewer>
         </DockPanel>
         
