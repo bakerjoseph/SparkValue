@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -46,7 +48,7 @@ namespace SparkValueDesktopApplication.ViewModels
         public ICommand FilterValuesCommand { get; }
         public IEnumerable<ComponentCategoryViewModel> ComponentCategories => _componentCategories;
 
-        public BreadboardViewModel()
+        public BreadboardViewModel(NavigationService signInViewNavigationService)
         {
             SelectedComponentName = string.Empty;
             SelectedComponentDescription = string.Empty;
@@ -65,6 +67,8 @@ namespace SparkValueDesktopApplication.ViewModels
                     new ComponentViewModel("\\Images\\SettingsGear.png"),
                 })
             };
+
+            MenuNavigateCommand = new NavigateCommand(signInViewNavigationService);
         }
     }
 }

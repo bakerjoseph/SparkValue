@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,12 +45,13 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with NewAccountView.xaml
         /// </summary>
-        public NewAccountViewModel()
+        public NewAccountViewModel(NavigationService signInViewNavigationService)
         {
             _username = string.Empty;
             _emailAddress = string.Empty;
 
-
+            CancelCommand = new NavigateCommand(signInViewNavigationService);
+            CreateAccountCommand = new SignInCommand(signInViewNavigationService);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,11 +33,17 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with SignInView.xaml
         /// </summary>
-        public SignInViewModel()
+        public SignInViewModel(NavigationService breadboardViewNavigationService,
+                            NavigationService newAccountViewNavigationService,
+                            NavigationService dashboardViewNavigationService,
+                            NavigationService passwordChangeViewNavigationService)
         {
             _username = string.Empty;
 
-
+            BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);
+            CreateAccountCommand = new NavigateCommand(newAccountViewNavigationService);
+            SignInCommand = new SignInCommand(dashboardViewNavigationService);
+            ForgotPasswordNavigateCommand = new NavigateCommand(passwordChangeViewNavigationService);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -33,7 +35,11 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with DashboardView.xaml
         /// </summary>
-        public DashboardViewModel(string username)
+        public DashboardViewModel(
+            NavigationService breadboardViewNavigationService, 
+            NavigationService userSettingsViewNavigationService,
+            NavigationService signInViewNavigationService,
+            string username)
         {
             Username = username;
             _units = new ObservableCollection<UnitViewModel>
@@ -69,6 +75,10 @@ namespace SparkValueDesktopApplication.ViewModels
                             new List<ViewModelBase>()),
                     })
             };
+
+            BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);
+            SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);
+            LogOutCommand = new LogOutCommand(signInViewNavigationService);
         }
     }
 }
