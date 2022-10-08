@@ -1,5 +1,6 @@
 ﻿using SparkValueDesktopApplication.Commands;
 using SparkValueDesktopApplication.Services;
+using SparkValueDesktopApplication.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,9 +37,11 @@ namespace SparkValueDesktopApplication.ViewModels
         /// Used in conjunction with DashboardView.xaml
         /// </summary>
         public DashboardViewModel(
+            NavigationStore navigationStore,
             NavigationService breadboardViewNavigationService, 
             NavigationService userSettingsViewNavigationService,
             NavigationService signInViewNavigationService,
+            NavigationService dashboardViewNavigationService,
             string username)
         {
             Username = username;
@@ -47,32 +50,35 @@ namespace SparkValueDesktopApplication.ViewModels
                 new UnitViewModel(
                     "Unit 1 - Shocking Introduction", 
                     "The intro unit", 
-                    new List<LessonViewModel>()
+                    new List<PartialLessonViewModel>()
                     {
-                        new LessonViewModel(
-                            username,
-                            "[Unit 1 - Shocking Introduction] Lesson 1 - Electricity Primer",
+                        new PartialLessonViewModel(
+                            navigationStore,
+                            dashboardViewNavigationService,
+                            userSettingsViewNavigationService,
+                            "Lesson 1 - Electricity Primer",
                             "An intro to electricity",
-                            new List<string>(),
-                            new List<ViewModelBase>()),
-                        new LessonViewModel(
-                            username,
-                            "[Unit 1 - Shocking Introduction] Lesson 2 - Reading Circuit Diagrams",
+                            "0/0"),
+                        new PartialLessonViewModel(
+                            navigationStore,
+                            dashboardViewNavigationService,
+                            userSettingsViewNavigationService,
+                            "Lesson 2 - Reading Circuit Diagrams",
                             "Learn how to read circuit diagrams to build your own circuits",
-                            new List<string>(),
-                            new List<ViewModelBase>()),
+                            "0/0"),
                     }),
                 new UnitViewModel(
                     "Unit 2 - Components Galore",
                     "Component Discussion",
-                    new List<LessonViewModel>()
+                    new List<PartialLessonViewModel>()
                     {
-                        new LessonViewModel(
-                            username,
-                            "[Unit 2 - Components Galore] Lesson 1 - Resistors",
+                        new PartialLessonViewModel(
+                            navigationStore,
+                            dashboardViewNavigationService,
+                            userSettingsViewNavigationService,
+                            "Lesson 1 - Resistors",
                             "Let's talk about resistors",
-                            new List<string>(),
-                            new List<ViewModelBase>()),
+                            "0/0"),
                     })
             };
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -34,20 +36,6 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
-        private string _description;
-        public string Description
-        {
-            get 
-            {
-                return _description; 
-            }
-            set 
-            { 
-                _description = value; 
-                OnPropertyChanged(nameof(Description)); 
-            }
-        }
-
         private string _progress;
         public string Progress
         {
@@ -68,21 +56,22 @@ namespace SparkValueDesktopApplication.ViewModels
         private ObservableCollection<ViewModelBase> _interactiveElements;
         public IEnumerable<ViewModelBase> InteractiveElements => _interactiveElements;
 
-        public ICommand LessonNavigateCommand { get; }
         public ICommand MenuNavigateCommand { get; }
         public ICommand SettingsNavigateCommand { get; }
         public ICommand PreviousPageCommand { get; }
         public ICommand NextPageCommand { get; }
 
-        public LessonViewModel(string username, string title, string description, List<string> content, List<ViewModelBase> interactiveElements)
+        public LessonViewModel(NavigationService dashboardViewNavigationService, NavigationService userSettingsViewNavigationService, string username, string title, List<string> content, List<ViewModelBase> interactiveElements)
         {
             _content = new ObservableCollection<string>(content);
             _interactiveElements = new ObservableCollection<ViewModelBase>(interactiveElements);
 
             Username = username;
             Title = title;
-            Description = description;
             Progress = $"1/{_content.Count}";
+
+            MenuNavigateCommand = new NavigateCommand(dashboardViewNavigationService);
+            SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);
         }
     }
 }

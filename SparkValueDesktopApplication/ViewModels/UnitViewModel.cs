@@ -34,15 +34,15 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
-        private readonly ObservableCollection<LessonViewModel> _lessons;
-        public IEnumerable<LessonViewModel> Lessons => _lessons;
+        private readonly ObservableCollection<PartialLessonViewModel> _lessons;
+        public IEnumerable<PartialLessonViewModel> Lessons => _lessons;
 
-        public UnitViewModel(string title, string description, List<LessonViewModel> lessons)
+        public UnitViewModel(string title, string description, List<PartialLessonViewModel> lessons)
         {
             Title = title;
             Description = description;
 
-            _lessons = new ObservableCollection<LessonViewModel>(lessons);
+            _lessons = new ObservableCollection<PartialLessonViewModel>(lessons);
         }
     }
 }

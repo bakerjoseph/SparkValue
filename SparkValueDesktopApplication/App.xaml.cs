@@ -58,9 +58,11 @@ namespace SparkValueDesktopApplication
         private DashboardViewModel CreateDashboardViewModel()
         {
             return new DashboardViewModel(
+                _navigationStore,
                 new NavigationService(_navigationStore, CreateBreadboardViewModel),
                 new NavigationService(_navigationStore, CreateUserSettingsGeneralViewModel),
                 new NavigationService(_navigationStore, CreateSignInViewModel),
+                new NavigationService(_navigationStore, CreateDashboardViewModel),
                 "username");
         }
 
