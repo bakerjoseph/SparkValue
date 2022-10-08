@@ -37,6 +37,9 @@
             <DataTemplate DataType="{x:Type vms:ResetUsernameViewModel}">
                 <views:UsernameChangeView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
+                <views:UserSettings/>
+            </DataTemplate>
         </Viewbox.Resources>
         <Border BorderBrush="Black" BorderThickness="0.25">
             <ContentControl Content="{Binding CurrentViewModel}"/>

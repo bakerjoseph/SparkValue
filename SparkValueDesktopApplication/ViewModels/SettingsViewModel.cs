@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,12 +46,12 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with UserSettingsView.xaml
         /// </summary>
-        public SettingsViewModel()
+        public SettingsViewModel(NavigationService dashboardViewNavigationService)
         {
             _username = "username";
             _currentSettingViewModel = new SettingsGeneralViewModel();
 
-
+            MenuNavigateCommand = new NavigateCommand(dashboardViewNavigationService);
         }
     }
 }

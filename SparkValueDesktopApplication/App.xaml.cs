@@ -25,11 +25,7 @@ namespace SparkValueDesktopApplication
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _navigationStore.CurrentViewModel = new SignInViewModel(
-                new NavigationService(_navigationStore, CreateBreadboardViewModel),
-                new NavigationService(_navigationStore, CreateNewAccountViewModel),
-                new NavigationService(_navigationStore, CreateDashboardViewModel),
-                new NavigationService(_navigationStore, CreateResetPasswordViewModel));
+            _navigationStore.CurrentViewModel = CreateSignInViewModel();
 
             MainWindow = new MainWindow()
             {
@@ -70,7 +66,7 @@ namespace SparkValueDesktopApplication
 
         private SettingsViewModel CreateUserSettingsViewModel()
         {
-            return new SettingsViewModel();
+            return new SettingsViewModel(new NavigationService(_navigationStore, CreateDashboardViewModel));
         }
 
         private ResetPasswordViewModel CreateResetPasswordViewModel()

@@ -33,7 +33,7 @@
                         <Button Content="General" Command="{Binding SwitchToGeneralCommand}"/>
                         <Button Content="Account" Command="{Binding SwitchToAccountCommand}"/>
                     </StackPanel>
-                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command="{Binding MenuReturnCommand}"/>
+                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command="{Binding MenuNavigateCommand}"/>
                 </DockPanel>
                 
             </Border>
