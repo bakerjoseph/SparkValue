@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +17,10 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with PasswordChangeView.xaml
         /// </summary>
-        public ResetPasswordViewModel()
+        public ResetPasswordViewModel(NavigationService userSettingsViewNavigationService)
         {
-            
+            CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
+            ResetPasswordCommand = new ChangePasswordCommand(userSettingsViewNavigationService);
         }
     }
 }

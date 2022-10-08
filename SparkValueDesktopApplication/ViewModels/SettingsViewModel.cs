@@ -46,12 +46,15 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with UserSettingsView.xaml
         /// </summary>
-        public SettingsViewModel(NavigationService dashboardViewNavigationService)
+        public SettingsViewModel(NavigationService dashboardViewNavigationService, List<NavigationService> generalNavigationServices, List<NavigationService> accountNavigationServices, string currentSettingViewModel)
         {
             _username = "username";
-            _currentSettingViewModel = new SettingsGeneralViewModel();
+            _currentSettingViewModel = (currentSettingViewModel.Equals("General"))? new SettingsGeneralViewModel(generalNavigationServices) : 
+                                       (currentSettingViewModel.Equals("Account")) ? new SettingsAccountViewModel(accountNavigationServices) : throw new Exception($"{currentSettingViewModel} is not a recognized settings view model");
 
             MenuNavigateCommand = new NavigateCommand(dashboardViewNavigationService);
+            SwitchToGeneralCommand = new SwitchSettingsCommand("General", this, generalNavigationServices);
+            SwitchToAccountCommand = new SwitchSettingsCommand("Account", this, accountNavigationServices);
         }
     }
 }

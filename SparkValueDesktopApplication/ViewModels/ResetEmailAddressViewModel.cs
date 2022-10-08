@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,11 +31,12 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with EmailChangeView.xaml
         /// </summary>
-        public ResetEmailAddressViewModel()
+        public ResetEmailAddressViewModel(NavigationService userSettingsViewNavigationService)
         {
             _emailAddress = string.Empty;
 
-
+            CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
+            ResetEmailAddressCommand = new ChangeEmailAddressCommand(userSettingsViewNavigationService);
         }
     }
 }

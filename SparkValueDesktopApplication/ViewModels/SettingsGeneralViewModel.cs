@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace SparkValueDesktopApplication.ViewModels
     {
         // TODO: Implement commands here for general settings!
 
-        public SettingsGeneralViewModel()
+        public SettingsGeneralViewModel(List<NavigationService> navigationServices)
         {
             
         }

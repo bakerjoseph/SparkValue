@@ -59,19 +59,60 @@ namespace SparkValueDesktopApplication
         {
             return new DashboardViewModel(
                 new NavigationService(_navigationStore, CreateBreadboardViewModel),
-                new NavigationService(_navigationStore, CreateUserSettingsViewModel),
+                new NavigationService(_navigationStore, CreateUserSettingsGeneralViewModel),
                 new NavigationService(_navigationStore, CreateSignInViewModel),
                 "username");
         }
 
-        private SettingsViewModel CreateUserSettingsViewModel()
+        private SettingsViewModel CreateUserSettingsGeneralViewModel()
         {
-            return new SettingsViewModel(new NavigationService(_navigationStore, CreateDashboardViewModel));
+            return new SettingsViewModel(
+                new NavigationService(_navigationStore, CreateDashboardViewModel),
+                new List<NavigationService>() 
+                { 
+
+                },
+                new List<NavigationService>()
+                {
+                    new NavigationService(_navigationStore, CreateResetUsernameViewModel),
+                    new NavigationService(_navigationStore, CreateResetEmailAddressViewModel),
+                    new NavigationService(_navigationStore, CreateResetPasswordViewModel),
+                    new NavigationService(_navigationStore, CreateDashboardViewModel)
+                },
+                "General");
+        }
+
+        private SettingsViewModel CreateUserSettingsAccountViewModel()
+        {
+            return new SettingsViewModel(
+                new NavigationService(_navigationStore, CreateDashboardViewModel),
+                new List<NavigationService>()
+                {
+
+                },
+                new List<NavigationService>()
+                {
+                    new NavigationService(_navigationStore, CreateResetUsernameViewModel),
+                    new NavigationService(_navigationStore, CreateResetEmailAddressViewModel),
+                    new NavigationService(_navigationStore, CreateResetPasswordViewModel),
+                    new NavigationService(_navigationStore, CreateDashboardViewModel)
+                },
+                "Account");
+        }
+
+        private ResetUsernameViewModel CreateResetUsernameViewModel()
+        {
+            return new ResetUsernameViewModel(new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
+        }
+
+        private ResetEmailAddressViewModel CreateResetEmailAddressViewModel()
+        {
+            return new ResetEmailAddressViewModel(new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
         }
 
         private ResetPasswordViewModel CreateResetPasswordViewModel()
         {
-            return new ResetPasswordViewModel();
+            return new ResetPasswordViewModel(new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
         }
     }
 }

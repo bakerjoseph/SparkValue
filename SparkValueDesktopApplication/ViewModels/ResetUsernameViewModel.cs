@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,11 +31,12 @@ namespace SparkValueDesktopApplication.ViewModels
         /// <summary>
         /// Used in conjunction with UsernameChangeView.xaml
         /// </summary>
-        public ResetUsernameViewModel()
+        public ResetUsernameViewModel(NavigationService userSettingsViewNavigationService)
         {
             _username = string.Empty;
 
-
+            CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
+            ResetUsernameCommand = new ChangeUsernameCommand(userSettingsViewNavigationService);
         }
     }
 }
