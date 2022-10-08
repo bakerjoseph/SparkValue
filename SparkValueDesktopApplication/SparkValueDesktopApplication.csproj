@@ -15,4 +15,8 @@
     <Resource Include="Images\SettingsGear.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DataTransferObjects\" />
+  </ItemGroup>
+
 </Project>
