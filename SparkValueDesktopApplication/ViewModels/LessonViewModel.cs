@@ -72,6 +72,10 @@ namespace SparkValueDesktopApplication.ViewModels
 
             MenuNavigateCommand = new NavigateCommand(dashboardViewNavigationService);
             SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);
+
+            PreviousPageCommand = new LessonIterateBackwardCommand(this);
+            NextPageCommand = new LessonIterateForwardCommand(this);
+
         }
     }
 }
