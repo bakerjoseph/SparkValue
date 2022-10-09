@@ -29,7 +29,10 @@ namespace SparkValueDesktopApplication
         {
             _navigationStore = new NavigationStore();
             _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
-            _unitStore = new UnitStore();
+            _unitStore = new UnitStore(ConnectionString, DatabaseName, UnitCollection);
+
+            _userStore.LoadUsers().Wait();
+            _unitStore.LoadUnits().Wait();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -72,7 +75,8 @@ namespace SparkValueDesktopApplication
                 new NavigationService(_navigationStore, CreateUserSettingsGeneralViewModel),
                 new NavigationService(_navigationStore, CreateSignInViewModel),
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
-                "username");
+                // Temp band-aid until you can actually log in with an account!!
+                (_userStore.LoggedInUser != null)? _userStore.LoggedInUser.Username : "none found");
         }
 
         private SettingsViewModel CreateUserSettingsGeneralViewModel()
@@ -90,6 +94,8 @@ namespace SparkValueDesktopApplication
                     new NavigationService(_navigationStore, CreateResetPasswordViewModel),
                     new NavigationService(_navigationStore, CreateDashboardViewModel)
                 },
+                // Temp band-aid until you can actually log in with an account!!
+                (_userStore.LoggedInUser != null) ? _userStore.LoggedInUser.Username : "none found",
                 "General");
         }
 
@@ -108,6 +114,8 @@ namespace SparkValueDesktopApplication
                     new NavigationService(_navigationStore, CreateResetPasswordViewModel),
                     new NavigationService(_navigationStore, CreateDashboardViewModel)
                 },
+                // Temp band-aid until you can actually log in with an account!!
+                (_userStore.LoggedInUser != null) ? _userStore.LoggedInUser.Username : "none found",
                 "Account");
         }
 

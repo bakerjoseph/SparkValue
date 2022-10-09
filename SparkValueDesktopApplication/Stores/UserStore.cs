@@ -51,7 +51,11 @@ namespace SparkValueDesktopApplication.Stores
             _userUpdater = new MongoUserUpdater(connectionString, databaseName, userCollection);
 
             _initializeLazy = new Lazy<Task>(InitializeUsers);
-            _initializeLazy.Value.Wait();
+        }
+
+        public async Task LoadUsers()
+        {
+            await _initializeLazy.Value;
         }
 
         private async Task InitializeUsers()
