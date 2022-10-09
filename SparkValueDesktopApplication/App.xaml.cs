@@ -16,11 +16,20 @@ namespace SparkValueDesktopApplication
     /// </summary>
     public partial class App : Application
     {
+        private const string ConnectionString = "mongodb://localhost:27017";
+        private const string DatabaseName = "sparkvaluedb";
+        private const string UserCollection = "users";
+        private const string UnitCollection = "units";
+
         private readonly NavigationStore _navigationStore;
+        private readonly UserStore _userStore;
+        private readonly UnitStore _unitStore;
 
         public App()
         {
             _navigationStore = new NavigationStore();
+            _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
+            _unitStore = new UnitStore();
         }
 
         protected override void OnStartup(StartupEventArgs e)

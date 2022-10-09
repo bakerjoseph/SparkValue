@@ -9,10 +9,10 @@ namespace SparkValueDesktopApplication.Services.UserUpdaters
 {
     public interface IUserUpdater
     {
-        public Task UpdateUsersUsername(string currentUsername, string newUsername);
+        public Task UpdateUsersUsername(UserAccountModel user);
 
-        public Task UpdateUsersPassword(string currentUsername, string newPassword);
+        public Task UpdateUsersPassword(UserAccountModel user);
 
-        public Task UpdateUsersEmailAddress(string currentUsername, string newEmailAddress);
+        public Task UpdateUsersEmailAddress(UserAccountModel user);
     }
 }

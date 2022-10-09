@@ -22,31 +22,25 @@ namespace SparkValueDesktopApplication.Services.UserUpdaters
             _userProvider = new MongoUserProvider(connectionString, databaseName, userCollection);
         }
 
-        public async Task UpdateUsersEmailAddress(string currentUsername, string newEmailAddress)
+        public async Task UpdateUsersEmailAddress(UserAccountModel user)
         {
-            UserAccountModel targetUser = await _userProvider.GetUserByUsername(currentUsername);
-            targetUser.UpdateEmailAddress(newEmailAddress);
             IMongoCollection<UserAccountModel> usersCollection = ConnectToMongo<UserAccountModel>(_userCollection);
-            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", targetUser.Id);
-            await usersCollection.ReplaceOneAsync(filter, targetUser);
+            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", user.Id);
+            await usersCollection.ReplaceOneAsync(filter, user);
         }
 
-        public async Task UpdateUsersPassword(string currentUsername, string newPassword)
+        public async Task UpdateUsersPassword(UserAccountModel user)
         {
-            UserAccountModel targetUser = await _userProvider.GetUserByUsername(currentUsername);
-            targetUser.UpdatePassword(newPassword);
             IMongoCollection<UserAccountModel> usersCollection = ConnectToMongo<UserAccountModel>(_userCollection);
-            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", targetUser.Id);
-            await usersCollection.ReplaceOneAsync(filter, targetUser);
+            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", user.Id);
+            await usersCollection.ReplaceOneAsync(filter, user);
         }
 
-        public async Task UpdateUsersUsername(string currentUsername, string newUsername)
+        public async Task UpdateUsersUsername(UserAccountModel user)
         {
-            UserAccountModel targetUser = await _userProvider.GetUserByUsername(currentUsername);
-            targetUser.UpdateUsername(newUsername);
             IMongoCollection<UserAccountModel> usersCollection = ConnectToMongo<UserAccountModel>(_userCollection);
-            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", targetUser.Id);
-            await usersCollection.ReplaceOneAsync(filter, targetUser);
+            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", user.Id);
+            await usersCollection.ReplaceOneAsync(filter, user);
         }
     }
 }
