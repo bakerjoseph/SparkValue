@@ -12,11 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\SettingsGear.png" />
+    <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataTransferObjects\" />
+    <Resource Include="Images\SettingsGear.png" />
   </ItemGroup>
 
 </Project>

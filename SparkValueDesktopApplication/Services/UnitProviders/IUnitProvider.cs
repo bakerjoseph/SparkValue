@@ -10,5 +10,6 @@ namespace SparkValueDesktopApplication.Services.UnitProviders
     public interface IUnitProvider
     {
         Task<IEnumerable<UnitModel>> GetAllUnits();
+        Task<UnitModel> GetUnitByTitle(string title);
     }
 }

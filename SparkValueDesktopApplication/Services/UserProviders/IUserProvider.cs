@@ -10,5 +10,7 @@ namespace SparkValueDesktopApplication.Services.UserProviders
     public interface IUserProvider
     {
         Task<IEnumerable<UserAccountModel>> GetAllUsers();
+
+        Task<UserAccountModel> GetUserByUsername(string username);
     }
 }

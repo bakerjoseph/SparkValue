@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,9 @@ namespace SparkValueDesktopApplication.Models
 {
     public class UserAccountModel
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string EmailAddress { get; private set; }
