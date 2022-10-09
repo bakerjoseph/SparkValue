@@ -69,6 +69,9 @@ namespace SparkValueDesktopApplication.ViewModels
             };
 
             MenuNavigateCommand = new NavigateCommand(signInViewNavigationService);
+            ClearCommand = new ClearBreadboardCommand(this);
+            FilterComponentsCommand = new FilterCompCommand(this);
+            FilterValuesCommand = new FilterValCommand(this);
         }
     }
 }
