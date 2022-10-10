@@ -25,8 +25,12 @@ namespace SparkValueDesktopApplication
         private readonly UserStore _userStore;
         private readonly UnitStore _unitStore;
 
+        private readonly SecurityService _securityService;
+
         public App()
         {
+            _securityService = new SecurityService();
+
             _navigationStore = new NavigationStore();
             _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
             _unitStore = new UnitStore(ConnectionString, DatabaseName, UnitCollection);
