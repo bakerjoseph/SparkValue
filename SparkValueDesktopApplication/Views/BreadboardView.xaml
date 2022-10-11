@@ -27,7 +27,7 @@
                                     <TextBlock VerticalAlignment="Center" Text="{Binding CategoryTitle}"/>
 
                                     <Expander VerticalAlignment="Center">
-                                        <ItemsControl>
+                                        <ItemsControl ItemsSource="{Binding Components}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel IsItemsHost="True">
@@ -37,7 +37,7 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid Margin="5">
-                                                        <Image Source="{Binding ComponentPicture}" Width="20" />
+                                                        <Image Source="{Binding ComponentPicture}" Width="20"  />
                                                     </Grid>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
@@ -63,7 +63,7 @@
                 <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
             </Grid>
             
-            <Canvas Margin="20" Width="550" Height="200" Background="LightGoldenrodYellow">
+            <Canvas Margin="20" Width="550" Height="200" Background="LightGoldenrodYellow" AllowDrop="True">
 
             </Canvas>
 

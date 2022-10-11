@@ -1,9 +1,12 @@
-﻿namespace SparkValueDesktopApplication.ViewModels
+﻿using System;
+using System.Windows.Media.Imaging;
+
+namespace SparkValueDesktopApplication.ViewModels
 {
     public class ComponentViewModel : ViewModelBase
     {
-        private string _componentPicture;
-        public string ComponentPicture 
+        private BitmapImage _componentPicture;
+        public BitmapImage ComponentPicture 
         { 
             get 
             { 
@@ -18,7 +21,7 @@
 
         public ComponentViewModel(string componentPicture)
         {
-            ComponentPicture = componentPicture;
+            ComponentPicture = new BitmapImage(new Uri(componentPicture, UriKind.Relative));
         }
     }
 }
