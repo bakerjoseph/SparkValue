@@ -24,8 +24,11 @@ namespace SparkValueDesktopApplication
         private readonly NavigationStore _navigationStore;
         private readonly UserStore _userStore;
         private readonly UnitStore _unitStore;
+        private readonly LocalComponentStore _componentStore;
 
         private readonly SecurityService _securityService;
+
+        private readonly IEnumerable<ComponentCategoryViewModel> _componentCategories;
 
         public App()
         {
@@ -34,9 +37,13 @@ namespace SparkValueDesktopApplication
             _navigationStore = new NavigationStore();
             _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
             _unitStore = new UnitStore(ConnectionString, DatabaseName, UnitCollection);
+            _componentStore = new LocalComponentStore();
 
             _userStore.LoadUsers().Wait();
             _unitStore.LoadUnits().Wait();
+
+            // Replaces with call to LocalComponentStore
+            _componentCategories = _componentStore.GetComponentCategories();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -54,7 +61,7 @@ namespace SparkValueDesktopApplication
 
         private BreadboardViewModel CreateBreadboardViewModel()
         {
-            return new BreadboardViewModel(new NavigationService(_navigationStore, CreateSignInViewModel));
+            return new BreadboardViewModel(new NavigationService(_navigationStore, CreateSignInViewModel), _componentCategories);
         }
 
         private NewAccountViewModel CreateNewAccountViewModel()

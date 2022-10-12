@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.Models.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,18 @@ namespace SparkValueDesktopApplication.Models
 {
     public class BreadboardModel
     {
-        public List<ComponentModel> Components { get; }
+        public List<IComponentModel> Components { get; }
         
         public BreadboardModel()
         {
-            Components = new List<ComponentModel>();
+            Components = new List<IComponentModel>();
         }
 
         /// <summary>
         /// Add a new component to the breadboard's list of components.
         /// </summary>
         /// <param name="component">A new component</param>
-        public void AddComponent(ComponentModel component)
+        public void AddComponent(IComponentModel component)
         {
             Components.Add(component);
         }
@@ -28,7 +29,7 @@ namespace SparkValueDesktopApplication.Models
         /// Add a range of components to the breadboard's list of components.
         /// </summary>
         /// <param name="components">A IEnumerable of components</param>
-        public void AddComponents(IEnumerable<ComponentModel> components)
+        public void AddComponents(IEnumerable<IComponentModel> components)
         {
             Components.AddRange(components);
         }

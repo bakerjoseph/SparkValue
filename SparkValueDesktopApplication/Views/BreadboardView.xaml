@@ -37,7 +37,7 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid Margin="5">
-                                                        <Image Source="{Binding ComponentPicture}" Width="20"  />
+                                                        <Image Source="{Binding Picture}" Width="20"  />
                                                     </Grid>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>

@@ -48,25 +48,12 @@ namespace SparkValueDesktopApplication.ViewModels
         public ICommand FilterValuesCommand { get; }
         public IEnumerable<ComponentCategoryViewModel> ComponentCategories => _componentCategories;
 
-        public BreadboardViewModel(NavigationService signInViewNavigationService)
+        public BreadboardViewModel(NavigationService signInViewNavigationService, IEnumerable<ComponentCategoryViewModel> categories)
         {
             SelectedComponentName = string.Empty;
             SelectedComponentDescription = string.Empty;
 
-            _componentCategories = new ObservableCollection<ComponentCategoryViewModel>()
-            {
-                new ComponentCategoryViewModel("Buttons", new List<ComponentViewModel>()
-                {
-                    new ComponentViewModel("\\Images\\SettingsGear.png"),
-                    new ComponentViewModel("\\Images\\SettingsGear.png"),
-                    new ComponentViewModel("\\Images\\SettingsGear.png"),
-                }),
-                new ComponentCategoryViewModel("Resistors", new List<ComponentViewModel>()
-                {
-                    new ComponentViewModel("\\Images\\SettingsGear.png"),
-                    new ComponentViewModel("\\Images\\SettingsGear.png"),
-                })
-            };
+            _componentCategories = new ObservableCollection<ComponentCategoryViewModel>(categories);
 
             MenuNavigateCommand = new NavigateCommand(signInViewNavigationService);
             ClearCommand = new ClearBreadboardCommand(this);
