@@ -13,7 +13,7 @@
     <DockPanel>
         <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
             <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding ComponentCategories}">
+                <ItemsControl x:Name="categoryList" ItemsSource="{Binding ComponentCategories}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel IsItemsHost="True">
@@ -26,8 +26,8 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock VerticalAlignment="Center" Text="{Binding CategoryTitle}"/>
 
-                                    <Expander VerticalAlignment="Center">
-                                        <ItemsControl ItemsSource="{Binding Components}">
+                                    <Expander x:Name="dropDown" VerticalAlignment="Center">
+                                        <ItemsControl x:Name="componentList" ItemsSource="{Binding Components}" AllowDrop="True" DragLeave="expander_DragLeave">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <WrapPanel IsItemsHost="True">
@@ -37,7 +37,7 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid Margin="5">
-                                                        <Image Source="{Binding Picture}" Width="20"  />
+                                                        <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
@@ -63,8 +63,13 @@
                 <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
             </Grid>
             
-            <Canvas Margin="20" Width="550" Height="200" Background="LightGoldenrodYellow" AllowDrop="True">
-
+            <Canvas 
+                x:Name="breadboard" 
+                Margin="20" 
+                Width="550" Height="200" 
+                Background="LightGoldenrodYellow" 
+                AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver">
+                
             </Canvas>
 
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">

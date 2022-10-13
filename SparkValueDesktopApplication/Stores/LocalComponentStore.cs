@@ -20,13 +20,13 @@ namespace SparkValueDesktopApplication.Stores
                             new ResistorComponentModel(
                                 "Resistor", 
                                 "Basic component that adds resistence to the circuit.", 
-                                "\\Images\\SettingsGear.png", 
+                                "\\Images\\resistor.png", 
                                 5000)),
                         new ComponentViewModel(
                             new ResistorComponentModel(
                                 "Potentiometer", 
                                 "Variable resistor.", 
-                                "\\Images\\SettingsGear.png", 
+                                "\\Images\\potentiometer.png", 
                                 1000)),
                     }),
                 new ComponentCategoryViewModel(
@@ -35,14 +35,14 @@ namespace SparkValueDesktopApplication.Stores
                     {
                         new ComponentViewModel(
                             new BasicComponentModel(
-                            "Diode",
-                            "Basic component that only allows electricity to flow in one direction.",
-                            "\\Images\\SettingsGear.png")),
+                                "Diode",
+                                "Basic component that only allows electricity to flow in one direction.",
+                                "\\Images\\diode.png")),
                         new ComponentViewModel(
                             new BasicComponentModel(
                                 "Light Emmiting Diode",
                                 "A diode that emmits lights when energy is passed through it.",
-                                "\\Images\\SettingsGear.png"))
+                                "\\Images\\led.png"))
                     }),
                 new ComponentCategoryViewModel(
                     "Capacitors",
