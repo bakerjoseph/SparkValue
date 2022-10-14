@@ -46,6 +46,7 @@ namespace SparkValueDesktopApplication.ViewModels
         public ICommand MenuNavigateCommand { get; }
         public ICommand FilterComponentsCommand { get; }
         public ICommand FilterValuesCommand { get; }
+        public ICommand ComponentPlaceCommand { get; }
         public IEnumerable<ComponentCategoryViewModel> ComponentCategories => _componentCategories;
 
         public BreadboardViewModel(NavigationService signInViewNavigationService, IEnumerable<ComponentCategoryViewModel> categories)
@@ -59,6 +60,7 @@ namespace SparkValueDesktopApplication.ViewModels
             ClearCommand = new ClearBreadboardCommand(this);
             FilterComponentsCommand = new FilterCompCommand(this);
             FilterValuesCommand = new FilterValCommand(this);
+            ComponentPlaceCommand = new UpdateBreadboardComponentsCommand();
         }
     }
 }

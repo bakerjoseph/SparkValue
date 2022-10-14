@@ -22,6 +22,15 @@ namespace SparkValueDesktopApplication.Views
     /// </summary>
     public partial class BreadboardView : UserControl
     {
+
+        public static readonly DependencyProperty ComponentPlaceCommandProperty =
+            DependencyProperty.Register("ComponentPlaceCommand", typeof(ICommand), typeof(BreadboardView), new PropertyMetadata(null));
+        public ICommand ComponentPlaceCommand
+        {
+            get { return (ICommand)GetValue(ComponentPlaceCommandProperty); }
+            set { SetValue(ComponentPlaceCommandProperty, value); }
+        }
+
         public BreadboardView()
         {
             InitializeComponent();
