@@ -52,7 +52,7 @@ namespace SparkValueDesktopApplication.Stores
                             new CapacitorComponentModel(
                                 "Capacitor",
                                 "Stores electricity that can be discharged even when the circuit is off.",
-                                "\\Images\\SettingsGear.png",
+                                "\\Images\\capacitor.png",
                                 500))
                     }),
                 new ComponentCategoryViewModel(
@@ -63,7 +63,7 @@ namespace SparkValueDesktopApplication.Stores
                             new TransistorComponentModel(
                                 "Transistor",
                                 "Can be used to make amplification or switching circuits.",
-                                "\\Images\\SettingsGear.png"))
+                                "\\Images\\transistor.png"))
                     })
         };
 

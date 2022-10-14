@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\capacitor.png" />
     <None Remove="Images\diode.png" />
     <None Remove="Images\led.png" />
     <None Remove="Images\potentiometer.png" />
     <None Remove="Images\resistor.png" />
     <None Remove="Images\SettingsGear.png" />
+    <None Remove="Images\transistor.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,11 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\capacitor.png" />
     <Resource Include="Images\diode.png" />
     <Resource Include="Images\led.png" />
     <Resource Include="Images\potentiometer.png" />
     <Resource Include="Images\resistor.png" />
     <Resource Include="Images\SettingsGear.png" />
+    <Resource Include="Images\transistor.png" />
   </ItemGroup>
 
 </Project>
