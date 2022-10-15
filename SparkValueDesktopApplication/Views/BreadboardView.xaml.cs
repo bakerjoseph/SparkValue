@@ -153,7 +153,9 @@ namespace SparkValueDesktopApplication.Views
         {
             if (WirePlaceCommand.CanExecute(null))
             {
-                WireModel wire = new WireModel(startPoint, e.GetPosition(breadboard));
+                WireModel wire = new WireModel(startPoint, e.GetPosition(breadboard), 
+                    (width: positiveRail.ActualWidth, height: positiveRail.ActualHeight, offset: positiveBorder.Margin, borderThickness: positiveBorder.BorderThickness),
+                    (width: negativeRail.ActualWidth, height: negativeRail.ActualHeight, offset: negativeBorder.Margin, borderThickness: negativeBorder.BorderThickness));
                 WirePlaceCommand?.Execute(wire);
             }
         }
