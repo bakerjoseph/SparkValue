@@ -1,4 +1,5 @@
-﻿using SparkValueDesktopApplication.ViewModels;
+﻿using SparkValueDesktopApplication.Models;
+using SparkValueDesktopApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,8 @@ namespace SparkValueDesktopApplication.Views
     /// </summary>
     public partial class BreadboardView : UserControl
     {
+        Point startPoint = new Point();
+        Point currentPoint = new Point();
 
         public static readonly DependencyProperty ComponentPlaceCommandProperty =
             DependencyProperty.Register("ComponentPlaceCommand", typeof(ICommand), typeof(BreadboardView), new PropertyMetadata(null));
@@ -29,6 +32,16 @@ namespace SparkValueDesktopApplication.Views
         {
             get { return (ICommand)GetValue(ComponentPlaceCommandProperty); }
             set { SetValue(ComponentPlaceCommandProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty WirePlaceCommandProperty =
+            DependencyProperty.Register("WirePlaceCommand", typeof(ICommand), typeof(BreadboardView), new PropertyMetadata(null));
+
+        public ICommand WirePlaceCommand
+        {
+            get { return (ICommand)GetValue(WirePlaceCommandProperty); }
+            set { SetValue(WirePlaceCommandProperty, value); }
         }
 
         public BreadboardView()
@@ -80,9 +93,9 @@ namespace SparkValueDesktopApplication.Views
         {
             (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
 
-            if (ComponentPlaceCommand.CanExecute(ComponentPlaceCommand))
+            if (ComponentPlaceCommand.CanExecute(null))
             {
-                ComponentPlaceCommand.Execute(data.Item2);
+                ComponentPlaceCommand?.Execute(data.Item2);
             }
             
         }
@@ -103,10 +116,45 @@ namespace SparkValueDesktopApplication.Views
             Point dropPosition = e.GetPosition(breadboard);
             Canvas.SetLeft(draggedData.Item1, dropPosition.X);
             Canvas.SetTop(draggedData.Item1, dropPosition.Y);
-            overlay.IsHitTestVisible = false;
             if (!breadboard.Children.Contains(draggedData.Item1))
             {
                 breadboard.Children.Add(draggedData.Item1);
+            }
+        }
+
+        private void breadboard_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                startPoint = e.GetPosition(breadboard);
+                currentPoint = e.GetPosition(breadboard);
+            }
+        }
+
+        private void breadboard_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Line line = new Line();
+                line.Stroke = SystemColors.WindowFrameBrush;
+                line.StrokeThickness = 2;
+                line.X1 = currentPoint.X;
+                line.Y1 = currentPoint.Y;
+                line.X2 = e.GetPosition(breadboard).X;
+                line.Y2 = e.GetPosition(breadboard).Y;
+
+                currentPoint = e.GetPosition(breadboard);
+
+                breadboard.Children.Add(line);
+            }
+        }
+
+        private void breadboard_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (WirePlaceCommand.CanExecute(null))
+            {
+                WireModel wire = new WireModel(startPoint, e.GetPosition(breadboard));
+                WirePlaceCommand?.Execute(wire);
             }
         }
     }

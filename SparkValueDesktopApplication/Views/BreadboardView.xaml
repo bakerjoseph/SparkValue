@@ -64,11 +64,12 @@
                 </Grid>
 
                 <Canvas 
-                x:Name="breadboard" 
-                Margin="20" 
-                Width="550" Height="200" 
-                Background="LightGoldenrodYellow" 
-                AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver">
+                    x:Name="breadboard" 
+                    Margin="20" 
+                    Width="550" Height="200" 
+                    Background="LightGoldenrodYellow" 
+                    AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver"
+                    MouseDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseUp="breadboard_MouseUp">
 
                 </Canvas>
 
