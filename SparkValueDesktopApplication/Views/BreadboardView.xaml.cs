@@ -71,14 +71,19 @@ namespace SparkValueDesktopApplication.Views
                     }
                 }
                 Image image = sender as Image;
-                image.Source = selectedComponent.Picture;
+                image.Source = selectedComponent?.Picture;
                 DragDrop.DoDragDrop((DependencyObject)sender, new DataObject(DataFormats.Serializable, (image, selectedComponent)), DragDropEffects.Move);
             }
         }
 
         private void breadboard_Drop(object sender, DragEventArgs e)
         {
-            
+            (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
+
+            if (ComponentPlaceCommand.CanExecute(ComponentPlaceCommand))
+            {
+                ComponentPlaceCommand.Execute(data.Item2);
+            }
             
         }
 
@@ -98,6 +103,7 @@ namespace SparkValueDesktopApplication.Views
             Point dropPosition = e.GetPosition(breadboard);
             Canvas.SetLeft(draggedData.Item1, dropPosition.X);
             Canvas.SetTop(draggedData.Item1, dropPosition.Y);
+            overlay.IsHitTestVisible = false;
             if (!breadboard.Children.Contains(draggedData.Item1))
             {
                 breadboard.Children.Add(draggedData.Item1);

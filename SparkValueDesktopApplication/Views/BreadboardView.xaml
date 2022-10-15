@@ -11,95 +11,95 @@
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
     </UserControl.Resources>
     <DockPanel>
-        <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
-            <ScrollViewer>
-                <ItemsControl x:Name="categoryList" ItemsSource="{Binding ComponentCategories}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel IsItemsHost="True">
-                            </StackPanel>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="LightSlateGray">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding CategoryTitle}"/>
-
-                                    <Expander x:Name="dropDown" VerticalAlignment="Center">
-                                        <ItemsControl x:Name="componentList" ItemsSource="{Binding Components}" AllowDrop="True" DragLeave="expander_DragLeave">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <WrapPanel IsItemsHost="True">
-                                                    </WrapPanel>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid Margin="5">
-                                                        <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove" />
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Expander>
-
+            <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
+                <ScrollViewer>
+                    <ItemsControl x:Name="categoryList" ItemsSource="{Binding ComponentCategories}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel IsItemsHost="True">
                                 </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Border>
-        
-        <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand}"/>
-                <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
-            </Grid>
-            
-            <Canvas 
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="LightSlateGray">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding CategoryTitle}"/>
+
+                                        <Expander x:Name="dropDown" VerticalAlignment="Center">
+                                            <ItemsControl x:Name="componentList" ItemsSource="{Binding Components}" AllowDrop="True" DragLeave="expander_DragLeave">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel IsItemsHost="True">
+                                                        </WrapPanel>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Margin="5">
+                                                            <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove" />
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Expander>
+
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+
+            <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand}"/>
+                    <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
+                </Grid>
+
+                <Canvas 
                 x:Name="breadboard" 
                 Margin="20" 
                 Width="550" Height="200" 
                 Background="LightGoldenrodYellow" 
                 AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver">
-                
-            </Canvas>
 
-            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <Border Grid.Column="0" Background="LightSlateGray">
-                    <StackPanel>
-                        <TextBlock HorizontalAlignment="Center" Text="Filters"/>
-                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only" Command="{Binding FilterComponentsCommand}"/>
-                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}"/>
-                    </StackPanel>
-                </Border>
-                
-                <Border Grid.Column="2" Background="LightSlateGray" MinWidth="250">
-                    <Border.Visibility>
-                        <MultiBinding Converter="{StaticResource ComponentDescriptionBoxVisibilityConverter}">
-                            <Binding Path="SelectedComponentName"/>
-                            <Binding Path="SelectedComponentDescription"/>
-                        </MultiBinding>
-                    </Border.Visibility>
-                    <StackPanel>
-                        <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedComponentName}"/>
-                        <TextBlock Text="{Binding SelectedComponentDescription}" TextWrapping="Wrap"/>
-                    </StackPanel>
-                </Border>
-            </Grid>
-        </StackPanel>
-    </DockPanel>
+                </Canvas>
+
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Background="LightSlateGray">
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Center" Text="Filters"/>
+                            <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only" Command="{Binding FilterComponentsCommand}"/>
+                            <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Background="LightSlateGray" MinWidth="250">
+                        <Border.Visibility>
+                            <MultiBinding Converter="{StaticResource ComponentDescriptionBoxVisibilityConverter}">
+                                <Binding Path="SelectedComponentName"/>
+                                <Binding Path="SelectedComponentDescription"/>
+                            </MultiBinding>
+                        </Border.Visibility>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedComponentName}"/>
+                            <TextBlock Text="{Binding SelectedComponentDescription}" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </DockPanel>
 </UserControl>
