@@ -13,8 +13,7 @@ namespace SparkValueDesktopApplication.Models.Components
         public string Description { get; }
         public BitmapImage Image { get; }
 
-        public abstract double GetOutputVoltage(double inputVoltage);
-        public abstract double GetOutputCurrent(double inputCurrent);
+        public abstract (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent);
         public abstract string DisplayValues(double inputVoltage, double inputCurrent);
     }
 }

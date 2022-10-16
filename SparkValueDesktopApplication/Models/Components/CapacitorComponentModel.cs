@@ -12,7 +12,7 @@ namespace SparkValueDesktopApplication.Models.Components
         public string Name { get; }
         public string Description { get; }
         public BitmapImage Image { get; }
-        public double CapacitanceValue { get; }
+        public double CapacitanceValue { get; private set; }
 
         /// <summary>
         /// Used in making components that have a capacitance value.
@@ -32,17 +32,24 @@ namespace SparkValueDesktopApplication.Models.Components
 
         public string DisplayValues(double inputVoltage, double inputCurrent)
         {
-            throw new NotImplementedException();
+            (double outVoltage, double outCurrent) outputs = GetOutput(inputVoltage, inputCurrent);
+            return $"Inputs -\nVoltage: {inputVoltage} V\t\tCurrent: {inputCurrent} Amp(s)\n\nOutputs -\nVoltage: {outputs.outVoltage} V\t\tCurrent: {outputs.outCurrent} Amp(s)\n\nCapacitance: {CapacitanceValue} farad(s)\t\tCharge: {GetCharge(inputVoltage)}";
         }
 
-        public double GetOutputCurrent(double inputCurrent)
+        public void UpdateCapacitanceValue(double newCapacitanceValue)
         {
-            throw new NotImplementedException();
+            if (CapacitanceValue == newCapacitanceValue) return;
+            CapacitanceValue = newCapacitanceValue;
         }
 
-        public double GetOutputVoltage(double inputVoltage)
+        public double GetCharge(double inputVoltage)
         {
-            throw new NotImplementedException();
+            return CapacitanceValue * inputVoltage;
+        }
+
+        public (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent)
+        {
+            return (inputVoltage, 0.0);
         }
     }
 }

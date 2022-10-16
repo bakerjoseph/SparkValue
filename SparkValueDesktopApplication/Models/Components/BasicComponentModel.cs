@@ -27,19 +27,15 @@ namespace SparkValueDesktopApplication.Models.Components
             Image = new BitmapImage(new Uri(imageSource, UriKind.Relative));
         }
 
+        public (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent)
+        {
+            return (inputVoltage, inputCurrent);
+        }
+
         public string DisplayValues(double inputVoltage, double inputCurrent)
         {
-            throw new NotImplementedException();
-        }
-
-        public double GetOutputCurrent(double inputCurrent)
-        {
-            throw new NotImplementedException();
-        }
-
-        public double GetOutputVoltage(double inputVoltage)
-        {
-            throw new NotImplementedException();
+            (double outVoltage, double outCurrent) outputs = GetOutput(inputVoltage, inputCurrent);
+            return $"Inputs -\nVoltage: {inputVoltage} V\t\tCurrent: {inputCurrent} Amp(s)\n\nOutputs -\nVoltage: {outputs.outVoltage} V\t\tCurrent: {outputs.outCurrent} Amp(s)";
         }
     }
 }

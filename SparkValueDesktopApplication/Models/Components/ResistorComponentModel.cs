@@ -12,7 +12,7 @@ namespace SparkValueDesktopApplication.Models.Components
         public string Name { get; }
         public string Description { get; }
         public BitmapImage Image { get; }
-        public double ResistenceValue { get; private set; }
+        public double ResistanceValue { get; private set; }
 
         /// <summary>
         /// Used in making components with a built in resistence value.
@@ -21,34 +21,30 @@ namespace SparkValueDesktopApplication.Models.Components
         /// <param name="name">Name of the component</param>
         /// <param name="description">Short description of what the component does</param>
         /// <param name="imageSource">An image source that represents the component</param>
-        /// <param name="resistenceValue">Value measured in ohms</param>
-        public ResistorComponentModel(string name, string description, string imageSource, double resistenceValue)
+        /// <param name="resistanceValue">Value measured in ohms</param>
+        public ResistorComponentModel(string name, string description, string imageSource, double resistanceValue)
         {
             Name = name;
             Description = description;
             Image = new BitmapImage(new Uri(imageSource, UriKind.Relative));
-            ResistenceValue = resistenceValue;
+            ResistanceValue = resistanceValue;
         }
 
         public string DisplayValues(double inputVoltage, double inputCurrent)
         {
-            throw new NotImplementedException();
-        }
-
-        public double GetOutputCurrent(double inputCurrent)
-        {
-            throw new NotImplementedException();
-        }
-
-        public double GetOutputVoltage(double inputVoltage)
-        {
-            throw new NotImplementedException();
+            (double outVoltage, double outCurrent) outputs = GetOutput(inputVoltage, inputCurrent);
+            return $"Inputs -\nVoltage: {inputVoltage} V\t\tCurrent: {inputCurrent} Amp(s)\n\nOutputs -\nVoltage: {outputs.outVoltage} V\t\tCurrent: {outputs.outCurrent} Amp(s)\n\nResistance: {ResistanceValue} Ohm(s)";
         }
 
         public void UpdateResistenceValue(double newResistenceValue)
         {
-            if (ResistenceValue == newResistenceValue) return;
-            ResistenceValue = newResistenceValue;
+            if (ResistanceValue == newResistenceValue) return;
+            ResistanceValue = newResistenceValue;
+        }
+
+        public (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent)
+        {
+            return (inputCurrent * ResistanceValue, inputVoltage / ResistanceValue);
         }
     }
 }

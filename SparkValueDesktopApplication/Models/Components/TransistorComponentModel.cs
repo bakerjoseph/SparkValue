@@ -29,17 +29,14 @@ namespace SparkValueDesktopApplication.Models.Components
 
         public string DisplayValues(double inputVoltage, double inputCurrent)
         {
-            throw new NotImplementedException();
+            (double outVoltage, double outCurrent) outputs = GetOutput(inputVoltage, inputCurrent);
+            return $"Inputs -\nVoltage: {inputVoltage} V\t\tCurrent: {inputCurrent} Amp(s)\n\nOutputs -\nVoltage: {outputs.outVoltage} V\t\tCurrent: {outputs.outCurrent} Amp(s)\n\nTransistor State: {((TransistorState)? "Closed" : "Open")}";
         }
 
-        public double GetOutputCurrent(double inputCurrent)
+        public (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent)
         {
-            throw new NotImplementedException();
-        }
-
-        public double GetOutputVoltage(double inputVoltage)
-        {
-            throw new NotImplementedException();
+            if (TransistorState) return (inputVoltage, inputCurrent);
+            else return (0.0, 0.0);
         }
 
         /// <summary>
