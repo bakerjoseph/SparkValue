@@ -113,9 +113,9 @@ namespace SparkValueDesktopApplication.Views
         {
             (Image, ComponentViewModel) draggedData = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
 
-            Point dropPosition = e.GetPosition(breadboard);
-            Canvas.SetLeft(draggedData.Item1, dropPosition.X);
-            Canvas.SetTop(draggedData.Item1, dropPosition.Y);
+            Point dragPosition = e.GetPosition(breadboard);
+            Canvas.SetLeft(draggedData.Item1, dragPosition.X);
+            Canvas.SetTop(draggedData.Item1, dragPosition.Y);
             if (!breadboard.Children.Contains(draggedData.Item1))
             {
                 breadboard.Children.Add(draggedData.Item1);
@@ -163,6 +163,34 @@ namespace SparkValueDesktopApplication.Views
         private void NumericBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !double.TryParse(((TextBox)sender).Text + e.Text, out double value);
+        }
+
+        private void trashCan_Drop(object sender, DragEventArgs e)
+        {
+            (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
+
+            trashCan.Children.Remove(data.Item1);
+        }
+
+        private void trashCan_DragOver(object sender, DragEventArgs e)
+        {
+            (Image, ComponentViewModel) draggedData = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
+
+            Point dragPosition = e.GetPosition(trashCan);
+            Canvas.SetLeft(draggedData.Item1, dragPosition.X);
+            Canvas.SetTop(draggedData.Item1, dragPosition.Y);
+            if (!trashCan.Children.Contains(draggedData.Item1))
+            {
+                trashCan.Children.Add(draggedData.Item1);
+            }
+        }
+
+        private void canvas_DragLeave(object sender, DragEventArgs e)
+        {
+            (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
+
+            Canvas parent = data.Item1.Parent as Canvas;
+            if (parent != null) parent.Children.Remove(data.Item1);
         }
     }
 }
