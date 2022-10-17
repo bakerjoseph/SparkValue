@@ -11,8 +11,11 @@
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
     </UserControl.Resources>
     <DockPanel>
-            <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
-                <ScrollViewer>
+        <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" Text="Components"/>
+                    <Separator/>
                     <ItemsControl x:Name="categoryList" ItemsSource="{Binding ComponentCategories}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -49,8 +52,22 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </ScrollViewer>
-            </Border>
+                    <Separator/>
+                    <TextBlock HorizontalAlignment="Center" Text="Modify the Breadboard"/>
+                    <Separator/>
+                    <StackPanel Margin="2 5" Orientation="Horizontal">
+                        <TextBlock Text="Voltage: "/>
+                        <TextBox Width="50" Height="22" Text="{Binding BreadboardVoltage, Mode=TwoWay}" PreviewTextInput="NumericBox_PreviewTextInput"/>
+                        <TextBlock Padding="0" Text="Volt"/>
+                    </StackPanel>
+                    <StackPanel Margin="2 5" Orientation="Horizontal">
+                        <TextBlock Text="Current: "/>
+                        <TextBox Width="50" Height="22" Text="{Binding BreadboardCurrent, Mode=TwoWay}" PreviewTextInput="NumericBox_PreviewTextInput"/>
+                        <TextBlock Padding="0" Text="Amp(s)"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
 
             <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">

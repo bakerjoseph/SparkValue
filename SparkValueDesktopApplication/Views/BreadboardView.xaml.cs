@@ -159,5 +159,10 @@ namespace SparkValueDesktopApplication.Views
                 WirePlaceCommand?.Execute(wire);
             }
         }
+
+        private void NumericBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !double.TryParse(((TextBox)sender).Text + e.Text, out double value);
+        }
     }
 }

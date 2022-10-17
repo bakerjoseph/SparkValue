@@ -40,6 +40,34 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
+        private double _breadboardVoltage;
+        public double BreadboardVoltage
+        {
+            get
+            {
+                return _breadboardVoltage;
+            }
+            set
+            {
+                _breadboardVoltage = value;
+                OnPropertyChanged(nameof(BreadboardVoltage));
+            }
+        }
+
+        private double _breadboardCurrent;
+        public double BreadboardCurrent
+        {
+            get
+            {
+                return _breadboardCurrent;
+            }
+            set
+            {
+                _breadboardCurrent = value;
+                OnPropertyChanged(nameof(BreadboardCurrent));
+            }
+        }
+
         private readonly ObservableCollection<ComponentCategoryViewModel> _componentCategories;
 
         public ICommand ClearCommand { get; }
@@ -54,6 +82,9 @@ namespace SparkValueDesktopApplication.ViewModels
         {
             SelectedComponentName = string.Empty;
             SelectedComponentDescription = string.Empty;
+
+            BreadboardVoltage = 5;
+            BreadboardCurrent = 0.5;
 
             _componentCategories = new ObservableCollection<ComponentCategoryViewModel>(categories);
 
