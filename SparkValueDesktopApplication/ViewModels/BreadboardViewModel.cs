@@ -1,4 +1,5 @@
 ﻿using SparkValueDesktopApplication.Commands;
+using SparkValueDesktopApplication.Models;
 using SparkValueDesktopApplication.Services;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,34 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
+        private IEnumerable<ComponentViewModel> _placedComponents;
+        public IEnumerable<ComponentViewModel> PlacedComponents
+        {
+            get 
+            { 
+                return _placedComponents; 
+            }
+            set
+            {
+                _placedComponents = value;
+                OnPropertyChanged(nameof(PlacedComponents));
+            }
+        }
+
+        private IEnumerable<WireModel> _placedWires;
+        public IEnumerable<WireModel> PlacedWires
+        {
+            get
+            {
+                return _placedWires;
+            }
+            set
+            {
+                _placedWires = value;
+                OnPropertyChanged(nameof(PlacedWires));
+            }
+        }
+
         private readonly ObservableCollection<ComponentCategoryViewModel> _componentCategories;
 
         public ICommand ClearCommand { get; }
@@ -80,6 +109,9 @@ namespace SparkValueDesktopApplication.ViewModels
 
         public BreadboardViewModel(NavigationService signInViewNavigationService, IEnumerable<ComponentCategoryViewModel> categories)
         {
+            PlacedComponents = new List<ComponentViewModel>();
+            PlacedWires = new List<WireModel>();
+
             SelectedComponentName = string.Empty;
             SelectedComponentDescription = string.Empty;
 

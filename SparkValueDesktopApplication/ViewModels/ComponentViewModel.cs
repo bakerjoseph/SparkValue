@@ -1,5 +1,6 @@
 ﻿using SparkValueDesktopApplication.Models.Components;
 using System;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace SparkValueDesktopApplication.ViewModels
@@ -45,6 +46,17 @@ namespace SparkValueDesktopApplication.ViewModels
             } 
         }
 
+        private Point _position;
+        public Point Position
+        {
+            get { return _position; }
+            set
+            {
+                _position = value;
+                OnPropertyChanged(nameof(Position));
+            }
+        }
+
         private IComponentModel _component;
 
         public ComponentViewModel(IComponentModel component)
@@ -53,6 +65,16 @@ namespace SparkValueDesktopApplication.ViewModels
             _description = component.Description;
             _picture = component.Image;
             _component = component;
+            _position = new Point();
+        }
+
+        public ComponentViewModel(IComponentModel component, Point position)
+        {
+            _name = component.Name;
+            _description = component.Description;
+            _picture = component.Image;
+            _component = component;
+            _position = position;
         }
     }
 }

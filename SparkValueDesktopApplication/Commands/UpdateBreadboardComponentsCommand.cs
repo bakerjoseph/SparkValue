@@ -10,9 +10,11 @@ namespace SparkValueDesktopApplication.Commands
 {
     public class UpdateBreadboardComponentsCommand : CommandBase
     {
-        public UpdateBreadboardComponentsCommand()
-        {
+        private readonly BreadboardViewModel _breadboard;
 
+        public UpdateBreadboardComponentsCommand(BreadboardViewModel breadboard)
+        {
+            _breadboard = breadboard;
         }
 
         public override void Execute(object? parameter)
@@ -20,6 +22,7 @@ namespace SparkValueDesktopApplication.Commands
             if(parameter != null && parameter is ComponentViewModel)
             {
                 ComponentViewModel component = (ComponentViewModel)parameter;
+                _breadboard.PlacedComponents.Append(component);
                 MessageBox.Show(component.Name);
             }
         }
