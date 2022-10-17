@@ -24,7 +24,7 @@ namespace SparkValueDesktopApplication.Commands
             if (parameter != null && parameter is WireModel)
             {
                 WireModel wire = (WireModel)parameter;
-                _breadboard.PlacedWires.Append(wire);   
+                _breadboard.PlacedWires.Add(wire);   
                 MessageBox.Show($"Wire was drawn from {wire.StartPositionToString()} to {wire.EndPositionToString()}\nPowered: {wire.IsPowered}\nGrounded: {wire.IsGounded}");
             }
         }

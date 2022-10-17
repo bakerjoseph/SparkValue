@@ -1,10 +1,13 @@
-﻿using SparkValueDesktopApplication.ViewModels;
+﻿using SparkValueDesktopApplication.Models.Components;
+using SparkValueDesktopApplication.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SparkValueDesktopApplication.Commands
 {
@@ -19,11 +22,22 @@ namespace SparkValueDesktopApplication.Commands
 
         public override void Execute(object? parameter)
         {
-            if(parameter != null && parameter is ComponentViewModel)
+            if(parameter != null && parameter is (ComponentViewModel, Point))
             {
-                ComponentViewModel component = (ComponentViewModel)parameter;
-                _breadboard.PlacedComponents.Append(component);
-                MessageBox.Show(component.Name);
+                (ComponentViewModel, Point) componentPair = ((ComponentViewModel, Point))parameter;
+                ComponentViewModel component = componentPair.Item1;
+                component.Position = componentPair.Item2;
+                // If no other component in the list has the same id, add it to the list, otherwise update the entry
+                if (_breadboard.PlacedComponents.Where(comp => comp.ComponentId.Equals(component.ComponentId)).Count() == 0)
+                {
+                    _breadboard.PlacedComponents.Add(component);
+                }
+                else
+                {
+                    ComponentViewModel oldComp = _breadboard.PlacedComponents.First(comp => comp.ComponentId.Equals(component.ComponentId));
+                    oldComp = component;
+                }
+                MessageBox.Show($"Component: {component.Name} Dropped at: ({component.Position.X.ToString("0")}, {component.Position.Y.ToString("0")})");
             }
         }
     }

@@ -23,8 +23,8 @@ namespace SparkValueDesktopApplication.Commands
             if (parameter != null && parameter is Canvas)
             {
                 Canvas breadboard = parameter as Canvas;
-                if (_breadboard.PlacedComponents.Any()) _breadboard.PlacedComponents = Enumerable.Empty<ComponentViewModel>();
-                if (_breadboard.PlacedWires.Any()) _breadboard.PlacedWires = Enumerable.Empty<WireModel>();
+                if (_breadboard.PlacedComponents.Any()) _breadboard.PlacedComponents.Clear();
+                if (_breadboard.PlacedWires.Any()) _breadboard.PlacedWires.Clear();
                 breadboard.Children.RemoveRange(7, breadboard.Children.Count - 7);
             }
         }

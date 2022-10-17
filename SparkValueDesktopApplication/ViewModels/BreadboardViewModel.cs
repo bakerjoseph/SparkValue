@@ -69,8 +69,8 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
-        private IEnumerable<ComponentViewModel> _placedComponents;
-        public IEnumerable<ComponentViewModel> PlacedComponents
+        private List<ComponentViewModel> _placedComponents;
+        public List<ComponentViewModel> PlacedComponents
         {
             get 
             { 
@@ -83,8 +83,8 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
-        private IEnumerable<WireModel> _placedWires;
-        public IEnumerable<WireModel> PlacedWires
+        private List<WireModel> _placedWires;
+        public List<WireModel> PlacedWires
         {
             get
             {
@@ -124,8 +124,8 @@ namespace SparkValueDesktopApplication.ViewModels
             ClearCommand = new ClearBreadboardCommand(this);
             FilterComponentsCommand = new FilterCompCommand(this);
             FilterValuesCommand = new FilterValCommand(this);
-            ComponentPlaceCommand = new UpdateBreadboardComponentsCommand();
-            WirePlaceCommand = new UpdateBreadboardWireCommand();
+            ComponentPlaceCommand = new UpdateBreadboardComponentsCommand(this);
+            WirePlaceCommand = new UpdateBreadboardWireCommand(this);
         }
     }
 }

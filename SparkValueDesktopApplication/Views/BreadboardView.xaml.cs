@@ -95,7 +95,8 @@ namespace SparkValueDesktopApplication.Views
 
             if (ComponentPlaceCommand.CanExecute(null))
             {
-                ComponentPlaceCommand?.Execute(data.Item2);
+                Point dropPosition = e.GetPosition(breadboard);
+                ComponentPlaceCommand?.Execute((data.Item2, dropPosition));
             }
             
         }
