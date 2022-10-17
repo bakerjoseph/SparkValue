@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace SparkValueDesktopApplication.Commands
 {
@@ -18,8 +19,8 @@ namespace SparkValueDesktopApplication.Commands
 
         public override void Execute(object? parameter)
         {
-            // Clear the canvas and all components on it
-            throw new NotImplementedException();
+            Canvas? breadboard = parameter as Canvas;
+            if (breadboard != null) breadboard.Children.RemoveRange(7, breadboard.Children.Count - 7);
         }
     }
 }

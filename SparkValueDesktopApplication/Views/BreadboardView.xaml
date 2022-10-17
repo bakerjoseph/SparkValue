@@ -76,7 +76,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand}"/>
+                    <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand }" CommandParameter="{Binding ElementName=breadboard}"/>
                     <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
                 </Grid>
 
