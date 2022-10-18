@@ -85,6 +85,7 @@ namespace SparkValueDesktopApplication.Views
                 }
                 Image image = sender as Image;
                 image.Source = selectedComponent?.Picture;
+                image.DataContext = selectedComponent;
                 DragDrop.DoDragDrop((DependencyObject)sender, new DataObject(DataFormats.Serializable, (image, selectedComponent)), DragDropEffects.Move);
             }
         }

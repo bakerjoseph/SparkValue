@@ -63,9 +63,13 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
+        public string DisplayComponent => TestingMethod();
+
         private IComponentModel _component;
 
         private BreadboardViewModel _breadboard;
+
+        public ComponentViewModel() { }
 
         public ComponentViewModel(IComponentModel component)
         {
@@ -74,6 +78,11 @@ namespace SparkValueDesktopApplication.ViewModels
             _picture = component.Image;
             _component = component;
             _position = new Point();
+        }
+
+        public string TestingMethod()
+        {
+            return "This is a test,\n can I bind to a method call variable?";
         }
 
         public (double outVoltage, double outCurrent) GetOutput()

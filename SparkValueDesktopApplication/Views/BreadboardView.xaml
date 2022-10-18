@@ -40,7 +40,14 @@
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid Margin="5">
-                                                            <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove" />
+                                                            <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove">
+                                                                <Image.ToolTip>
+                                                                    <StackPanel>
+                                                                        <TextBlock Text="{Binding Name}" TextDecorations="Underline"/>
+                                                                        <TextBlock Text="{Binding DisplayComponent}"/>
+                                                                    </StackPanel>
+                                                                </Image.ToolTip>
+                                                            </Image>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
@@ -53,7 +60,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                     <Separator/>
-                    <TextBlock HorizontalAlignment="Center" Text="Modify the Breadboard"/>
+                    <TextBlock HorizontalAlignment="Center" Text="Modify the Power Supply"/>
                     <Separator/>
                     <StackPanel Margin="2 5" Orientation="Horizontal">
                         <TextBlock Text="Voltage: "/>
@@ -69,78 +76,78 @@
             </ScrollViewer>
         </Border>
 
-            <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand }" CommandParameter="{Binding ElementName=breadboard}"/>
-                    <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
-                </Grid>
+        <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand }" CommandParameter="{Binding ElementName=breadboard}"/>
+                <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
+            </Grid>
+
+            <Canvas 
+                x:Name="breadboard" 
+                Margin="20" 
+                Width="550" Height="200" 
+                Background="LightGoldenrodYellow" 
+                AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver" DragLeave="canvas_DragLeave"
+                MouseDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseUp="breadboard_MouseUp">
+                <Polygon Points="5,0 10,0 10,5 15,5 15,10 10,10 10,15 5,15 5,10 0,10 0,5 5,5" Fill="White" Canvas.Left="2.5" Canvas.Top="2.5" Panel.ZIndex="1"/>
+                <Ellipse Width="19" Height="19" Canvas.Left="0.5" Fill="Red"/>
+                <Border x:Name="positiveBorder" Margin="20 0 0 0" BorderBrush="Red" BorderThickness="2">
+                    <Rectangle x:Name="positiveRail" Width="525" Height="15" Fill="White"/>
+                </Border>
+                <Rectangle Width="15" Height="5" Fill="White" Panel.ZIndex="1" Canvas.Left="2.5" Canvas.Top="27.5"/>
+                <Ellipse Width="19" Height="19" Canvas.Left="0.5" Fill="Blue" Canvas.Top="20"/>
+                <Border x:Name="negativeBorder" Margin="20 20 0 0" BorderBrush="Blue" BorderThickness="2">
+                    <Rectangle x:Name="negativeRail" Width="525" Height="15" Fill="White"/>
+                </Border>
+                <Rectangle Fill="Black" Canvas.Top="40" Width="550" Height="1"/>
+            </Canvas>
+
+            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="LightSlateGray">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Text="Filters"/>
+                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only" Command="{Binding FilterComponentsCommand}"/>
+                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}"/>
+                    </StackPanel>
+                </Border>
 
                 <Canvas 
-                    x:Name="breadboard" 
-                    Margin="20" 
-                    Width="550" Height="200" 
-                    Background="LightGoldenrodYellow" 
-                    AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver" DragLeave="canvas_DragLeave"
-                    MouseDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseUp="breadboard_MouseUp">
-                    <Polygon Points="5,0 10,0 10,5 15,5 15,10 10,10 10,15 5,15 5,10 0,10 0,5 5,5" Fill="White" Canvas.Left="2.5" Canvas.Top="2.5" Panel.ZIndex="1"/>
-                    <Ellipse Width="19" Height="19" Canvas.Left="0.5" Fill="Red"/>
-                    <Border x:Name="positiveBorder" Margin="20 0 0 0" BorderBrush="Red" BorderThickness="2">
-                        <Rectangle x:Name="positiveRail" Width="525" Height="15" Fill="White"/>
-                    </Border>
-                    <Rectangle Width="15" Height="5" Fill="White" Panel.ZIndex="1" Canvas.Left="2.5" Canvas.Top="27.5"/>
-                    <Ellipse Width="19" Height="19" Canvas.Left="0.5" Fill="Blue" Canvas.Top="20"/>
-                    <Border x:Name="negativeBorder" Margin="20 20 0 0" BorderBrush="Blue" BorderThickness="2">
-                        <Rectangle x:Name="negativeRail" Width="525" Height="15" Fill="White"/>
-                    </Border>
-                    <Rectangle Fill="Black" Canvas.Top="40" Width="550" Height="1"/>
-                </Canvas>
-
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Border Grid.Column="0" Background="LightSlateGray">
-                        <StackPanel>
-                            <TextBlock HorizontalAlignment="Center" Text="Filters"/>
-                            <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only" Command="{Binding FilterComponentsCommand}"/>
-                            <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}"/>
-                        </StackPanel>
-                    </Border>
-
-                    <Canvas 
                         x:Name="trashCan" 
                         Height="30" 
                         VerticalAlignment="Bottom" 
                         Grid.Column="1" 
                         Background="PaleVioletRed"
                         AllowDrop="True" Drop="trashCan_Drop" DragOver="trashCan_DragOver" DragLeave="canvas_DragLeave">
-                        <TextBlock 
+                    <TextBlock 
                             Margin="5"
                             Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=Canvas}}" TextAlignment="Center"
                             Text="Delete Component" Foreground="White"/>
-                    </Canvas>
+                </Canvas>
 
-                    <Border Grid.Column="2" Background="LightSlateGray" MinWidth="250">
-                        <Border.Visibility>
-                            <MultiBinding Converter="{StaticResource ComponentDescriptionBoxVisibilityConverter}">
-                                <Binding Path="SelectedComponentName"/>
-                                <Binding Path="SelectedComponentDescription"/>
-                            </MultiBinding>
-                        </Border.Visibility>
-                        <StackPanel>
-                            <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedComponentName}"/>
-                            <TextBlock Text="{Binding SelectedComponentDescription}" TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </StackPanel>
-        </DockPanel>
+                <Border Grid.Column="2" Background="LightSlateGray" MinWidth="250">
+                    <Border.Visibility>
+                        <MultiBinding Converter="{StaticResource ComponentDescriptionBoxVisibilityConverter}">
+                            <Binding Path="SelectedComponentName"/>
+                            <Binding Path="SelectedComponentDescription"/>
+                        </MultiBinding>
+                    </Border.Visibility>
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedComponentName}"/>
+                        <TextBlock Text="{Binding SelectedComponentDescription}" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
 </UserControl>
