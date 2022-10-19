@@ -1,7 +1,12 @@
-﻿using SparkValueDesktopApplication.Models;
+﻿using MongoDB.Driver.Linq;
+using SparkValueDesktopApplication.Models;
 using SparkValueDesktopApplication.Models.Components;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -10,6 +15,7 @@ namespace SparkValueDesktopApplication.ViewModels
     public class ComponentViewModel : ViewModelBase
     {
         private int offsetValue = 10;
+        private double gridWidth = 24.9;
 
         public Guid ComponentId { get; } = Guid.NewGuid();
 
@@ -82,7 +88,12 @@ namespace SparkValueDesktopApplication.ViewModels
 
         public string TestingMethod()
         {
-            return "This is a test,\n can I bind to a method call variable?";
+            return $"Testing if complete {CompleteCircuit()}";
+        }
+
+        public void AddBreadboard(BreadboardViewModel breadboard)
+        {
+            _breadboard = breadboard;
         }
 
         public (double outVoltage, double outCurrent) GetOutput()
@@ -138,6 +149,23 @@ namespace SparkValueDesktopApplication.ViewModels
         }
 
 
+        private bool CompleteCircuit()
+        {
+            bool isPowered = false;
+            bool isGrounded = false;
 
+            //if (Position.X == 0 && Position.Y == 0) return false;
+
+            // Check left column
+            List<WireModel> leftColumnMatches = _breadboard.PlacedWires.Where(
+                wire => (wire.startPosition.X >= Position.X && wire.startPosition.X <= Position.X + gridWidth) || (wire.endPosition.X >= Position.X && wire.endPosition.X <= Position.X + gridWidth)).ToList();
+
+            // Check right column
+            double closestX = (Picture.DpiX % gridWidth * -1) + Picture.DpiX;
+            List<WireModel> rightColumnMatches = _breadboard.PlacedWires.Where(
+                wire => (wire.startPosition.X >= closestX && wire.startPosition.X <= closestX + gridWidth) || (wire.endPosition.X >= closestX && wire.endPosition.X <= closestX + gridWidth)).ToList();
+
+            return isPowered && isGrounded;
+        }
     }
 }

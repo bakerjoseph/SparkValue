@@ -119,6 +119,13 @@ namespace SparkValueDesktopApplication.ViewModels
             BreadboardCurrent = 0.5;
 
             _componentCategories = new ObservableCollection<ComponentCategoryViewModel>(categories);
+            foreach (ComponentCategoryViewModel compCat in _componentCategories)
+            {
+                foreach (ComponentViewModel comp in compCat.Components)
+                {
+                    comp.AddBreadboard(this);
+                }
+            }
 
             MenuNavigateCommand = new NavigateCommand(signInViewNavigationService);
             ClearCommand = new ClearBreadboardCommand(this);

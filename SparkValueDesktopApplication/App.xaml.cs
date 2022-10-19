@@ -42,7 +42,6 @@ namespace SparkValueDesktopApplication
             _userStore.LoadUsers().Wait();
             _unitStore.LoadUnits().Wait();
 
-            // Replaces with call to LocalComponentStore
             _componentCategories = _componentStore.GetComponentCategories();
         }
 
