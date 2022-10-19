@@ -91,20 +91,34 @@
                 x:Name="breadboard" 
                 Margin="20" 
                 Width="550" Height="200" 
-                Background="LightGoldenrodYellow" 
                 AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver" DragLeave="canvas_DragLeave"
                 MouseDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseUp="breadboard_MouseUp">
-                <Polygon Points="5,0 10,0 10,5 15,5 15,10 10,10 10,15 5,15 5,10 0,10 0,5 5,5" Fill="White" Canvas.Left="2.5" Canvas.Top="2.5" Panel.ZIndex="1"/>
-                <Ellipse Width="19" Height="19" Canvas.Left="0.5" Fill="Red"/>
-                <Border x:Name="positiveBorder" Margin="20 0 0 0" BorderBrush="Red" BorderThickness="2">
+                <Canvas.Background>
+                    <VisualBrush TileMode="Tile"
+                                 Viewport="0, 0, 24.9, 24.9"
+                                 ViewportUnits="Absolute"
+                                 Viewbox="0, 0, 18, 18"
+                                 ViewboxUnits="Absolute">
+                        <VisualBrush.Visual>
+                            <Border Background="LightGoldenrodYellow" BorderBrush="Black" BorderThickness="2" Padding="5">
+                                <Ellipse Fill="Silver"
+                                     Width="5"
+                                     Height="5"/>
+                            </Border>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Canvas.Background>
+                <Rectangle Width="550" Height="49.5" Panel.ZIndex="0" Fill="LightGoldenrodYellow"/>
+                <Polygon Points="5,0 10,0 10,5 15,5 15,10 10,10 10,15 5,15 5,10 0,10 0,5 5,5" Fill="White" Canvas.Left="2.5" Canvas.Top="6" Panel.ZIndex="1"/>
+                <Ellipse Width="19" Height="19" Canvas.Left="0.5" Canvas.Top="4" Fill="Red"/>
+                <Border x:Name="positiveBorder" Margin="20 4 0 0" BorderBrush="Red" BorderThickness="2">
                     <Rectangle x:Name="positiveRail" Width="525" Height="15" Fill="White"/>
                 </Border>
-                <Rectangle Width="15" Height="5" Fill="White" Panel.ZIndex="1" Canvas.Left="2.5" Canvas.Top="27.5"/>
-                <Ellipse Width="19" Height="19" Canvas.Left="0.5" Fill="Blue" Canvas.Top="20"/>
-                <Border x:Name="negativeBorder" Margin="20 20 0 0" BorderBrush="Blue" BorderThickness="2">
+                <Rectangle Width="16" Height="5" Fill="White" Panel.ZIndex="1" Canvas.Left="2" Canvas.Top="34"/>
+                <Ellipse Width="19" Height="19" Canvas.Left="0.5" Fill="Blue" Canvas.Top="27"/>
+                <Border x:Name="negativeBorder" Margin="20 27 0 0" BorderBrush="Blue" BorderThickness="2">
                     <Rectangle x:Name="negativeRail" Width="525" Height="15" Fill="White"/>
                 </Border>
-                <Rectangle Fill="Black" Canvas.Top="40" Width="550" Height="1"/>
             </Canvas>
 
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">

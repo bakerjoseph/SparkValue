@@ -23,8 +23,10 @@ namespace SparkValueDesktopApplication.Views
     /// </summary>
     public partial class BreadboardView : UserControl
     {
-        Point startPoint = new Point();
-        Point currentPoint = new Point();
+        private Point startPoint = new Point();
+        private Point currentPoint = new Point();
+
+        private const double GridSize = 24.9;
 
         public static readonly DependencyProperty ComponentPlaceCommandProperty =
             DependencyProperty.Register("ComponentPlaceCommand", typeof(ICommand), typeof(BreadboardView), new PropertyMetadata(null));
@@ -96,7 +98,8 @@ namespace SparkValueDesktopApplication.Views
 
             if (ComponentPlaceCommand.CanExecute(null))
             {
-                Point dropPosition = e.GetPosition(breadboard);
+                SnapToGrid(data.Item1);
+                Point dropPosition = new Point(Canvas.GetLeft(data.Item1), Canvas.GetTop(data.Item1));
                 ComponentPlaceCommand?.Execute((data.Item2, dropPosition));
             }
             
@@ -193,6 +196,33 @@ namespace SparkValueDesktopApplication.Views
 
             Canvas parent = data.Item1.Parent as Canvas;
             if (parent != null) parent.Children.Remove(data.Item1);
+        }
+
+        /// <summary>
+        /// Snap a UI element to a grid
+        /// Inspired/Credit from this post https://stackoverflow.com/a/3508932
+        /// </summary>
+        /// <param name="element">Any UI element that needs to be snapped to a grid intersection</param>
+        private void SnapToGrid(UIElement element)
+        {
+            double xSnap = Canvas.GetLeft(element) % GridSize;
+            double ySnap = Canvas.GetTop(element) % GridSize;
+
+            // If closer to the left remove the remainder from the left, pushing all the way left
+            if (xSnap <= GridSize / 2.0) xSnap *= -1;
+            // If closer to the right get the rest of the distance and add it to the left, pushing all the way right
+            else xSnap = GridSize - xSnap;
+
+            // If closer to the top remove the remainder from the top, pushing all the way to the top
+            if (ySnap <= GridSize / 2.0) ySnap *= -1;
+            // If closer to the bottom get the rest of the distance and add it to the top, pushing all the way to the bottom
+            else ySnap = GridSize - ySnap;
+
+            xSnap += Canvas.GetLeft(element);
+            ySnap += Canvas.GetTop(element);
+
+            Canvas.SetLeft(element, xSnap);
+            Canvas.SetTop(element, ySnap);
         }
     }
 }
