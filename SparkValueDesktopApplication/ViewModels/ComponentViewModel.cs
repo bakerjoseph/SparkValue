@@ -154,16 +154,26 @@ namespace SparkValueDesktopApplication.ViewModels
             bool isPowered = false;
             bool isGrounded = false;
 
-            //if (Position.X == 0 && Position.Y == 0) return false;
+            if (Position.X == 0 && Position.Y == 0) return false;
 
             // Check left column
             List<WireModel> leftColumnMatches = _breadboard.PlacedWires.Where(
                 wire => (wire.startPosition.X >= Position.X && wire.startPosition.X <= Position.X + gridWidth) || (wire.endPosition.X >= Position.X && wire.endPosition.X <= Position.X + gridWidth)).ToList();
+            foreach (WireModel left in leftColumnMatches)
+            {
+                if (left.IsPowered) isPowered = true;
+                else if (left.IsGounded) isGrounded = true;
+            }
 
             // Check right column
-            double closestX = (Picture.DpiX % gridWidth * -1) + Picture.DpiX;
+            double closestX = ((Picture.DpiX + Position.X) % gridWidth * -1) + (Picture.DpiX + Position.X);
             List<WireModel> rightColumnMatches = _breadboard.PlacedWires.Where(
                 wire => (wire.startPosition.X >= closestX && wire.startPosition.X <= closestX + gridWidth) || (wire.endPosition.X >= closestX && wire.endPosition.X <= closestX + gridWidth)).ToList();
+            foreach (WireModel right in rightColumnMatches)
+            {
+                if (right.IsPowered) isPowered = true;
+                else if (right.IsGounded) isGrounded = true;
+            }
 
             return isPowered && isGrounded;
         }
