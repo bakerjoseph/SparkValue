@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 
 namespace SparkValueDesktopApplication.ViewModels
 {
@@ -88,7 +89,7 @@ namespace SparkValueDesktopApplication.ViewModels
 
         public string TestingMethod()
         {
-            return $"Testing if complete {CompleteCircuit()}";
+            return $"Testing if complete {CompleteCircuit(this)}";
         }
 
         public void AddBreadboard(BreadboardViewModel breadboard)
@@ -149,33 +150,114 @@ namespace SparkValueDesktopApplication.ViewModels
         }
 
 
-        private bool CompleteCircuit()
+        private bool CompleteCircuit(ComponentViewModel currentComponent)
         {
             bool isPowered = false;
             bool isGrounded = false;
 
-            if (Position.X == 0 && Position.Y == 0) return false;
+            if (currentComponent.Position.X == 0 && currentComponent.Position.Y == 0) return false;
 
             // Check left column
-            List<WireModel> leftColumnMatches = _breadboard.PlacedWires.Where(
-                wire => (wire.startPosition.X >= Position.X && wire.startPosition.X <= Position.X + gridWidth) || (wire.endPosition.X >= Position.X && wire.endPosition.X <= Position.X + gridWidth)).ToList();
+            List<WireModel> leftColumnMatches = GetColumnMatches(currentComponent.Position.X);
             foreach (WireModel left in leftColumnMatches)
             {
-                if (left.IsPowered) isPowered = true;
-                else if (left.IsGounded) isGrounded = true;
+                (bool powered, bool grounded) result = TraverseWire(left, GetOppositeEndOfWire(left, currentComponent.Position.X));
+                isPowered = (!isPowered) ? result.powered : isPowered;
+                isGrounded = (!isGrounded) ? result.grounded : isGrounded;
             }
 
             // Check right column
-            double closestX = ((Picture.DpiX + Position.X) % gridWidth * -1) + (Picture.DpiX + Position.X);
-            List<WireModel> rightColumnMatches = _breadboard.PlacedWires.Where(
-                wire => (wire.startPosition.X >= closestX && wire.startPosition.X <= closestX + gridWidth) || (wire.endPosition.X >= closestX && wire.endPosition.X <= closestX + gridWidth)).ToList();
+            double componentWidth = currentComponent.Picture.DpiX + currentComponent.Position.X;
+            double closestRightColumn = (componentWidth % gridWidth * -1) + componentWidth;
+            List<WireModel> rightColumnMatches = GetColumnMatches(closestRightColumn);
             foreach (WireModel right in rightColumnMatches)
             {
-                if (right.IsPowered) isPowered = true;
-                else if (right.IsGounded) isGrounded = true;
+                (bool powered, bool grounded) result = TraverseWire(right, GetOppositeEndOfWire(right, closestRightColumn));
+                isPowered = (!isPowered) ? result.powered : isPowered;
+                isGrounded = (!isGrounded) ? result.grounded : isGrounded;
             }
 
             return isPowered && isGrounded;
+        }
+
+        private (bool powered, bool grounded) TraverseWire(WireModel wire, Point origin)
+        {
+            (bool powered, bool grounded) state = (false, false);
+
+            // Wire connected to power rail
+            if (wire.IsPowered) state.powered = true;
+            // Wire connected to ground rail
+            else if (wire.IsGounded) state.grounded = true;
+            else
+            {
+                // Wire connected to other wire, traverse it!
+                List<WireModel> connections = GetWireConnections(wire, origin);
+                if (connections.Any())
+                {
+                    foreach(WireModel connection in connections)
+                    {
+                        (bool powered, bool grounded) result = TraverseWire(connection, GetNextWireOrigin(origin, connection));
+                        state.powered = (!state.powered) ? result.powered : state.powered;
+                        state.grounded = (!state.grounded) ? result.grounded : state.grounded;
+                    }
+                }
+                // Wire connected to component
+                else
+                {
+
+                }
+            }
+
+
+            return state;
+        }
+
+        private (bool powered, bool grounded) TraverseComponent(ComponentViewModel component)
+        {
+            (bool powered, bool grounded) state = (false, false);
+
+            return state;
+        }
+
+        private List<WireModel> GetColumnMatches(double startPoint)
+        {
+            return _breadboard.PlacedWires.Where(wire => (wire.startPosition.X >= startPoint && wire.startPosition.X <= startPoint + gridWidth)
+                                                      || (wire.endPosition.X >= startPoint && wire.endPosition.X <= startPoint + gridWidth)).ToList();
+        }
+
+        private List<WireModel> GetWireConnections(WireModel wire, Point origin)
+        {
+            List<WireModel> connections = new List<WireModel>();
+
+            double originColumn = (origin.X % gridWidth * -1) + origin.X;
+
+            foreach (WireModel w in _breadboard.PlacedWires)
+            {
+                // Are we looking at the same wire? Skip if we are.
+                if (w != wire && 
+                    ((w.startPosition.X >= originColumn && w.startPosition.X <= originColumn + gridWidth) 
+                    || (w.endPosition.X >= originColumn && w.endPosition.X <= originColumn + gridWidth)))
+                {
+                    connections.Add(w);
+                }
+            }
+
+            return connections;
+        }
+
+        private Point GetOppositeEndOfWire(WireModel wire, double startX)
+        {
+            return (wire.startPosition.X >= startX && wire.startPosition.X <= startX + gridWidth) ? wire.endPosition : wire.startPosition;
+        }
+
+        private Point GetNextWireOrigin(Point previousOrigin, WireModel currentWire)
+        {
+            if (currentWire.startPosition.X >= previousOrigin.X && currentWire.startPosition.X <= previousOrigin.X + gridWidth) return currentWire.startPosition;
+
+            if (currentWire.endPosition.X >= previousOrigin.X && currentWire.endPosition.X <= previousOrigin.X + gridWidth) return currentWire.endPosition;
+
+            // Should never occur
+            return new Point();
         }
     }
 }
