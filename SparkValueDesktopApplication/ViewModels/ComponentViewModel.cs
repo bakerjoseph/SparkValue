@@ -11,7 +11,6 @@ namespace SparkValueDesktopApplication.ViewModels
 {
     public class ComponentViewModel : ViewModelBase
     {
-        private int offsetValue = 10;
         private double gridWidth = 24.9;
 
         public Guid ComponentId { get; } = Guid.NewGuid();
@@ -66,7 +65,7 @@ namespace SparkValueDesktopApplication.ViewModels
             }
         }
 
-        public string DisplayComponent => TestingMethod();
+        public string DisplayComponent => DisplayValues();
 
         private IComponentModel _component;
 
@@ -83,69 +82,171 @@ namespace SparkValueDesktopApplication.ViewModels
             _position = new Point();
         }
 
-        public string TestingMethod()
-        {
-            return $"Testing if complete {CompleteCircuit(this)}";
-        }
-
         public void AddBreadboard(BreadboardViewModel breadboard)
         {
             _breadboard = breadboard;
         }
 
-        public (double outVoltage, double outCurrent) GetOutput()
+        public (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent)
         {
-            (double inputVoltage, double inputCurrent) findResult = GetNearby(((0, 0), Position)).Item1;
-            return _component.GetOutput(findResult.inputVoltage, findResult.inputCurrent);
+            return _component.GetOutput(inputVoltage, inputCurrent);
         }
 
         public string DisplayValues()
         {
-            (double inputVoltage, double inputCurrent) findResult = GetNearby(((0, 0), Position)).Item1;
-            return _component.DisplayValues(findResult.inputVoltage, findResult.inputCurrent);
+            if (CompleteCircuit(this))
+            {
+                (double inputVoltage, double inputCurrent) findResult = TraverseForOutput(this);
+                return _component.DisplayValues(findResult.inputVoltage, findResult.inputCurrent);
+            }
+            else return _component.DisplayValues(0, 0);
         }
 
-        private ((double outVoltage, double outCurrent), Point position) GetNearby(((double inputVoltage, double inputCurrent) inputs, Point currentPosition) nearby)
+        #region Get Output of Component
+        private (double outputVoltage, double outputCurrent) TraverseForOutput(ComponentViewModel currentComponent)
         {
-            // Check if in the same vertical column as a wire
-            foreach (WireModel wire in _breadboard.PlacedWires)
+            bool positiveRailFound = false;
+
+            List<ComponentViewModel> visitedComponents = new List<ComponentViewModel>();
+
+            // Traverse Left
+            List<WireModel> leftColumnWireMatches = GetColumnMatches(currentComponent.Position.X);
+            foreach (WireModel leftWire in leftColumnWireMatches)
             {
-                // Will need to change will not work if drawing wires backward
-                if (wire.endPosition.X - offsetValue <= nearby.currentPosition.X && nearby.currentPosition.X <= wire.endPosition.X + offsetValue)
-                {
-                    // Connected to positive rail
-                    if (wire.IsPowered)
-                    {
-                        return ((_breadboard.BreadboardVoltage, _breadboard.BreadboardCurrent), new Point());
-                    }
-                    // Connected to negative rail
-                    else if (wire.IsGounded)
-                    {
-                        break;
-                    }
-                    // Wire goes to another component or it is not connected??
-                    else
-                    {
-                        return GetNearby((nearby.inputs, wire.startPosition));
-                    }
-                }
+                (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseWire(leftWire, GetOppositeEndOfWire(leftWire, currentComponent.Position.X), visitedComponents);
+                visitedComponents = result.visitedComponents;
+                positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
+            }
+            List<ComponentViewModel> leftColumnComponentMatches = GetComponentConnections(currentComponent, currentComponent.Position.X);
+            foreach (ComponentViewModel leftComp in leftColumnComponentMatches)
+            {
+                visitedComponents.Add(leftComp);
+                (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseComponent(leftComp, GetOppositeEndOfComponent(leftComp, currentComponent.Position.X), visitedComponents);
+                visitedComponents = result.visitedComponents;
+                positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
             }
 
-            // Check if in the same vertical column as a component
-            foreach (ComponentViewModel comp in _breadboard.PlacedComponents)
+            if (!positiveRailFound)
             {
-                // Not our current component and in the same vertical column as the current component +- offset
-                if (!comp.ComponentId.Equals(ComponentId) &&
-                    (comp.Position.X + comp.Picture.Width - offsetValue <= Position.X && Position.X <= comp.Position.X + comp.Picture.Width + offsetValue))
+                // Traverse Right
+                double rightColumn = GetOppositeEndOfComponent(currentComponent, currentComponent.Position.X);
+                List<WireModel> rightColumnWireMatches = GetColumnMatches(rightColumn);
+                foreach (WireModel rightWire in rightColumnWireMatches)
                 {
-                    return (comp.GetOutput(), comp.Position);
+                    (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseWire(rightWire, GetOppositeEndOfWire(rightWire, rightColumn), visitedComponents);
+                    visitedComponents = result.visitedComponents;
+                    positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
+                }
+                List<ComponentViewModel> rightColumnCompMatches = GetComponentConnections(currentComponent, rightColumn);
+                foreach (ComponentViewModel rightComp in rightColumnCompMatches)
+                {
+                    visitedComponents.Add(rightComp);
+                    (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseComponent(rightComp, GetOppositeEndOfComponent(rightComp, rightColumn), visitedComponents);
+                    visitedComponents = result.visitedComponents;
+                    positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
                 }
             }
+            
+            // Multiple components
+            if (positiveRailFound && visitedComponents.Count > 1)
+            {
+                // Start at furthest out
+                visitedComponents.Reverse();
 
-            return (nearby.inputs, nearby.currentPosition);
+                (double outputVoltage, double outputCurrent) results = (_breadboard.BreadboardVoltage, _breadboard.BreadboardCurrent);
+
+                foreach (ComponentViewModel component in visitedComponents)
+                {
+                    results = component.GetOutput(results.outputVoltage, results.outputCurrent);
+                }
+                return results;
+            }
+            // Just this component
+            else if (positiveRailFound)
+            {
+                return (_breadboard.BreadboardVoltage, _breadboard.BreadboardCurrent);
+            }
+            // No way to positive rail
+            else
+            {
+                return (0, 0);
+            }
+
         }
 
+        private (bool positiveRailFound, List<ComponentViewModel> visitedComponents) TraverseWire(WireModel wire, Point wireOrigin, List<ComponentViewModel> visitedComps)
+        {
+            bool positiveRailFound = false;
 
+            double originColumn = (wireOrigin.X % gridWidth * -1) + wireOrigin.X;
+
+            // Wire connected to power rail
+            if (wire.IsPowered) positiveRailFound = true;
+            // Wire connected to ground rail
+            else if (wire.IsGounded) return (false, visitedComps);
+            else
+            {
+                List<WireModel> connectedWires = GetWireConnections(wire, wireOrigin);
+                // Wire connected to other wire, traverse it!
+                if (connectedWires.Any())
+                {
+                    foreach (WireModel connection in connectedWires)
+                    {
+                        (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseWire(connection, GetNextWireOrigin(wireOrigin, connection), visitedComps);
+                        visitedComps = result.visitedComponents;
+                        positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
+                    }
+                }
+
+                List<ComponentViewModel> connectedComps = GetComponentConnections(wireOrigin);
+                // Wire connected to component
+                if (connectedComps.Any())
+                {
+                    foreach (ComponentViewModel component in connectedComps)
+                    {
+                        visitedComps.Add(component);
+                        (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseComponent(component, GetOppositeEndOfComponent(component, originColumn), visitedComps);
+                        visitedComps = result.visitedComponents;
+                        positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
+                    }
+                }
+            }
+
+            return (positiveRailFound, visitedComps);
+        }
+
+        private (bool positiveRailFound, List<ComponentViewModel> visitedComponents) TraverseComponent(ComponentViewModel component, double componentColumnOrigin, List<ComponentViewModel> visitedComps)
+        {
+            bool positiveRailFound = false;
+
+            List<WireModel> connectedWires = GetColumnMatches(componentColumnOrigin);
+            if (connectedWires.Any())
+            {
+                foreach (WireModel wire in connectedWires)
+                {
+                    (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseWire(wire, GetOppositeEndOfWire(wire, componentColumnOrigin), visitedComps);
+                    visitedComps = result.visitedComponents;
+                    positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
+                }
+            }
+
+            List<ComponentViewModel> connectedComponents = GetComponentConnections(component, componentColumnOrigin);
+            if (connectedComponents.Any())
+            {
+                foreach (ComponentViewModel comp in connectedComponents)
+                {
+                    visitedComps.Add(comp);
+                    (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseComponent(comp, GetOppositeEndOfComponent(comp, componentColumnOrigin), visitedComps);
+                    visitedComps = result.visitedComponents;
+                    positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
+                }
+            }
+
+            return (positiveRailFound, visitedComps);
+        }
+        #endregion
+
+        #region Check Circuit Status
         private bool CompleteCircuit(ComponentViewModel currentComponent)
         {
             bool isPowered = false;
@@ -226,7 +327,6 @@ namespace SparkValueDesktopApplication.ViewModels
                 }
             }
 
-
             return state;
         }
 
@@ -258,7 +358,9 @@ namespace SparkValueDesktopApplication.ViewModels
 
             return state;
         }
+        #endregion
 
+        #region Component and Wire Utility Methods
         private List<WireModel> GetColumnMatches(double startPoint)
         {
             return _breadboard.PlacedWires.Where(wire => (wire.startPosition.X >= startPoint && wire.startPosition.X <= startPoint + gridWidth)
@@ -341,5 +443,6 @@ namespace SparkValueDesktopApplication.ViewModels
             // Should never occur
             return new Point();
         }
+        #endregion
     }
 }

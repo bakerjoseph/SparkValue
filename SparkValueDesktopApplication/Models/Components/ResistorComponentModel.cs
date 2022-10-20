@@ -44,7 +44,7 @@ namespace SparkValueDesktopApplication.Models.Components
 
         public (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent)
         {
-            return (inputCurrent * ResistanceValue, inputVoltage / ResistanceValue);
+            return (inputVoltage, inputVoltage / ResistanceValue);
         }
     }
 }
