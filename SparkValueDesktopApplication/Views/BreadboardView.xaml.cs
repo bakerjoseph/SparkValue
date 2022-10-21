@@ -28,6 +28,9 @@ namespace SparkValueDesktopApplication.Views
 
         private const double GridSize = 24.9;
 
+        private const int ComponentImageWidth = 75;
+        private const int ComponentImageMaxHeight = 40;
+
         public static readonly DependencyProperty ComponentPlaceCommandProperty =
             DependencyProperty.Register("ComponentPlaceCommand", typeof(ICommand), typeof(BreadboardView), new PropertyMetadata(null));
         public ICommand ComponentPlaceCommand
@@ -110,8 +113,20 @@ namespace SparkValueDesktopApplication.Views
             (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
 
             Grid parent = data.Item1.Parent as Grid;
-            if (parent != null && parent.Children.Count > 0) parent.Children.RemoveAt(0);
-            
+            if (parent != null && parent.Children.Count > 0)
+            {
+                parent.Children.RemoveAt(0);
+
+                // Create a new image with the same content as the previous image
+                ComponentViewModel source = parent.DataContext as ComponentViewModel;
+                Image newComponent = new Image();
+                newComponent.Source = source.Picture;
+                newComponent.Width = ComponentImageWidth;
+                newComponent.MaxHeight = ComponentImageMaxHeight;
+                newComponent.MouseMove += Component_MouseMove;
+                // Add the new image to the grid, acts like a factory is pumping out new components
+                parent.Children.Add(newComponent);
+            }
         }
 
         private void breadboard_DragOver(object sender, DragEventArgs e)

@@ -87,13 +87,26 @@ namespace SparkValueDesktopApplication.ViewModels
             _breadboard = breadboard;
         }
 
+        /// <summary>
+        /// Get the output of the component using its model class methods.
+        /// </summary>
+        /// <param name="inputVoltage">Voltage into the component</param>
+        /// <param name="inputCurrent">Current into the component</param>
+        /// <returns>The resulting output the component given the inputs.</returns>
         public (double outVoltage, double outCurrent) GetOutput(double inputVoltage, double inputCurrent)
         {
             return _component.GetOutput(inputVoltage, inputCurrent);
         }
 
+        /// <summary>
+        /// Get the formatted values and output of the component using its model class methods.
+        /// </summary>
+        /// <returns>A formatted string containing the values and output of the component.</returns>
         public string DisplayValues()
         {
+            // If we have a valid circuit, ie a path to the positive and negative rails
+            // display the component values given the output found by traversing towards the positive rail.
+            // Otherwise we have zero voltage and current flowing.
             if (CompleteCircuit(this))
             {
                 (double inputVoltage, double inputCurrent) findResult = TraverseForOutput(this);
@@ -103,13 +116,20 @@ namespace SparkValueDesktopApplication.ViewModels
         }
 
         #region Get Output of Component
+
+        /// <summary>
+        /// Starting at currentComponent, traverse until you find the positive rail or have checked both sides of currentComponent
+        /// At that point generate the output to be taken in by currentComponent to generate its outputs for display purpose.
+        /// </summary>
+        /// <param name="currentComponent">The component to start at</param>
+        /// <returns>The output of the previous component or the output of the breadboard power supply.</returns>
         private (double outputVoltage, double outputCurrent) TraverseForOutput(ComponentViewModel currentComponent)
         {
             bool positiveRailFound = false;
 
             List<ComponentViewModel> visitedComponents = new List<ComponentViewModel>();
 
-            // Traverse Left
+            // Traverse Left, wire checking first and then component checking
             List<WireModel> leftColumnWireMatches = GetColumnMatches(currentComponent.Position.X);
             foreach (WireModel leftWire in leftColumnWireMatches)
             {
@@ -126,9 +146,10 @@ namespace SparkValueDesktopApplication.ViewModels
                 positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
             }
 
+            // If we have not already found the positive rail check the right side of this component
             if (!positiveRailFound)
             {
-                // Traverse Right
+                // Traverse Right, wire checking first and then component checking
                 double rightColumn = GetOppositeEndOfComponent(currentComponent, currentComponent.Position.X);
                 List<WireModel> rightColumnWireMatches = GetColumnMatches(rightColumn);
                 foreach (WireModel rightWire in rightColumnWireMatches)
@@ -147,7 +168,7 @@ namespace SparkValueDesktopApplication.ViewModels
                 }
             }
             
-            // Multiple components
+            // Multiple components traveld through
             if (positiveRailFound && visitedComponents.Count > 1)
             {
                 // Start at furthest out
@@ -166,14 +187,23 @@ namespace SparkValueDesktopApplication.ViewModels
             {
                 return (_breadboard.BreadboardVoltage, _breadboard.BreadboardCurrent);
             }
-            // No way to positive rail
+            // Did not find a way to the positive rail
             else
             {
+                // Should never get here, it already checks if it is a complete circuit before running through getting its output!
                 return (0, 0);
             }
 
         }
 
+        /// <summary>
+        /// Traverse through a given wire object trying to find the positive rail.
+        /// Checks starting from the wireOrigin to find the next wire or component connection to continue traversing.
+        /// </summary>
+        /// <param name="wire">Current wire object</param>
+        /// <param name="wireOrigin">Current end/output of the wire, could be either the start or end point</param>
+        /// <param name="visitedComps">A list of components that have been visited</param>
+        /// <returns>If the positive rail has been found and all the components taken to get there.</returns>
         private (bool positiveRailFound, List<ComponentViewModel> visitedComponents) TraverseWire(WireModel wire, Point wireOrigin, List<ComponentViewModel> visitedComps)
         {
             bool positiveRailFound = false;
@@ -215,6 +245,14 @@ namespace SparkValueDesktopApplication.ViewModels
             return (positiveRailFound, visitedComps);
         }
 
+        /// <summary>
+        /// Traverse through a given component trying to find the positive rail.
+        /// Checks starting from the componentColumnOrigin to find the next wire or component connection to continue traversing.
+        /// </summary>
+        /// <param name="component">Current component object</param>
+        /// <param name="componentColumnOrigin">Current end/output column of the component</param>
+        /// <param name="visitedComps">A list of components that have been visited</param>
+        /// <returns>If the positive rail has been found and all the components taken to get there.</returns>
         private (bool positiveRailFound, List<ComponentViewModel> visitedComponents) TraverseComponent(ComponentViewModel component, double componentColumnOrigin, List<ComponentViewModel> visitedComps)
         {
             bool positiveRailFound = false;
@@ -247,6 +285,12 @@ namespace SparkValueDesktopApplication.ViewModels
         #endregion
 
         #region Check Circuit Status
+
+        /// <summary>
+        /// Checks if the circuit has a valid path from the currentComponent to both the positive and negative rails through components and wires.
+        /// </summary>
+        /// <param name="currentComponent">The component to start at.</param>
+        /// <returns>If it has found both the positive negative rails.</returns>
         private bool CompleteCircuit(ComponentViewModel currentComponent)
         {
             bool isPowered = false;
@@ -290,6 +334,13 @@ namespace SparkValueDesktopApplication.ViewModels
             return isPowered && isGrounded;
         }
 
+        /// <summary>
+        /// Traverse through a given wire object trying to find the positive and negative rails.
+        /// Checks starting from the wireOrigin to find the next wire or component connection to continue traversing.
+        /// </summary>
+        /// <param name="wire">Current wire object</param>
+        /// <param name="wireOrigin">Current end/output of the wire, could be either the start or end point</param>
+        /// <returns>If the positive or negative rail have been found.</returns>
         private (bool powered, bool grounded) TraverseWire(WireModel wire, Point wireOrigin)
         {
             (bool powered, bool grounded) state = (false, false);
@@ -330,6 +381,13 @@ namespace SparkValueDesktopApplication.ViewModels
             return state;
         }
 
+        /// <summary>
+        /// Traverse through a given component object trying to find the positive and negative rails.
+        /// Checks starting from the componentColumnOrigin to find the next wire or component connection to continue traversing.
+        /// </summary>
+        /// <param name="component">Current component object</param>
+        /// <param name="componentColumnOrigin">Current end/output column of the component</param>
+        /// <returns>If the positive or negative rail have been found.</returns>
         private (bool powered, bool grounded) TraverseComponent(ComponentViewModel component, double componentColumnOrigin)
         {
             (bool powered, bool grounded) state = (false, false);
@@ -361,12 +419,33 @@ namespace SparkValueDesktopApplication.ViewModels
         #endregion
 
         #region Component and Wire Utility Methods
+       
+        /// <summary>
+        /// Get all wires that start or end in a given column.
+        /// Component searching for connected wires.
+        /// </summary>
+        /// <param name="startPoint">The column to check in</param>
+        /// <returns>Wires that start or end in the specified column.</returns>
         private List<WireModel> GetColumnMatches(double startPoint)
         {
-            return _breadboard.PlacedWires.Where(wire => (wire.startPosition.X >= startPoint && wire.startPosition.X <= startPoint + gridWidth)
+            if (_breadboard.PlacedWires.Any())
+            {
+                return _breadboard.PlacedWires.Where(wire => (wire.startPosition.X >= startPoint && wire.startPosition.X <= startPoint + gridWidth)
                                                       || (wire.endPosition.X >= startPoint && wire.endPosition.X <= startPoint + gridWidth)).ToList();
+            }
+            else
+            {
+                return new List<WireModel>();
+            }
         }
 
+        /// <summary>
+        /// Get all wires that start or end in the same column as the wireOrigin.
+        /// Wire searching for connected wires.
+        /// </summary>
+        /// <param name="wire">Wire object that we are comming from</param>
+        /// <param name="wireOrigin">Current end/output of the wire, could be either the start or end point, that we are searching from</param>
+        /// <returns>Wires that start or end in the same column as wireOrigin.</returns>
         private List<WireModel> GetWireConnections(WireModel wire, Point wireOrigin)
         {
             List<WireModel> connections = new List<WireModel>();
@@ -387,6 +466,12 @@ namespace SparkValueDesktopApplication.ViewModels
             return connections;
         }
 
+        /// <summary>
+        /// Get all components that start or end in the same column as the wireOrigin.
+        /// Wire searching for connected components.
+        /// </summary>
+        /// <param name="wireOrigin">Current end/output of the wire, could be either the start or end point, that we are searching from</param>
+        /// <returns>Components that start or end in the same column as wireOrigin.</returns>
         private List<ComponentViewModel> GetComponentConnections(Point wireOrigin)
         {
             List<ComponentViewModel> connections = new List<ComponentViewModel>();
@@ -406,6 +491,13 @@ namespace SparkValueDesktopApplication.ViewModels
             return connections;
         }
 
+        /// <summary>
+        /// Get all components that start or end in the same column as the componentOriginColumn.
+        /// Component searching for connected components.
+        /// </summary>
+        /// <param name="component">Component object that we are comming from</param>
+        /// <param name="componentOriginColumn">Current end/output column of the component, that we are searching from</param>
+        /// <returns>Components that start or end in the same column as componentOriginColumn</returns>
         private List<ComponentViewModel> GetComponentConnections(ComponentViewModel component, double componentOriginColumn)
         {
             List<ComponentViewModel> connections = new List<ComponentViewModel>();
@@ -424,16 +516,34 @@ namespace SparkValueDesktopApplication.ViewModels
             return connections;
         }
 
+        /// <summary>
+        /// Find the end or origin of a wire given the source and the wire.
+        /// </summary>
+        /// <param name="wire">Wire object that we want the opposite end of</param>
+        /// <param name="startX">The source of the wire</param>
+        /// <returns>The origin point of the given wire.</returns>
         private Point GetOppositeEndOfWire(WireModel wire, double startX)
         {
             return (wire.startPosition.X >= startX && wire.startPosition.X <= startX + gridWidth) ? wire.endPosition : wire.startPosition;
         }
 
+        /// <summary>
+        /// Find the end or origin of a component given the source and the component.
+        /// </summary>
+        /// <param name="comp">Component object that we want the opposite end of</param>
+        /// <param name="startX">The source of the component</param>
+        /// <returns>The origin x position of the given component.</returns>
         private double GetOppositeEndOfComponent(ComponentViewModel comp, double startX)
         {
             return (comp.Position.X >= startX && comp.Position.X <= startX + gridWidth) ? ((comp.Position.X + comp.Picture.DpiX) % gridWidth * -1) + (comp.Position.X + comp.Picture.DpiX) : comp.Position.X;
         }
 
+        /// <summary>
+        /// Find the next origin of the next wire in the traversel process.
+        /// </summary>
+        /// <param name="previousWireOrigin">Point of origin of the previous wire/Source of the current wire</param>
+        /// <param name="currentWire">The new wire that we wnat the opposite end of</param>
+        /// <returns>The origin point of the new/current wire.</returns>
         private Point GetNextWireOrigin(Point previousWireOrigin, WireModel currentWire)
         {
             if (currentWire.startPosition.X >= previousWireOrigin.X && currentWire.startPosition.X <= previousWireOrigin.X + gridWidth) return currentWire.startPosition;
