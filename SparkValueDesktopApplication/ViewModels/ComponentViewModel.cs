@@ -107,7 +107,7 @@ namespace SparkValueDesktopApplication.ViewModels
             // If we have a valid circuit, ie a path to the positive and negative rails
             // display the component values given the output found by traversing towards the positive rail.
             // Otherwise we have zero voltage and current flowing.
-            if (CompleteCircuit(this))
+            if (Position.X != 0 && Position.Y != 0 && CompleteCircuit(this))
             {
                 (double inputVoltage, double inputCurrent) findResult = TraverseForOutput(this);
                 return _component.DisplayValues(findResult.inputVoltage, findResult.inputCurrent);

@@ -1,4 +1,5 @@
-﻿using SparkValueDesktopApplication.Models;
+﻿using SparkValueDesktopApplication.Adorners;
+using SparkValueDesktopApplication.Models;
 using SparkValueDesktopApplication.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -238,6 +239,45 @@ namespace SparkValueDesktopApplication.Views
 
             Canvas.SetLeft(element, xSnap);
             Canvas.SetTop(element, ySnap);
+        }
+
+        private void Component_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Image img = (sender != null && sender is Image) ? sender as Image : null;
+            if (img != null)
+            {
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(img);
+                if (adornerLayer != null)
+                {
+                    Adorner[] adorners = adornerLayer.GetAdorners(img);
+                    if (adorners != null)
+                    {
+                        foreach (Adorner adorner in adorners)
+                        {
+                            if (adorner.GetType().Equals(typeof(ComponentAdorner)))
+                            {
+                                adornerLayer.Remove(adorner);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Component_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (sender != null && sender is Image)
+            {
+                // Create and add an adorner to the image if it is on the breadboard, not in the menu
+                Image img = sender as Image;
+                ComponentViewModel comp = (ComponentViewModel)img.DataContext;
+                if (comp.Position.X != 0 && comp.Position.Y != 0)
+                {
+                    ComponentAdorner adorner = new ComponentAdorner(img);
+                    AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(img);
+                    adornerLayer.Add(adorner);
+                }
+            }
         }
     }
 }

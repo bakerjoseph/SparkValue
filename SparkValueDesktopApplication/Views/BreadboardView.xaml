@@ -40,7 +40,8 @@
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid Margin="5">
-                                                            <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove">
+                                                            <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove" 
+                                                                   MouseRightButtonUp="Component_MouseRightButtonUp">
                                                                 <Image.ToolTip>
                                                                     <StackPanel>
                                                                         <TextBlock Text="{Binding Name}" TextDecorations="Underline"/>
@@ -108,6 +109,7 @@
                         </VisualBrush.Visual>
                     </VisualBrush>
                 </Canvas.Background>
+                <!--#region Power Rails-->
                 <Rectangle Width="550" Height="49.5" Panel.ZIndex="0" Fill="LightGoldenrodYellow"/>
                 <Polygon Points="5,0 10,0 10,5 15,5 15,10 10,10 10,15 5,15 5,10 0,10 0,5 5,5" Fill="White" Canvas.Left="2.5" Canvas.Top="6" Panel.ZIndex="1"/>
                 <Ellipse Width="19" Height="19" Canvas.Left="0.5" Canvas.Top="4" Fill="Red"/>
@@ -119,6 +121,7 @@
                 <Border x:Name="negativeBorder" Margin="20 27 0 0" BorderBrush="Blue" BorderThickness="2">
                     <Rectangle x:Name="negativeRail" Width="525" Height="15" Fill="White"/>
                 </Border>
+                <!--#endregion-->
             </Canvas>
 
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
