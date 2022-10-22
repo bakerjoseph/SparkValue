@@ -125,6 +125,7 @@ namespace SparkValueDesktopApplication.Views
                 newComponent.Width = ComponentImageWidth;
                 newComponent.MaxHeight = ComponentImageMaxHeight;
                 newComponent.MouseMove += Component_MouseMove;
+                newComponent.MouseRightButtonUp += Component_MouseRightButtonUp;
                 // Add the new image to the grid, acts like a factory is pumping out new components
                 parent.Children.Add(newComponent);
             }
@@ -241,15 +242,17 @@ namespace SparkValueDesktopApplication.Views
             Canvas.SetTop(element, ySnap);
         }
 
-        private void Component_MouseLeave(object sender, MouseEventArgs e)
+        private void Component_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Image img = (sender != null && sender is Image) ? sender as Image : null;
-            if (img != null)
+            if (sender != null && sender is Image)
             {
+                Image img = sender as Image;
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(img);
                 if (adornerLayer != null)
                 {
+                    // If there is an adorner already on the image, remove it
                     Adorner[] adorners = adornerLayer.GetAdorners(img);
+                    ComponentViewModel comp = (ComponentViewModel)img.DataContext;
                     if (adorners != null)
                     {
                         foreach (Adorner adorner in adorners)
@@ -260,22 +263,13 @@ namespace SparkValueDesktopApplication.Views
                             }
                         }
                     }
-                }
-            }
-        }
-
-        private void Component_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (sender != null && sender is Image)
-            {
-                // Create and add an adorner to the image if it is on the breadboard, not in the menu
-                Image img = sender as Image;
-                ComponentViewModel comp = (ComponentViewModel)img.DataContext;
-                if (comp.Position.X != 0 && comp.Position.Y != 0)
-                {
-                    ComponentAdorner adorner = new ComponentAdorner(img);
-                    AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(img);
-                    adornerLayer.Add(adorner);
+                    // Create and add an adorner to the image
+                    // If it is on the breadboard, not in the menu, and there are no other adorners on teh image
+                    else if (comp.Position.X != 0 && comp.Position.Y != 0)
+                    {
+                        ComponentAdorner adorner = new ComponentAdorner(img);
+                        adornerLayer.Add(adorner);
+                    }
                 }
             }
         }
