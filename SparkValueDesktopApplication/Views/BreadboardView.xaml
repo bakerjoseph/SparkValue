@@ -93,7 +93,7 @@
                 Margin="20" 
                 Width="550" Height="200" 
                 AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver" DragLeave="canvas_DragLeave"
-                MouseDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseUp="breadboard_MouseUp">
+                MouseLeftButtonDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseLeftButtonUp="breadboard_MouseUp">
                 <Canvas.Background>
                     <VisualBrush TileMode="Tile"
                                  Viewport="0, 0, 24.9, 24.9"

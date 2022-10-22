@@ -146,11 +146,8 @@ namespace SparkValueDesktopApplication.Views
 
         private void breadboard_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ButtonState == MouseButtonState.Pressed)
-            {
-                startPoint = e.GetPosition(breadboard);
-                currentPoint = e.GetPosition(breadboard);
-            }
+            startPoint = e.GetPosition(breadboard);
+            currentPoint = e.GetPosition(breadboard);
         }
 
         private void breadboard_MouseMove(object sender, MouseEventArgs e)
