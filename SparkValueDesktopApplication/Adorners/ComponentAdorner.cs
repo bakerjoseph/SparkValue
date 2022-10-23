@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver.Core.Misc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -98,16 +99,6 @@ namespace SparkValueDesktopApplication.Adorners
 
             if (Double.IsNaN(angle)) return;
 
-            if (angle < -315) angle = 0;
-            else if (angle <= -225 && angle >= -315) angle = -270;
-            else if (angle <= -135 && angle >= -225) angle = -180;
-            else if (angle <= -45 && angle >= -135) angle = -90;
-            else if (angle >= -45 && angle <= 45) angle = 0;
-            else if (angle >= 45 && angle <= 135) angle = 90;
-            else if (angle >= 135 && angle <= 225) angle = 180;
-            else if (angle >= 225 && angle <= 315) angle = 270;
-            else if (angle > 315) angle = 0;
-
             rotation = new RotateTransform(angle, center.X, center.Y);
             outline.RenderTransform = rotation;
         }
@@ -116,7 +107,14 @@ namespace SparkValueDesktopApplication.Adorners
         {
             if (rotation == null) return;
 
+            double angle = rotation.Angle;
+            if (angle >= -270 && angle <= -90) angle = -180;
+            else if (angle <= 270 && angle >= 90) angle = 180;
+            else angle = 0;
+            rotation.Angle = angle;
+
             AdornedImage.RenderTransform = rotation;
+            outline.RenderTransform = rotation;
 
             lastAngle = rotation.Angle;
 
