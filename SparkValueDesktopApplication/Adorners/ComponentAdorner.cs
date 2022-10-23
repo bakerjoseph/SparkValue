@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.Windows.Shapes.Path;
 
 namespace SparkValueDesktopApplication.Adorners
 {
@@ -37,22 +40,22 @@ namespace SparkValueDesktopApplication.Adorners
             visualChildren = new VisualCollection(this);
 
             rotateHandle = new Thumb();
-            rotateHandle.Cursor = Cursors.SizeNWSE;
+            rotateHandle.Cursor = Cursors.Hand;
             rotateHandle.Width = 20;
             rotateHandle.Height = 20;
-            rotateHandle.Background = Brushes.SteelBlue;
+            rotateHandle.Background = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/SparkValueDesktopApplication;component/Images/Rotation.png")));
 
             rotateHandle.DragDelta += new DragDeltaEventHandler(rotateHandle_DragDelta);
             rotateHandle.DragCompleted += new DragCompletedEventHandler(rotateHandle_DragCompleted);
 
             outline = new Path();
             outline.Stroke = Brushes.SteelBlue;
-            outline.StrokeThickness = 1;
+            outline.StrokeThickness = 2;
 
             visualChildren.Add(outline);
             visualChildren.Add(rotateHandle);
 
-            compBounds = new Rect(AdornedImage.DesiredSize);
+            compBounds = new Rect(AdornedImage.RenderSize);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
@@ -68,6 +71,7 @@ namespace SparkValueDesktopApplication.Adorners
             if (rotation != null) handleRect.Transform(rotation.Value);
 
             rotateHandle.Arrange(handleRect);
+            if (rotation != null) outline.RenderTransform = rotation;
             outline.Data = new RectangleGeometry(compBounds);
             outline.Arrange(new Rect(finalSize));
             return finalSize;
@@ -98,7 +102,7 @@ namespace SparkValueDesktopApplication.Adorners
             else if (angle <= -225 && angle >= -315) angle = -270;
             else if (angle <= -135 && angle >= -225) angle = -180;
             else if (angle <= -45 && angle >= -135) angle = -90;
-            else if (angle <= -45 && angle <= 45) angle = 0;
+            else if (angle >= -45 && angle <= 45) angle = 0;
             else if (angle >= 45 && angle <= 135) angle = 90;
             else if (angle >= 135 && angle <= 225) angle = 180;
             else if (angle >= 225 && angle <= 315) angle = 270;
@@ -112,7 +116,7 @@ namespace SparkValueDesktopApplication.Adorners
         {
             if (rotation == null) return;
 
-            AdornedImage.RenderTransform = new RotateTransform(rotation.Angle);
+            AdornedImage.RenderTransform = rotation;
 
             lastAngle = rotation.Angle;
 

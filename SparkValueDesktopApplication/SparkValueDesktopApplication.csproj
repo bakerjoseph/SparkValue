@@ -13,6 +13,7 @@
     <None Remove="Images\led.png" />
     <None Remove="Images\potentiometer.png" />
     <None Remove="Images\resistor.png" />
+    <None Remove="Images\Rotation.png" />
     <None Remove="Images\SettingsGear.png" />
     <None Remove="Images\transistor.png" />
   </ItemGroup>
@@ -27,6 +28,7 @@
     <Resource Include="Images\led.png" />
     <Resource Include="Images\potentiometer.png" />
     <Resource Include="Images\resistor.png" />
+    <Resource Include="Images\Rotation.png" />
     <Resource Include="Images\SettingsGear.png" />
     <Resource Include="Images\transistor.png" />
   </ItemGroup>
