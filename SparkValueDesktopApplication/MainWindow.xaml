@@ -14,7 +14,9 @@
     <Viewbox MaxHeight="725" MaxWidth="1232.5">
         <Viewbox.Resources>
             <DataTemplate DataType="{x:Type vms:BreadboardViewModel}">
-                <views:BreadboardView ComponentPlaceCommand="{Binding ComponentPlaceCommand}" WirePlaceCommand="{Binding WirePlaceCommand}"/>
+                <views:BreadboardView ComponentPlaceCommand="{Binding ComponentPlaceCommand}" 
+                                      WirePlaceCommand="{Binding WirePlaceCommand}" 
+                                      UpdateCurrentComponentCommand="{Binding UpdateCurrentComponentCommand}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:DashboardViewModel}">
                 <views:DashboardView/>

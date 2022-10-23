@@ -50,6 +50,14 @@ namespace SparkValueDesktopApplication.Views
             set { SetValue(WirePlaceCommandProperty, value); }
         }
 
+        public static readonly DependencyProperty UpdateCurrentComponentCommandProperty =
+            DependencyProperty.Register("UpdateCurrentComponentCommand", typeof(ICommand), typeof(BreadboardView), new PropertyMetadata(null));
+        public ICommand UpdateCurrentComponentCommand
+        {
+            get { return (ICommand)GetValue(UpdateCurrentComponentCommandProperty); }
+            set { SetValue(UpdateCurrentComponentCommandProperty, value); }
+        }
+
         public BreadboardView()
         {
             InitializeComponent();
@@ -93,6 +101,14 @@ namespace SparkValueDesktopApplication.Views
                 image.Source = selectedComponent?.Picture;
                 image.DataContext = selectedComponent;
                 DragDrop.DoDragDrop((DependencyObject)sender, new DataObject(DataFormats.Serializable, (image, selectedComponent)), DragDropEffects.Move);
+            }
+        }
+
+        private void Component_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (UpdateCurrentComponentCommand.CanExecute(null))
+            {
+                UpdateCurrentComponentCommand?.Execute(sender);
             }
         }
 
@@ -283,7 +299,8 @@ namespace SparkValueDesktopApplication.Views
             newComponent.Width = ComponentImageWidth;
             newComponent.MaxHeight = ComponentImageMaxHeight;
             newComponent.Cursor = Cursors.Hand;
-
+            
+            newComponent.MouseEnter += Component_MouseEnter;
             newComponent.MouseMove += Component_MouseMove;
             newComponent.MouseRightButtonUp += Component_MouseRightButtonUp;
 

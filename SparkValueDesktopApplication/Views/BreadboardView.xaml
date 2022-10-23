@@ -11,8 +11,8 @@
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
     </UserControl.Resources>
     <DockPanel>
-        <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
-            <ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Visible">
+            <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center" Text="Components"/>
                     <Separator/>
@@ -42,6 +42,7 @@
                                                         <Grid Margin="5">
                                                             <Image Source="{Binding Picture}" Width="75" MaxHeight="40" 
                                                                    Cursor="Hand"
+                                                                   MouseEnter="Component_MouseEnter"
                                                                    MouseMove="Component_MouseMove" 
                                                                    MouseRightButtonUp="Component_MouseRightButtonUp" ToolTipOpening="Component_ToolTipOpening">
                                                                 <Image.ToolTip>
@@ -78,8 +79,9 @@
                         <TextBlock Padding="0" Text="Amp(s)"/>
                     </StackPanel>
                 </StackPanel>
-            </ScrollViewer>
-        </Border>
+            </Border>
+        </ScrollViewer>
+        
 
         <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -157,7 +159,7 @@
                             Text="Delete Component" Foreground="White"/>
                 </Canvas>
 
-                <Border Grid.Column="2" Background="LightSlateGray" MinWidth="250">
+                <Border Grid.Column="2" Background="LightSlateGray" Width="250">
                     <Border.Visibility>
                         <MultiBinding Converter="{StaticResource ComponentDescriptionBoxVisibilityConverter}">
                             <Binding Path="SelectedComponentName"/>
