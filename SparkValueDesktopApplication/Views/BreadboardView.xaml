@@ -96,6 +96,7 @@
                 x:Name="breadboard" 
                 Margin="20" 
                 Width="550" Height="200" 
+                Cursor="Pen"
                 AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver" DragLeave="canvas_DragLeave"
                 MouseLeftButtonDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseLeftButtonUp="breadboard_MouseUp">
                 <Canvas.Background>
@@ -137,8 +138,8 @@
 
                 <Border Grid.Column="0" Background="LightSlateGray">
                     <StackPanel>
-                        <TextBlock HorizontalAlignment="Center" Text="Filters"/>
-                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only" Command="{Binding FilterComponentsCommand}"/>
+                        <TextBlock HorizontalAlignment="Center" Text="Visibility Filter Toggle" TextDecorations="Underline"/>
+                        <CheckBox x:Name="wireVis" IsChecked="True" Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Wires" Command="{Binding FilterComponentsCommand}" CommandParameter="{Binding ElementName=breadboard}"/>
                         <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}" CommandParameter="{Binding ElementName=breadboard}"/>
                     </StackPanel>
                 </Border>

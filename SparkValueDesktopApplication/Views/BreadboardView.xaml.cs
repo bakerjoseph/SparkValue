@@ -149,6 +149,7 @@ namespace SparkValueDesktopApplication.Views
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 Line line = new Line();
+                if (!(bool)wireVis.IsChecked) line.Visibility = Visibility.Hidden;
                 line.Stroke = SystemColors.WindowFrameBrush;
                 line.StrokeThickness = 2;
                 line.X1 = currentPoint.X;
