@@ -19,7 +19,7 @@ namespace SparkValueDesktopApplication.Adorners
 {
     public class ComponentAdorner : Adorner
     {
-        // Most of this code was reused from this article https://learn.microsoft.com/en-us/dotnet/desktop/wpf/advanced/how-to-rotate-ink?view=netframeworkdesktop-4.8
+        // Most of this code was adapted from this article https://learn.microsoft.com/en-us/dotnet/desktop/wpf/advanced/how-to-rotate-ink?view=netframeworkdesktop-4.8
 
         private Thumb rotateHandle;
 

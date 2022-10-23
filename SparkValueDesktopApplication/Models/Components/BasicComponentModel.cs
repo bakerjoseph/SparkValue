@@ -35,7 +35,7 @@ namespace SparkValueDesktopApplication.Models.Components
         public string DisplayValues(double inputVoltage, double inputCurrent)
         {
             (double outVoltage, double outCurrent) outputs = GetOutput(inputVoltage, inputCurrent);
-            return $"Inputs -\nVoltage: {inputVoltage} V\t\tCurrent: {inputCurrent} Amp(s)\n\nOutputs -\nVoltage: {outputs.outVoltage} V\t\tCurrent: {outputs.outCurrent} Amp(s)";
+            return $"Inputs -\nVoltage: {inputVoltage} V\tCurrent: {inputCurrent} Amp(s)\n\nOutputs -\nVoltage: {outputs.outVoltage} V\tCurrent: {outputs.outCurrent} Amp(s)";
         }
     }
 }

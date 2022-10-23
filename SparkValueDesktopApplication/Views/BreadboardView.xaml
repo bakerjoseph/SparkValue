@@ -40,13 +40,17 @@
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid Margin="5">
-                                                            <Image Source="{Binding Picture}" Width="75" MaxHeight="40" MouseMove="Component_MouseMove" 
-                                                                   MouseRightButtonUp="Component_MouseRightButtonUp">
+                                                            <Image Source="{Binding Picture}" Width="75" MaxHeight="40" 
+                                                                   Cursor="Hand"
+                                                                   MouseMove="Component_MouseMove" 
+                                                                   MouseRightButtonUp="Component_MouseRightButtonUp" ToolTipOpening="Component_ToolTipOpening">
                                                                 <Image.ToolTip>
-                                                                    <StackPanel>
-                                                                        <TextBlock Text="{Binding Name}" TextDecorations="Underline"/>
-                                                                        <TextBlock Text="{Binding DisplayComponent}"/>
-                                                                    </StackPanel>
+                                                                    <ToolTip>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="{Binding Name}" TextDecorations="Underline"/>
+                                                                            <TextBlock Text="{Binding DisplayComponent}"/>
+                                                                        </StackPanel>
+                                                                    </ToolTip>
                                                                 </Image.ToolTip>
                                                             </Image>
                                                         </Grid>
@@ -135,7 +139,7 @@
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Center" Text="Filters"/>
                         <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Components Only" Command="{Binding FilterComponentsCommand}"/>
-                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}"/>
+                        <CheckBox Margin="10 0 0 0" Padding="5" VerticalContentAlignment="Center" FontSize="12" Content="Component Values" Command="{Binding FilterValuesCommand}" CommandParameter="{Binding ElementName=breadboard}"/>
                     </StackPanel>
                 </Border>
 

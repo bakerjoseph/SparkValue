@@ -120,14 +120,8 @@ namespace SparkValueDesktopApplication.Views
 
                 // Create a new image with the same content as the previous image
                 ComponentViewModel source = parent.DataContext as ComponentViewModel;
-                Image newComponent = new Image();
-                newComponent.Source = source.Picture;
-                newComponent.Width = ComponentImageWidth;
-                newComponent.MaxHeight = ComponentImageMaxHeight;
-                newComponent.MouseMove += Component_MouseMove;
-                newComponent.MouseRightButtonUp += Component_MouseRightButtonUp;
                 // Add the new image to the grid, acts like a factory is pumping out new components
-                parent.Children.Add(newComponent);
+                parent.Children.Add(CreateNewComponent(source));
             }
         }
 
@@ -212,33 +206,6 @@ namespace SparkValueDesktopApplication.Views
             if (parent != null) parent.Children.Remove(data.Item1);
         }
 
-        /// <summary>
-        /// Snap a UI element to a grid
-        /// Inspired/Credit from this post https://stackoverflow.com/a/3508932
-        /// </summary>
-        /// <param name="element">Any UI element that needs to be snapped to a grid intersection</param>
-        private void SnapToGrid(UIElement element)
-        {
-            double xSnap = Canvas.GetLeft(element) % GridSize;
-            double ySnap = Canvas.GetTop(element) % GridSize;
-
-            // If closer to the left remove the remainder from the left, pushing all the way left
-            if (xSnap <= GridSize / 2.0) xSnap *= -1;
-            // If closer to the right get the rest of the distance and add it to the left, pushing all the way right
-            else xSnap = GridSize - xSnap;
-
-            // If closer to the top remove the remainder from the top, pushing all the way to the top
-            if (ySnap <= GridSize / 2.0) ySnap *= -1;
-            // If closer to the bottom get the rest of the distance and add it to the top, pushing all the way to the bottom
-            else ySnap = GridSize - ySnap;
-
-            xSnap += Canvas.GetLeft(element);
-            ySnap += Canvas.GetTop(element);
-
-            Canvas.SetLeft(element, xSnap);
-            Canvas.SetTop(element, ySnap);
-        }
-
         private void Component_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (sender != null && sender is Image)
@@ -269,6 +236,91 @@ namespace SparkValueDesktopApplication.Views
                     }
                 }
             }
+        }
+
+        private void Component_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            if (sender != null && sender is Image)
+            {
+                ToolTip toolTip = (ToolTip)((Image)sender).ToolTip;
+                toolTip.HorizontalOffset = 0;
+                toolTip.VerticalOffset = 0;
+            }
+        }
+
+        /// <summary>
+        /// Snap a UI element to a grid
+        /// Inspired/Credit from this post https://stackoverflow.com/a/3508932
+        /// </summary>
+        /// <param name="element">Any UI element that needs to be snapped to a grid intersection</param>
+        private void SnapToGrid(UIElement element)
+        {
+            double xSnap = Canvas.GetLeft(element) % GridSize;
+            double ySnap = Canvas.GetTop(element) % GridSize;
+
+            // If closer to the left remove the remainder from the left, pushing all the way left
+            if (xSnap <= GridSize / 2.0) xSnap *= -1;
+            // If closer to the right get the rest of the distance and add it to the left, pushing all the way right
+            else xSnap = GridSize - xSnap;
+
+            // If closer to the top remove the remainder from the top, pushing all the way to the top
+            if (ySnap <= GridSize / 2.0) ySnap *= -1;
+            // If closer to the bottom get the rest of the distance and add it to the top, pushing all the way to the bottom
+            else ySnap = GridSize - ySnap;
+
+            xSnap += Canvas.GetLeft(element);
+            ySnap += Canvas.GetTop(element);
+
+            Canvas.SetLeft(element, xSnap);
+            Canvas.SetTop(element, ySnap);
+        }
+
+        private Image CreateNewComponent(ComponentViewModel context)
+        {
+            Image newComponent = new Image();
+            newComponent.Source = context.Picture;
+            newComponent.Width = ComponentImageWidth;
+            newComponent.MaxHeight = ComponentImageMaxHeight;
+            newComponent.Cursor = Cursors.Hand;
+
+            newComponent.MouseMove += Component_MouseMove;
+            newComponent.MouseRightButtonUp += Component_MouseRightButtonUp;
+
+            newComponent.ToolTip = CreateComponentToolTip(context);
+
+            return newComponent;
+        }
+
+        private ToolTip CreateComponentToolTip(ComponentViewModel context)
+        {
+            // Create the textblocks with binding to the component view model
+            Binding bindingName = new Binding();
+            bindingName.Source = context;
+            bindingName.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            bindingName.Path = new PropertyPath("Name");
+            TextBlock compName = new TextBlock();
+            BindingOperations.SetBinding(compName, TextBlock.TextProperty, bindingName);
+            compName.TextDecorations = TextDecorations.Underline;
+
+            Binding bindingValues = new Binding();
+            bindingValues.Source = context;
+            bindingValues.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            bindingValues.Path = new PropertyPath("DisplayComponent");
+            TextBlock compValues = new TextBlock();
+            BindingOperations.SetBinding(compValues, TextBlock.TextProperty, bindingValues);
+
+            // Create the stack panel and add the two textblocks
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Children.Add(compName);
+            stackPanel.Children.Add(compValues);
+
+            // Create the tooltip and add the stackpanel
+            ToolTip toolTip = new ToolTip();
+            toolTip.Content = stackPanel;
+
+            return toolTip;
         }
     }
 }
