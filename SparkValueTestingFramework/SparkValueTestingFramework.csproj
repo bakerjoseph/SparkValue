@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SparkValueModelLayer\SparkValueModelLayer.csproj" />
-    <ProjectReference Include="..\SparkValueViewModelLayer\SparkValueViewModelLayer.csproj" />
+    <ProjectReference Include="..\SparkValueBackend\SparkValueBackend.csproj" />
   </ItemGroup>
 
 </Project>
