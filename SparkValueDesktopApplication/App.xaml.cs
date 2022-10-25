@@ -1,6 +1,6 @@
-﻿using SparkValueDesktopApplication.Services;
-using SparkValueDesktopApplication.Stores;
-using SparkValueDesktopApplication.ViewModels;
+﻿using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
+using SparkValueBackend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

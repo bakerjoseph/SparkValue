@@ -1,6 +1,6 @@
 ﻿using SparkValueDesktopApplication.Adorners;
-using SparkValueDesktopApplication.Models;
-using SparkValueDesktopApplication.ViewModels;
+using SparkValueBackend.Models;
+using SparkValueBackend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

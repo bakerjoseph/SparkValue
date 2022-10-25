@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SparkValueDesktopApplication"
-        xmlns:vms="clr-namespace:SparkValueDesktopApplication.ViewModels"
+        xmlns:vms="clr-namespace:SparkValueBackend.ViewModels;assembly=SparkValueBackend"
         xmlns:views="clr-namespace:SparkValueDesktopApplication.Views"
         mc:Ignorable="d"
         ResizeMode="CanResize"

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
              xmlns:views="clr-namespace:SparkValueDesktopApplication.Views"
-             xmlns:vms="clr-namespace:SparkValueDesktopApplication.ViewModels"
+             xmlns:vms="clr-namespace:SparkValueBackend.ViewModels;assembly=SparkValueBackend"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
     <Grid Height="500" Width="850">

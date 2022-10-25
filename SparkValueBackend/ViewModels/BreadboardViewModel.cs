@@ -1,4 +1,6 @@
-﻿using SparkValueBackend.Models;
+﻿using SparkValueBackend.Commands;
+using SparkValueBackend.Models;
+using SparkValueBackend.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
