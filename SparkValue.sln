@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkValueDesktopApplication", "SparkValueDesktopApplication\SparkValueDesktopApplication.csproj", "{2C06E6FF-DDEB-49B7-9177-745C26CA290C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkValueDesktopApplication", "SparkValueDesktopApplication\SparkValueDesktopApplication.csproj", "{2C06E6FF-DDEB-49B7-9177-745C26CA290C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkValueTestingFramework", "SparkValueTestingFramework\SparkValueTestingFramework.csproj", "{CD1C143A-DD85-41FD-8F29-9980175AC02B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkValueModelLayer", "SparkValueModelLayer\SparkValueModelLayer.csproj", "{BF075578-0591-4CFA-A5E6-818B1507B89B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkValueViewModelLayer", "SparkValueViewModelLayer\SparkValueViewModelLayer.csproj", "{94733EAD-4A0F-4916-B3EB-6776DBC25A15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{2C06E6FF-DDEB-49B7-9177-745C26CA290C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C06E6FF-DDEB-49B7-9177-745C26CA290C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C06E6FF-DDEB-49B7-9177-745C26CA290C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1C143A-DD85-41FD-8F29-9980175AC02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1C143A-DD85-41FD-8F29-9980175AC02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1C143A-DD85-41FD-8F29-9980175AC02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1C143A-DD85-41FD-8F29-9980175AC02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF075578-0591-4CFA-A5E6-818B1507B89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF075578-0591-4CFA-A5E6-818B1507B89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF075578-0591-4CFA-A5E6-818B1507B89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF075578-0591-4CFA-A5E6-818B1507B89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94733EAD-4A0F-4916-B3EB-6776DBC25A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94733EAD-4A0F-4916-B3EB-6776DBC25A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94733EAD-4A0F-4916-B3EB-6776DBC25A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94733EAD-4A0F-4916-B3EB-6776DBC25A15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
