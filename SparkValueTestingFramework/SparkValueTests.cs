@@ -4,6 +4,7 @@ using SparkValueBackend.ViewModels;
 using SparkValueBackend.Services;
 using SparkValueBackend.Stores;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
+using System.ComponentModel;
 
 namespace SparkValueTestingFramework
 {
@@ -12,8 +13,12 @@ namespace SparkValueTestingFramework
         #region Component Testing Constants
         private const double TestVoltage = 5.0;
         private const double TestCurrent = 1.0;
+
         private const double TestMixedVoltage = 1.38;
         private const double TestMixedCurrent = -0.005;
+
+        private const double StandardCapacitanceValue = 500;
+        private const double StandardResistenceValue = 5000;
         #endregion
 
 
@@ -83,7 +88,7 @@ namespace SparkValueTestingFramework
         [Test]
         public void CapacitorComponentCreate()
         {
-            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", 500);
+            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", StandardCapacitanceValue);
             Assert.IsNotNull(component, "Failed to create new CapacitorComponentModel!");
         }
 
@@ -93,7 +98,7 @@ namespace SparkValueTestingFramework
         [TestCase(0, 0, "zeros")]
         public void CapacitorComponentOutput(double inputVoltage, double inputCurrent, string testTag)
         {
-            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", 500);
+            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", StandardCapacitanceValue);
             (double voltageResult, double currentResult) output = component.GetOutput(inputVoltage, inputCurrent);
             Assert.Multiple(() =>
             {
@@ -109,9 +114,9 @@ namespace SparkValueTestingFramework
         [TestCase(0, 0, "zeros")]
         public void CapacitorComponentFormattedOutput(double inputVoltage, double inputCurrent, string testTag)
         {
-            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", 500);
+            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", StandardCapacitanceValue);
             string formattedOutput = component.DisplayValues(inputVoltage, inputCurrent);
-            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, inputVoltage, 0) + $"\n\nCapacitance: 500 farad(s)\tCharge: {inputVoltage * 500}";
+            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, inputVoltage, 0) + $"\n\nCapacitance: {StandardCapacitanceValue} farad(s)\tCharge: {inputVoltage * StandardCapacitanceValue}";
             Assert.Multiple(() =>
             {
                 Assert.IsNotNull(component, "Failed to create new CapacitorComponentModel!");
@@ -119,33 +124,108 @@ namespace SparkValueTestingFramework
             });
         }
 
-        // Can update capacitance value?
+        [TestCase(TestVoltage, TestCurrent, StandardCapacitanceValue, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, -StandardCapacitanceValue, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, StandardCapacitanceValue / 3, "mixed numbers")]
+        [TestCase(0, 0, 0, "zeros")]
+        public void CapacitorComponentFormattedOutputVarriedCapacitance(double inputVoltage, double inputCurrent, double capacitanceValue, string testTag)
+        {
+            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", capacitanceValue);
+            string formattedOutput = component.DisplayValues(inputVoltage, inputCurrent);
+            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, inputVoltage, 0) + $"\n\nCapacitance: {capacitanceValue} farad(s)\tCharge: {inputVoltage * capacitanceValue}";
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new CapacitorComponentModel!");
+                Assert.That(formattedOutput, Is.EqualTo(expectedOutput), $"Formatted output of a CapacitorComponentModel is incorrect using {testTag}");
+            });
+        }
 
-        // Charge value testing with full range of voltage and capacitance numbers
+        [TestCase(StandardCapacitanceValue)]
+        [TestCase(-StandardCapacitanceValue)]
+        [TestCase(StandardCapacitanceValue / 3)]
+        [TestCase(0)]
+        public void CapacitorComponentChangeCapacitance(double capacitanceValue)
+        {
+            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", StandardCapacitanceValue);
+            component.UpdateCapacitanceValue(capacitanceValue);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new CapacitorComponentModel!");
+                Assert.That(component.CapacitanceValue, Is.EqualTo(capacitanceValue), "Failed to update the capacitance value of the component");
+            });
+        }
         #endregion
 
         #region Resistor Component
+        [Test]
         public void ResistorComponentCreate()
         {
-
+            ResistorComponentModel component = new ResistorComponentModel("Component Name", "Component Description", "\\Images\\resistor.png", StandardResistenceValue);
+            Assert.IsNotNull(component, "Failed to create new ResistorComponentModel!");
         }
 
+        [TestCase(TestVoltage, TestCurrent, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, "mixed numbers")]
+        [TestCase(0, 0, "zeros")]
         public void ResistorComponentOutput(double inputVoltage, double inputCurrent, string testTag)
         {
-
+            ResistorComponentModel component = new ResistorComponentModel("Component Name", "Component Description", "\\Images\\resistor.png", StandardResistenceValue);
+            (double voltageResult, double currentResult) output = component.GetOutput(inputVoltage, inputCurrent);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new ResistorComponentModel!");
+                Assert.That(output.voltageResult, Is.EqualTo(inputVoltage), $"Voltage output of a ResistorComponentModel is incorrect using {testTag}");
+                Assert.That(output.currentResult, Is.EqualTo(inputVoltage/StandardResistenceValue), $"Current output of a ResistorComponentModel is incorrect using {testTag}");
+            });
         }
 
+        [TestCase(TestVoltage, TestCurrent, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, "mixed numbers")]
+        [TestCase(0, 0, "zeros")]
         public void ResistorComponentFormattedOutput(double inputVoltage, double inputCurrent, string testTag)
         {
-
+            ResistorComponentModel component = new ResistorComponentModel("Component Name", "Component Description", "\\Images\\resistor.png", StandardResistenceValue);
+            string formattedOutput = component.DisplayValues(inputVoltage, inputCurrent);
+            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, inputVoltage, inputVoltage/StandardResistenceValue) + $"\n\nResistance: {StandardResistenceValue} Ohm(s)";
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new CapacitorComponentModel!");
+                Assert.That(formattedOutput, Is.EqualTo(expectedOutput), $"Formatted output of a CapacitorComponentModel is incorrect using {testTag}");
+            });
         }
 
+        [TestCase(TestVoltage, TestCurrent, 1000, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, -15000, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, -800.5, "mixed numbers")]
+        [TestCase(0, 0, 0, "zeros")]
         public void ResistorComponentFormattedOutputVarriedResistence(double inputVoltage, double inputCurrent, double resistenceValue, string testTag)
         {
-
+            ResistorComponentModel component = new ResistorComponentModel("Component Name", "Component Description", "\\Images\\resistor.png", resistenceValue);
+            string formattedOutput = component.DisplayValues(inputVoltage, inputCurrent);
+            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, inputVoltage, inputVoltage / resistenceValue) + $"\n\nResistance: {resistenceValue} Ohm(s)";
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new CapacitorComponentModel!");
+                Assert.That(formattedOutput, Is.EqualTo(expectedOutput), $"Formatted output of a CapacitorComponentModel is incorrect using {testTag}");
+            });
         }
 
-        // Can update resistence value?
+        [TestCase(StandardResistenceValue)]
+        [TestCase(-StandardResistenceValue)]
+        [TestCase(StandardResistenceValue/3)]
+        [TestCase(0)]
+        public void ResistorComponentChangeResistence(double resistenceValue)
+        {
+            ResistorComponentModel component = new ResistorComponentModel("Component Name", "Component Description", "\\Images\\resistor.png", StandardResistenceValue);
+            component.UpdateResistenceValue(resistenceValue);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new ResistorComponentModel!");
+                Assert.That(component.ResistanceValue, Is.EqualTo(resistenceValue), "Failed to change the resistence value of the component");
+            });
+        }
         #endregion
 
         #region Transistor Component
