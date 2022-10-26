@@ -31,7 +31,9 @@ namespace SparkValueTestingFramework
         #region Model Testing
 
         #region Wire Model Tests
-
+        /// <summary>
+        /// NOT IMPLEMENTED YET!
+        /// </summary>
         #endregion
 
         #region Component Model Tests
@@ -154,6 +156,23 @@ namespace SparkValueTestingFramework
                 Assert.That(component.CapacitanceValue, Is.EqualTo(capacitanceValue), "Failed to update the capacitance value of the component");
             });
         }
+
+        [TestCase(TestVoltage, StandardCapacitanceValue)]
+        [TestCase(TestVoltage, -StandardCapacitanceValue)]
+        [TestCase(-TestVoltage, -StandardCapacitanceValue)]
+        [TestCase(-TestVoltage, StandardCapacitanceValue)]
+        [TestCase(TestMixedVoltage, StandardCapacitanceValue / 3)]
+        [TestCase(1, 0)]
+        [TestCase(0, 0)]
+        public void CapacitorComponentCharge(double inputVoltage, double capacitanceValue)
+        {
+            CapacitorComponentModel component = new CapacitorComponentModel("Component Name", "Component Description", "\\Images\\capacitor.png", capacitanceValue);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new CapacitorComponentModel!");
+                Assert.That(component.GetCharge(inputVoltage), Is.EqualTo(inputVoltage * capacitanceValue), "Charge value of the capacitor is incorrect");
+            });
+        }
         #endregion
 
         #region Resistor Component
@@ -229,51 +248,142 @@ namespace SparkValueTestingFramework
         #endregion
 
         #region Transistor Component
+        [Test]
         public void TransistorComponentCreate()
         {
-
+            TransistorComponentModel component = new TransistorComponentModel("Component Name", "Component Description", "\\Images\\transistor.png");
+            Assert.IsNotNull(component, "Failed to create new TransistorComponentModel");
         }
 
-        public void TransistorComponentOutput(double inputVoltage, double inputCurrent, string testTag)
+        [TestCase(TestVoltage, TestCurrent, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, "mixed numbers")]
+        [TestCase(0, 0, "zeros")]
+        public void TransistorComponentOutputClosed(double inputVoltage, double inputCurrent, string testTag)
         {
-
+            TransistorComponentModel component = new TransistorComponentModel("Component Name", "Component Description", "\\Images\\transistor.png");
+            (double voltageResult, double currentResult) output = component.GetOutput(inputVoltage, inputCurrent);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new TransistorComponentModel!");
+                Assert.That(output.voltageResult, Is.EqualTo(0), $"Voltage output of a TransistorComponentModel is incorrect using {testTag}");
+                Assert.That(output.currentResult, Is.EqualTo(0), $"Current output of a TransistorComponentModel is incorrect using {testTag}");
+            });
         }
 
-        public void TransistorComponentFormattedOutput(double inputVoltage, double inputCurrent, string testTag)
+        [TestCase(TestVoltage, TestCurrent, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, "mixed numbers")]
+        [TestCase(0, 0, "zeros")]
+        public void TransistorComponentOutputOpen(double inputVoltage, double inputCurrent, string testTag)
         {
-
+            TransistorComponentModel component = new TransistorComponentModel("Component Name", "Component Description", "\\Images\\transistor.png");
+            component.UpdateState(true);
+            (double voltageResult, double currentResult) output = component.GetOutput(inputVoltage, inputCurrent);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new TransistorComponentModel!");
+                Assert.That(output.voltageResult, Is.EqualTo(inputVoltage), $"Voltage output of a TransistorComponentModel is incorrect using {testTag}");
+                Assert.That(output.currentResult, Is.EqualTo(inputCurrent), $"Current output of a TransistorComponentModel is incorrect using {testTag}");
+            });
         }
 
+        [TestCase(TestVoltage, TestCurrent, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, "mixed numbers")]
+        [TestCase(0, 0, "zeros")]
+        public void TransistorComponentFormattedOutputClosed(double inputVoltage, double inputCurrent, string testTag)
+        {
+            TransistorComponentModel component = new TransistorComponentModel("Component Name", "Component Description", "\\Images\\transistor.png");
+            string formattedOutput = component.DisplayValues(inputVoltage, inputCurrent);
+            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, 0, 0) + "\n\nTransistor State: Closed";
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new TransistorComponentModel!");
+                Assert.That(formattedOutput, Is.EqualTo(expectedOutput), $"Formatted output of a TransistorComponentModel is incorrect using {testTag}");
+            });
+        }
+
+        [TestCase(TestVoltage, TestCurrent, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, "mixed numbers")]
+        [TestCase(0, 0, "zeros")]
+        public void TransistorComponentFormattedOutputOpen(double inputVoltage, double inputCurrent, string testTag)
+        {
+            TransistorComponentModel component = new TransistorComponentModel("Component Name", "Component Description", "\\Images\\transistor.png");
+            component.UpdateState(true);
+            string formattedOutput = component.DisplayValues(inputVoltage, inputCurrent);
+            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, inputVoltage, inputCurrent) + "\n\nTransistor State: Open";
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new TransistorComponentModel!");
+                Assert.That(formattedOutput, Is.EqualTo(expectedOutput), $"Formatted output of a TransistorComponentModel is incorrect using {testTag}");
+            });
+        }
+
+        [TestCase(TestVoltage, TestCurrent, true, "positive real numbers")]
+        [TestCase(-TestVoltage, -TestCurrent, false, "negative real numbers")]
+        [TestCase(TestMixedVoltage, TestMixedCurrent, false, "mixed numbers")]
+        [TestCase(0, 0, true, "zeros")]
         public void TransistorComponentFormattedOutputVarriedState(double inputVoltage, double inputCurrent, bool state, string testTag)
         {
-
+            TransistorComponentModel component = new TransistorComponentModel("Component Name", "Component Description", "\\Images\\transistor.png");
+            component.UpdateState(state);
+            string formattedOutput = component.DisplayValues(inputVoltage, inputCurrent);
+            string expectedOutput = GetExpectedBaseComponentFormatedString(inputVoltage, inputCurrent, state ? inputVoltage : 0, state ? inputCurrent : 0) + $"\n\nTransistor State: {(state? "Open" : "Closed" )}";
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new TransistorComponentModel!");
+                Assert.That(formattedOutput, Is.EqualTo(expectedOutput), $"Formatted output of a TransistorComponentModel is incorrect using {testTag}");
+            });
         }
 
-        // Can update state?
+        [TestCase(true)]
+        [TestCase(false)]
+        public void TransistorComponentStateUpdate(bool state)
+        {
+            TransistorComponentModel component = new TransistorComponentModel("Component Name", "Component Description", "\\Images\\transistor.png");
+            component.UpdateState(state);
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotNull(component, "Failed to create new TransistorComponentModel!");
+                Assert.That(component.TransistorState, Is.EqualTo(state), "Transistor state did not update");
+            });
+        }
         #endregion
 
         #endregion
 
         #region Breadboard Model Tests
-
+        /// <summary>
+        /// NOT IMPLEMENTED YET!
+        /// </summary>
         #endregion
 
         #region Unit Model Tests
-
+        /// <summary>
+        /// NOT IMPLEMENTED YET!
+        /// </summary>
         #endregion
 
         #region Lesson Model Tests
-
+        /// <summary>
+        /// NOT IMPLEMENTED YET!
+        /// </summary>
         #endregion
 
         #region User Model Tests
-
+        /// <summary>
+        /// NOT IMPLEMENTED YET!
+        /// </summary>
         #endregion
 
         #endregion
 
         #region View Model Testing
-
+        /// <summary>
+        /// NOT IMPLEMENTED YET!
+        /// </summary>
         #endregion
 
         private string GetExpectedBaseComponentFormatedString(double inputVoltage, double inputCurrent, double outputVoltage, double outputCurrent)
