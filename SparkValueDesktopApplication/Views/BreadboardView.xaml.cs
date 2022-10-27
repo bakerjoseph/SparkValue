@@ -43,7 +43,6 @@ namespace SparkValueDesktopApplication.Views
 
         public static readonly DependencyProperty WirePlaceCommandProperty =
             DependencyProperty.Register("WirePlaceCommand", typeof(ICommand), typeof(BreadboardView), new PropertyMetadata(null));
-
         public ICommand WirePlaceCommand
         {
             get { return (ICommand)GetValue(WirePlaceCommandProperty); }
@@ -90,7 +89,7 @@ namespace SparkValueDesktopApplication.Views
                                 Image targetImage = sender as Image;
                                 if (comp?.Picture == targetImage?.Source)
                                 {
-                                    selectedComponent = comp;
+                                    selectedComponent = new ComponentViewModel(comp);
                                     break;
                                 }
                             }
@@ -302,8 +301,9 @@ namespace SparkValueDesktopApplication.Views
 
         private Image CreateNewComponent(ComponentViewModel context)
         {
+            ComponentViewModel newContext = new ComponentViewModel(context);
             Image newComponent = new Image();
-            newComponent.Source = context.Picture;
+            newComponent.Source = newContext.Picture;
             newComponent.Width = ComponentImageWidth;
             newComponent.MaxHeight = ComponentImageMaxHeight;
             newComponent.Cursor = Cursors.Hand;
@@ -312,7 +312,7 @@ namespace SparkValueDesktopApplication.Views
             newComponent.MouseMove += Component_MouseMove;
             newComponent.MouseRightButtonUp += Component_MouseRightButtonUp;
 
-            newComponent.ToolTip = CreateComponentToolTip(context);
+            newComponent.ToolTip = CreateComponentToolTip(newContext);
             newComponent.ToolTipOpening += Component_ToolTipOpening;
 
             return newComponent;

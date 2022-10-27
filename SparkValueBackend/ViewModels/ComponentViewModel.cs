@@ -80,6 +80,16 @@ namespace SparkValueBackend.ViewModels
             _position = new Point();
         }
 
+        public ComponentViewModel(ComponentViewModel oldContext)
+        {
+            _name = oldContext.Name;
+            _description = oldContext.Description;
+            _picture = oldContext.Picture;
+            _component = oldContext._component;
+            _breadboard = oldContext._breadboard;
+            _position = new Point();
+        }
+
         public void AddBreadboard(BreadboardViewModel breadboard)
         {
             _breadboard = breadboard;
