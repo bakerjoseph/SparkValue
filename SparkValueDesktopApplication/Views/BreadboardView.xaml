@@ -11,9 +11,11 @@
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
     </UserControl.Resources>
     <DockPanel>
+        <!-- Left Side Bar-->
         <ScrollViewer VerticalScrollBarVisibility="Visible">
             <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
                 <StackPanel>
+                    <!--#region Component Menu-->
                     <TextBlock HorizontalAlignment="Center" Text="Components"/>
                     <Separator/>
                     <ItemsControl x:Name="categoryList" ItemsSource="{Binding ComponentCategories}">
@@ -42,7 +44,7 @@
                                                         <Grid Margin="5">
                                                             <Image Source="{Binding Picture}" Width="75" MaxHeight="40" 
                                                                    Cursor="Hand"
-                                                                   MouseEnter="Component_MouseEnter"
+                                                                   MouseEnter="Component_MouseEnter" MouseLeave="Component_MouseLeave"
                                                                    MouseMove="Component_MouseMove" 
                                                                    MouseRightButtonUp="Component_MouseRightButtonUp" ToolTipOpening="Component_ToolTipOpening">
                                                                 <Image.ToolTip>
@@ -65,7 +67,9 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                    <!--#endregion-->
                     <Separator/>
+                    <!--#region Power Supply Menu-->
                     <TextBlock HorizontalAlignment="Center" Text="Modify the Power Supply"/>
                     <Separator/>
                     <StackPanel Margin="2 5" Orientation="Horizontal">
@@ -78,12 +82,14 @@
                         <TextBox Width="50" Height="22" Text="{Binding BreadboardCurrent, Mode=TwoWay}" PreviewTextInput="NumericBox_PreviewTextInput"/>
                         <TextBlock Padding="0" Text="Amp(s)"/>
                     </StackPanel>
+                    <!--#endregion-->
                 </StackPanel>
             </Border>
         </ScrollViewer>
         
 
         <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <!-- Top Bar Commands -->
             <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -94,6 +100,7 @@
                 <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
             </Grid>
 
+            <!-- Breadboard-->
             <Canvas 
                 x:Name="breadboard" 
                 Margin="20" 
@@ -138,6 +145,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Visibility Toggles -->
                 <Border Grid.Column="0" Background="LightSlateGray">
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Center" Text="Visibility Filter Toggle" TextDecorations="Underline"/>
@@ -146,6 +154,7 @@
                     </StackPanel>
                 </Border>
 
+                <!-- Component Trash Can -->
                 <Canvas 
                         x:Name="trashCan" 
                         Height="30" 
@@ -159,6 +168,7 @@
                             Text="Delete Component" Foreground="White"/>
                 </Canvas>
 
+                <!-- Selected Component Information -->
                 <Border Grid.Column="2" Background="LightSlateGray" Width="250">
                     <Border.Visibility>
                         <MultiBinding Converter="{StaticResource ComponentDescriptionBoxVisibilityConverter}">

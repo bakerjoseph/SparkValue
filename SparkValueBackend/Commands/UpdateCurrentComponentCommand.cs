@@ -27,6 +27,11 @@ namespace SparkValueBackend.Commands
                 _breadboard.SelectedComponentName = compVM?.Name ?? string.Empty;
                 _breadboard.SelectedComponentDescription = compVM?.Description ?? string.Empty;
             }
+            else
+            {
+                _breadboard.SelectedComponentName = string.Empty;
+                _breadboard.SelectedComponentDescription = string.Empty;
+            }
         }
     }
 }

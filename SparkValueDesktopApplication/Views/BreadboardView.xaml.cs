@@ -111,6 +111,14 @@ namespace SparkValueDesktopApplication.Views
             }
         }
 
+        private void Component_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (UpdateCurrentComponentCommand.CanExecute(null))
+            {
+                UpdateCurrentComponentCommand?.Execute(null);
+            }
+        }
+
         private void breadboard_Drop(object sender, DragEventArgs e)
         {
             (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
