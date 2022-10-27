@@ -173,7 +173,7 @@ namespace SparkValueDesktopApplication.Views
             {
                 Line line = new Line();
                 if (!(bool)wireVis.IsChecked) line.Visibility = Visibility.Hidden;
-                line.Stroke = SystemColors.WindowFrameBrush;
+                line.Stroke = new SolidColorBrush((wireColorPicker.SelectedColor != null) ? (Color)wireColorPicker.SelectedColor : Colors.Black);
                 line.StrokeThickness = 2;
                 line.X1 = currentPoint.X;
                 line.Y1 = currentPoint.Y;

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
              xmlns:converter="clr-namespace:SparkValueDesktopApplication.Converters"
+             xmlns:wpfEX="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
     <UserControl.Resources>
@@ -95,9 +96,45 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand }" CommandParameter="{Binding ElementName=breadboard}"/>
-                <Button Grid.Column="2" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
+                <Border Grid.Column="2" Background="LightSteelBlue" CornerRadius="15">
+                    <StackPanel Orientation="Horizontal">
+                        <wpfEX:ColorPicker  x:Name="wireColorPicker" VerticalAlignment="Center" Margin="5" Width="55" Height="35" 
+                                            SelectedColor="Black" ToolTip="Wire Color" ShowStandardColors="False" UsingAlphaChannel="False"/>
+                        <ComboBox x:Name="wireWidth" Margin="5" Width="100" Height="35" VerticalAlignment="Center" SelectedIndex="0"
+                                  ToolTip="Wire Size">
+                            <ComboBoxItem x:Name="wireSmall">
+                                <ComboBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Line X1="5" Y1="2" X2="5" Y2="30" Stroke="Black" StrokeThickness="2"/>
+                                        <TextBlock Text="Small"/>
+                                    </StackPanel>
+                                </ComboBoxItem.Content>
+                            </ComboBoxItem>
+                            <ComboBoxItem x:Name="wireMedium">
+                                <ComboBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Line X1="5" Y1="2" X2="5" Y2="30" Stroke="Black" StrokeThickness="4"/>
+                                        <TextBlock Text="Medium"/>
+                                    </StackPanel>
+                                </ComboBoxItem.Content>
+                            </ComboBoxItem>
+                            <ComboBoxItem x:Name="wireLarge">
+                                <ComboBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Line X1="5" Y1="2" X2="5" Y2="30" Stroke="Black" StrokeThickness="5"/>
+                                        <TextBlock Text="Large"/>
+                                    </StackPanel>
+                                </ComboBoxItem.Content>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        
+                    </StackPanel>
+                </Border>
+                <Button Grid.Column="4" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
             </Grid>
 
             <!-- Breadboard-->
