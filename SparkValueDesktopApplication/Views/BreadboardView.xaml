@@ -46,10 +46,10 @@
                                                                    MouseMove="Component_MouseMove" 
                                                                    MouseRightButtonUp="Component_MouseRightButtonUp" ToolTipOpening="Component_ToolTipOpening">
                                                                 <Image.ToolTip>
-                                                                    <ToolTip>
+                                                                    <ToolTip ToolTipOpening="Component_ToolTipOpening">
                                                                         <StackPanel>
-                                                                            <TextBlock Text="{Binding Name}" TextDecorations="Underline"/>
-                                                                            <TextBlock Text="{Binding DisplayComponent}"/>
+                                                                            <TextBlock x:Name="CompName" Text="{Binding Name}" TextDecorations="Underline"/>
+                                                                            <TextBlock x:Name="CompDisplay" Text="{Binding DisplayComponent}"/>
                                                                         </StackPanel>
                                                                     </ToolTip>
                                                                 </Image.ToolTip>

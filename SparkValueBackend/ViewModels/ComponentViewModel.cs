@@ -71,8 +71,6 @@ namespace SparkValueBackend.ViewModels
 
         private BreadboardViewModel _breadboard;
 
-        public ComponentViewModel() { }
-
         public ComponentViewModel(IComponentModel component)
         {
             _name = component.Name;

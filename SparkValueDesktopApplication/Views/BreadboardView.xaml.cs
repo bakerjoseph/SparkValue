@@ -262,6 +262,14 @@ namespace SparkValueDesktopApplication.Views
                 ToolTip toolTip = (ToolTip)((Image)sender).ToolTip;
                 toolTip.HorizontalOffset = 0;
                 toolTip.VerticalOffset = 0;
+
+                StackPanel stackPanel = toolTip.Content as StackPanel;
+                TextBlock componentDisplayBlock = null;
+                foreach (var obj in stackPanel.Children)
+                {
+                    if (obj is TextBlock && (obj as TextBlock).Name.Equals("CompDisplay")) componentDisplayBlock = (TextBlock)obj;
+                }
+                componentDisplayBlock?.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
             }
         }
 
@@ -305,6 +313,7 @@ namespace SparkValueDesktopApplication.Views
             newComponent.MouseRightButtonUp += Component_MouseRightButtonUp;
 
             newComponent.ToolTip = CreateComponentToolTip(context);
+            newComponent.ToolTipOpening += Component_ToolTipOpening;
 
             return newComponent;
         }
@@ -314,20 +323,20 @@ namespace SparkValueDesktopApplication.Views
             // Create the textblocks with binding to the component view model
             Binding bindingName = new Binding();
             bindingName.Source = context;
-            bindingName.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
             bindingName.Path = new PropertyPath("Name");
             TextBlock compName = new TextBlock();
             BindingOperations.SetBinding(compName, TextBlock.TextProperty, bindingName);
             compName.TextDecorations = TextDecorations.Underline;
+            compName.Name = "CompName";
 
             Binding bindingValues = new Binding();
             bindingValues.Source = context;
-            bindingValues.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
             bindingValues.Path = new PropertyPath("DisplayComponent");
             TextBlock compValues = new TextBlock();
             BindingOperations.SetBinding(compValues, TextBlock.TextProperty, bindingValues);
+            compValues.Name = "CompDisplay";
 
             // Create the stack panel and add the two textblocks
             StackPanel stackPanel = new StackPanel();
