@@ -317,6 +317,7 @@ namespace SparkValueDesktopApplication.Views
             newComponent.Cursor = Cursors.Hand;
             
             newComponent.MouseEnter += Component_MouseEnter;
+            newComponent.MouseLeave += Component_MouseLeave;
             newComponent.MouseMove += Component_MouseMove;
             newComponent.MouseRightButtonUp += Component_MouseRightButtonUp;
 
