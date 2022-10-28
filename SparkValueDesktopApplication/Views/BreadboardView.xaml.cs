@@ -280,6 +280,20 @@ namespace SparkValueDesktopApplication.Views
             }
         }
 
+        private void wireColorPicker_Closed(object sender, RoutedEventArgs e)
+        {
+            foreach (ComboBoxItem item in wireWidth.Items)
+            {
+                StackPanel? content = item.Content as StackPanel;
+                if (content != null && content.Children[0] is Line)
+                {
+                    Line line = content.Children[0] as Line;
+                    MultiBindingExpression bind = BindingOperations.GetMultiBindingExpression(line, Shape.StrokeProperty);
+                    bind.UpdateTarget();
+                }
+            }
+        }
+
         /// <summary>
         /// Snap a UI element to a grid
         /// Inspired/Credit from this post https://stackoverflow.com/a/3508932

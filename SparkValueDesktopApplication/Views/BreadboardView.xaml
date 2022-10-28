@@ -104,7 +104,8 @@
                 <Border Grid.Column="2" Background="LightSteelBlue" CornerRadius="15">
                     <StackPanel Orientation="Horizontal">
                         <wpfEX:ColorPicker  x:Name="wireColorPicker" VerticalAlignment="Center" Margin="5" Width="55" Height="35" 
-                                            SelectedColor="Black" ToolTip="Wire Color" ShowStandardColors="False" UsingAlphaChannel="False"/>
+                                            SelectedColor="Black" ToolTip="Wire Color" ShowStandardColors="False" 
+                                            UsingAlphaChannel="False" Closed="wireColorPicker_Closed"/>
                         <ComboBox x:Name="wireWidth" Margin="5" Width="100" Height="35" VerticalAlignment="Center" SelectedIndex="0"
                                   ToolTip="Wire Size">
                             <ComboBoxItem x:Name="wireSmall">
@@ -124,7 +125,13 @@
                             <ComboBoxItem x:Name="wireMedium">
                                 <ComboBoxItem.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Line X1="5" Y1="2" X2="5" Y2="30" Stroke="Black" StrokeThickness="4"/>
+                                        <Line X1="5" Y1="2" X2="5" Y2="30" StrokeThickness="4">
+                                            <Line.Stroke>
+                                                <MultiBinding Converter="{StaticResource WireThicknessColorConverter}">
+                                                    <Binding ElementName="wireColorPicker"/>
+                                                </MultiBinding>
+                                            </Line.Stroke>
+                                        </Line>
                                         <TextBlock Text="Medium"/>
                                     </StackPanel>
                                 </ComboBoxItem.Content>
@@ -132,7 +139,13 @@
                             <ComboBoxItem x:Name="wireLarge">
                                 <ComboBoxItem.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Line X1="5" Y1="2" X2="5" Y2="30" Stroke="Black" StrokeThickness="5"/>
+                                        <Line X1="5" Y1="2" X2="5" Y2="30" StrokeThickness="5">
+                                            <Line.Stroke>
+                                                <MultiBinding Converter="{StaticResource WireThicknessColorConverter}">
+                                                    <Binding ElementName="wireColorPicker"/>
+                                                </MultiBinding>
+                                            </Line.Stroke>
+                                        </Line>
                                         <TextBlock Text="Large"/>
                                     </StackPanel>
                                 </ComboBoxItem.Content>
