@@ -10,6 +10,7 @@
              d:DesignHeight="500" d:DesignWidth="850">
     <UserControl.Resources>
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
+        <converter:WireThicknessColorConverter x:Key="WireThicknessColorConverter"/>
     </UserControl.Resources>
     <DockPanel>
         <!-- Left Side Bar-->
@@ -109,7 +110,13 @@
                             <ComboBoxItem x:Name="wireSmall">
                                 <ComboBoxItem.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <Line X1="5" Y1="2" X2="5" Y2="30" Stroke="Black" StrokeThickness="2"/>
+                                        <Line X1="5" Y1="2" X2="5" Y2="30" StrokeThickness="2">
+                                            <Line.Stroke>
+                                                <MultiBinding Converter="{StaticResource WireThicknessColorConverter}">
+                                                    <Binding ElementName="wireColorPicker"/>
+                                                </MultiBinding>
+                                            </Line.Stroke>
+                                        </Line>
                                         <TextBlock Text="Small"/>
                                     </StackPanel>
                                 </ComboBoxItem.Content>

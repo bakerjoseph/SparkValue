@@ -174,7 +174,7 @@ namespace SparkValueDesktopApplication.Views
                 Line line = new Line();
                 if (!(bool)wireVis.IsChecked) line.Visibility = Visibility.Hidden;
                 line.Stroke = new SolidColorBrush((wireColorPicker.SelectedColor != null) ? (Color)wireColorPicker.SelectedColor : Colors.Black);
-                line.StrokeThickness = 2;
+                line.StrokeThickness = GetWireThickness();
                 line.X1 = currentPoint.X;
                 line.Y1 = currentPoint.Y;
                 line.X2 = e.GetPosition(breadboard).X;
@@ -357,6 +357,17 @@ namespace SparkValueDesktopApplication.Views
             toolTip.Content = stackPanel;
 
             return toolTip;
+        }
+
+        private double GetWireThickness()
+        {
+            ComboBoxItem comboBoxItem = (ComboBoxItem)wireWidth.SelectedItem;
+            StackPanel? content = comboBoxItem.Content as StackPanel;
+            if (content != null)
+            {
+                return (content.Children[0] is Line) ? ((Line)content.Children[0]).StrokeThickness : 2;
+            }
+            else return 2;
         }
     }
 }
