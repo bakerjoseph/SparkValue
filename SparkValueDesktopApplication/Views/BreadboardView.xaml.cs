@@ -27,6 +27,8 @@ namespace SparkValueDesktopApplication.Views
         private Point startPoint = new Point();
         private Point currentPoint = new Point();
 
+        private const double EraserMargin = 2;
+
         private const double GridSize = 24.9;
 
         private const int ComponentImageWidth = 75;
@@ -163,13 +165,16 @@ namespace SparkValueDesktopApplication.Views
 
         private void breadboard_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            startPoint = e.GetPosition(breadboard);
-            currentPoint = e.GetPosition(breadboard);
+            if (breadboard.Cursor == Cursors.Pen)
+            {
+                startPoint = e.GetPosition(breadboard);
+                currentPoint = e.GetPosition(breadboard);
+            }
         }
 
         private void breadboard_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed && breadboard.Cursor == Cursors.Pen)
             {
                 Line line = new Line();
                 if (!(bool)wireVis.IsChecked) line.Visibility = Visibility.Hidden;
@@ -188,12 +193,17 @@ namespace SparkValueDesktopApplication.Views
 
         private void breadboard_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (WirePlaceCommand.CanExecute(null))
+            if (WirePlaceCommand.CanExecute(null) && breadboard.Cursor == Cursors.Pen)
             {
                 WireModel wire = new WireModel(startPoint, e.GetPosition(breadboard), 
                     (width: positiveRail.ActualWidth, height: positiveRail.ActualHeight, offset: positiveBorder.Margin, borderThickness: positiveBorder.BorderThickness),
                     (width: negativeRail.ActualWidth, height: negativeRail.ActualHeight, offset: negativeBorder.Margin, borderThickness: negativeBorder.BorderThickness));
                 WirePlaceCommand?.Execute(wire);
+            }
+            else
+            {
+                (Point start, Point end)? removed = RemoveLine(e.GetPosition(breadboard));
+                // Still needs a call to the UpdateBreadboardWireCommand to remove the wire from the list
             }
         }
 
@@ -205,7 +215,7 @@ namespace SparkValueDesktopApplication.Views
         private void trashCan_Drop(object sender, DragEventArgs e)
         {
             (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
-
+            // Still neds a call to the UpdateBreadboardComponentCommand to remove the component from the list
             trashCan.Children.Remove(data.Item1);
         }
 
@@ -333,6 +343,70 @@ namespace SparkValueDesktopApplication.Views
 
             Canvas.SetLeft(element, xSnap);
             Canvas.SetTop(element, ySnap);
+        }
+
+        private (Point start, Point end)? RemoveLine(Point origin)
+        {
+            Line lineAtPoint = null;
+            // Go through each UIElement searching for a wire that is at the position passed in
+            foreach (var elm in breadboard.Children)
+            {
+                if (elm is Line)
+                {
+                    Line line = (Line)elm;
+                    if ((line.X1 <= origin.X + EraserMargin && line.X1 >= origin.X - EraserMargin && line.Y1 <= origin.Y + EraserMargin && line.Y1 >= origin.Y - EraserMargin) 
+                        || (line.X2 <= origin.X + EraserMargin && line.X2 >= origin.X - EraserMargin && line.Y2 <= origin.Y + EraserMargin && line.Y2 >= origin.Y - EraserMargin))
+                    {
+                        lineAtPoint = line;
+                        break;
+                    }
+                }
+            }
+
+            // If you found a wire, get the index and traverse to both ends of the wire,
+            // then remove all of the lines from the breadboard,
+            // returning the start and end points of the wire
+            if (lineAtPoint != null)
+            {
+                List<Line> linesToRemove = new List<Line>();
+                int index = breadboard.Children.IndexOf(lineAtPoint);
+                linesToRemove.AddRange(RemoveLine(index + 1, new Point(lineAtPoint.X2, lineAtPoint.Y2), new List<Line>(), "up"));
+                linesToRemove.Add(lineAtPoint);
+                linesToRemove.AddRange(RemoveLine(index - 1, new Point(lineAtPoint.X1, lineAtPoint.Y1), new List<Line>(), "down"));
+                linesToRemove.Distinct();
+                foreach (Line l in linesToRemove)
+                {
+                    breadboard.Children.Remove(l);
+                }
+                // Logic here for start and end points!
+                return (new Point(), new Point());
+            }
+            else return null;
+        }
+
+        private List<Line> RemoveLine(int index, Point origin, List<Line> removeList, string direction)
+        {
+            if (index > 0 && index < breadboard.Children.Count && breadboard.Children[index] is Line)
+            {
+                Line line = (Line)breadboard.Children[index];
+                if (direction.Equals("up"))
+                {
+                    if (line.X1 == origin.X && line.Y1 == origin.Y)
+                    {
+                        removeList.Add(line);
+                        removeList = RemoveLine(index + 1, new Point(line.X2, line.Y2), removeList, direction);
+                    }
+                }
+                else if (direction.Equals("down"))
+                {
+                    if (line.X2 == origin.X && line.Y2 == origin.Y)
+                    {
+                        removeList.Add(line);
+                        removeList = RemoveLine(index - 1, new Point(line.X1, line.Y1), removeList, direction);
+                    }
+                }
+            }
+            return removeList;
         }
 
         private Image CreateNewComponent(ComponentViewModel context)
