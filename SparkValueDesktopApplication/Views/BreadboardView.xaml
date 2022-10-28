@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
         <converter:WireThicknessColorConverter x:Key="WireThicknessColorConverter"/>
+        <converter:BreadboardCursorConverter x:Key="BreadboardCursorConverter"/>
     </UserControl.Resources>
     <DockPanel>
         <!-- Left Side Bar-->
@@ -90,20 +91,21 @@
         </ScrollViewer>
         
 
+        <!-- Right Side Content -->
         <StackPanel DockPanel.Dock="Right" Margin="5 0 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <!-- Top Bar Commands -->
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand }" CommandParameter="{Binding ElementName=breadboard}"/>
-                <Border Grid.Column="2" Background="LightSteelBlue" CornerRadius="15">
-                    <StackPanel Orientation="Horizontal">
-                        <wpfEX:ColorPicker  x:Name="wireColorPicker" VerticalAlignment="Center" Margin="5" Width="55" Height="35" 
+            <!-- Top Bar Items -->
+            <Border Background="LightSlateGray" CornerRadius="20">
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Clear the Breadboard" Command="{Binding ClearCommand }" CommandParameter="{Binding ElementName=breadboard}"/>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <wpfEX:ColorPicker  x:Name="wireColorPicker" VerticalAlignment="Center" Width="55" Height="35" 
                                             SelectedColor="Black" ToolTip="Wire Color" ShowStandardColors="False" 
                                             UsingAlphaChannel="False" Closed="wireColorPicker_Closed"/>
                         <ComboBox x:Name="wireWidth" Margin="5" Width="100" Height="35" VerticalAlignment="Center" SelectedIndex="0"
@@ -151,18 +153,19 @@
                                 </ComboBoxItem.Content>
                             </ComboBoxItem>
                         </ComboBox>
-                        
+                        <ToggleButton x:Name="wireTool" Content="Pen" Width="70" Height="35" ToolTip="Change Tool"
+                                      Checked="wireTool_Checked" Unchecked="wireTool_Unchecked"/>
                     </StackPanel>
-                </Border>
-                <Button Grid.Column="4" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
-            </Grid>
+                    <Button Grid.Column="4" Content="Return to Menu" Command="{Binding MenuNavigateCommand}"/>
+                </Grid>
+            </Border>
+            
 
-            <!-- Breadboard-->
+            <!-- Breadboard -->
             <Canvas 
                 x:Name="breadboard" 
                 Margin="20" 
                 Width="550" Height="200" 
-                Cursor="Pen"
                 AllowDrop="True" Drop="breadboard_Drop" DragOver="breadboard_DragOver" DragLeave="canvas_DragLeave"
                 MouseLeftButtonDown="breadboard_MouseDown" MouseMove="breadboard_MouseMove" MouseLeftButtonUp="breadboard_MouseUp">
                 <Canvas.Background>
@@ -180,6 +183,11 @@
                         </VisualBrush.Visual>
                     </VisualBrush>
                 </Canvas.Background>
+                <Canvas.Cursor>
+                    <MultiBinding Converter="{StaticResource BreadboardCursorConverter}">
+                        <Binding ElementName="wireTool"/>
+                    </MultiBinding>
+                </Canvas.Cursor>
                 <!--#region Power Rails-->
                 <Rectangle Width="550" Height="49.5" Panel.ZIndex="0" Fill="LightGoldenrodYellow"/>
                 <Polygon Points="5,0 10,0 10,5 15,5 15,10 10,10 10,15 5,15 5,10 0,10 0,5 5,5" Fill="White" Canvas.Left="2.5" Canvas.Top="6" Panel.ZIndex="1"/>
@@ -195,6 +203,7 @@
                 <!--#endregion-->
             </Canvas>
 
+             <!-- Bottom Bar Items -->
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>

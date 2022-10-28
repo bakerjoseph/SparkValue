@@ -294,6 +294,20 @@ namespace SparkValueDesktopApplication.Views
             }
         }
 
+        private void wireTool_Checked(object sender, RoutedEventArgs e)
+        {
+            wireTool.Content = "Erasor";
+            MultiBindingExpression bind = BindingOperations.GetMultiBindingExpression(breadboard, CursorProperty);
+            bind.UpdateTarget();
+        }
+
+        private void wireTool_Unchecked(object sender, RoutedEventArgs e)
+        {
+            wireTool.Content = "Pen";
+            MultiBindingExpression bind = BindingOperations.GetMultiBindingExpression(breadboard, CursorProperty);
+            bind.UpdateTarget();
+        }
+
         /// <summary>
         /// Snap a UI element to a grid
         /// Inspired/Credit from this post https://stackoverflow.com/a/3508932

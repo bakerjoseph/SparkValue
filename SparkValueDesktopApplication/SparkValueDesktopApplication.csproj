@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Cursors\Eraser.cur" />
     <None Remove="Images\capacitor.png" />
     <None Remove="Images\diode.png" />
     <None Remove="Images\led.png" />
@@ -27,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Cursors\Eraser.cur" />
     <Resource Include="Images\capacitor.png" />
     <Resource Include="Images\diode.png" />
     <Resource Include="Images\led.png" />
