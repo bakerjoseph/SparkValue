@@ -207,7 +207,7 @@ namespace SparkValueDesktopApplication.Views
 
         private void breadboard_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (WirePlaceCommand.CanExecute(null) && breadboard.Cursor == Cursors.Pen)
+            if (WirePlaceCommand.CanExecute(null) && breadboard.Cursor == Cursors.Pen && startPoint != e.GetPosition(breadboard))
             {
                 WireModel wire = new WireModel(startPoint, e.GetPosition(breadboard), 
                     (width: positiveRail.ActualWidth, height: positiveRail.ActualHeight, offset: positiveBorder.Margin, borderThickness: positiveBorder.BorderThickness),
