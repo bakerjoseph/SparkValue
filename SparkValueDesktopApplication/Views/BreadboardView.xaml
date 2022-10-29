@@ -12,22 +12,22 @@
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
         <converter:WireThicknessColorConverter x:Key="WireThicknessColorConverter"/>
         <converter:BreadboardCursorConverter x:Key="BreadboardCursorConverter"/>
-        <ContextMenu x:Key="ResistanceMenu">
+        <ContextMenu Width="240" x:Key="ResistanceMenu">
             <MenuItem>
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Change Resistance: "/>
-                        <TextBox x:Name="ResistanceValue" MinWidth="80" Text="{Binding ResistanceValue}" PreviewTextInput="NumericBox_PreviewTextInput"/>
+                        <TextBox x:Name="ResistanceValue" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="70" Text="{Binding ResistanceValue}" PreviewTextInput="NumericBox_PreviewTextInput"/>
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
         </ContextMenu>
-        <ContextMenu x:Key="CapacitanceMenu">
+        <ContextMenu Width="250" x:Key="CapacitanceMenu">
             <MenuItem>
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Change Capacitance: "/>
-                        <TextBox x:Name="CapacitanceValue" MinWidth="80" Text="{Binding CapacitanceValue}" PreviewTextInput="NumericBox_PreviewTextInput"/>
+                        <TextBox x:Name="CapacitanceValue" VerticalAlignment="Center" VerticalContentAlignment="Center" MinWidth="70" Text="{Binding CapacitanceValue}" PreviewTextInput="NumericBox_PreviewTextInput"/>
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
