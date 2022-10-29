@@ -131,6 +131,19 @@ namespace SparkValueDesktopApplication.Views
                 SnapToGrid(data.Item1);
                 Point dropPosition = new Point(Canvas.GetLeft(data.Item1), Canvas.GetTop(data.Item1));
                 ComponentPlaceCommand?.Execute((data.Item2, dropPosition));
+
+                // Open the context menu on placement of a resistor or capacitor component
+                // They should be the only types of components that have context menus at this time
+                if (data.Item1.ContextMenu != null)
+                {
+                    data.Item1.ContextMenu.IsOpen = true;
+                }
+                // Create and open the context menu on placement of a resistor or capacitor component
+                else if (data.Item2.GetTypeOfComponent() == typeof(ResistorComponentModel) || data.Item2.GetTypeOfComponent() == typeof(CapacitorComponentModel))
+                {
+                    data.Item1.ContextMenu = CreateContextMenu(data.Item2);
+                    data.Item1.ContextMenu.IsOpen = true;
+                }
             }
             
         }
@@ -277,24 +290,11 @@ namespace SparkValueDesktopApplication.Views
                 }
 
                 // Check if the type of image is a resistor or capacitor component
+                // and create the context menu if needed
                 ComponentViewModel viewModel = (ComponentViewModel)img.DataContext;
-                if (viewModel.GetTypeOfComponent() == typeof(ResistorComponentModel))
+                if (img.ContextMenu == null && (viewModel.GetTypeOfComponent() == typeof(ResistorComponentModel) || viewModel.GetTypeOfComponent() == typeof(CapacitorComponentModel)))
                 {
-                    // Add the resistor context menu if it does not exist
-                    if (img.ContextMenu == null)
-                    {
-                        img.ContextMenu = (ContextMenu)Resources["ResistanceMenu"];
-                        img.ContextMenu.DataContext = viewModel.GetComponentViewModel();
-                    }
-                }
-                else if (viewModel.GetTypeOfComponent() == typeof(CapacitorComponentModel))
-                {
-                    // Add the capacitor context menu if it does not exist
-                    if (img.ContextMenu == null)
-                    {
-                        img.ContextMenu = (ContextMenu)Resources["CapacitanceMenu"];
-                        img.ContextMenu.DataContext = viewModel.GetComponentViewModel();
-                    }
+                    img.ContextMenu = CreateContextMenu(viewModel);
                 }
             }
         }
@@ -498,6 +498,22 @@ namespace SparkValueDesktopApplication.Views
             toolTip.Content = stackPanel;
 
             return toolTip;
+        }
+
+        private ContextMenu CreateContextMenu(ComponentViewModel typeToCreate)
+        {
+            ContextMenu menu = new ContextMenu();
+            if (typeToCreate.GetTypeOfComponent() == typeof(ResistorComponentModel))
+            {
+                menu = (ContextMenu)Resources["ResistanceMenu"];
+                menu.DataContext = typeToCreate.GetComponentViewModel();
+            }
+            else if (typeToCreate.GetTypeOfComponent() == typeof(CapacitorComponentModel))
+            {
+                menu = (ContextMenu)Resources["CapacitanceMenu"];
+                menu.DataContext= typeToCreate.GetComponentViewModel();
+            }
+            return menu;
         }
 
         private double GetWireThickness()
