@@ -37,7 +37,12 @@ namespace SparkValueBackend.Commands
                     ComponentViewModel oldComp = _breadboard.PlacedComponents.First(comp => comp.ComponentId.Equals(component.ComponentId));
                     oldComp = component;
                 }
-                MessageBox.Show($"Component: {component.Name} Dropped at: ({component.Position.X.ToString("0")}, {component.Position.Y.ToString("0")})");
+            }
+            else if (parameter != null && parameter is ComponentViewModel)
+            {
+                ComponentViewModel removingComponent = (ComponentViewModel)parameter;
+                if (_breadboard.PlacedComponents.Contains(removingComponent)) _breadboard.PlacedComponents.Remove(removingComponent);
+                // If it is not removed, that could mean that it was never on the breadboard or there is another problem
             }
         }
     }

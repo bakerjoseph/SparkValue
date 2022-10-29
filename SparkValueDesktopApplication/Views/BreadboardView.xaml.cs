@@ -91,7 +91,7 @@ namespace SparkValueDesktopApplication.Views
                                 Image targetImage = sender as Image;
                                 if (comp?.Picture == targetImage?.Source)
                                 {
-                                    selectedComponent = new ComponentViewModel(comp);
+                                    selectedComponent = comp;
                                     break;
                                 }
                             }
@@ -200,10 +200,10 @@ namespace SparkValueDesktopApplication.Views
                     (width: negativeRail.ActualWidth, height: negativeRail.ActualHeight, offset: negativeBorder.Margin, borderThickness: negativeBorder.BorderThickness));
                 WirePlaceCommand?.Execute(wire);
             }
-            else
+            else if (WirePlaceCommand.CanExecute(null) && breadboard.Cursor != Cursors.Pen)
             {
                 (Point start, Point end)? removed = RemoveLine(e.GetPosition(breadboard));
-                // Still needs a call to the UpdateBreadboardWireCommand to remove the wire from the list
+                if (removed != null) WirePlaceCommand?.Execute(removed);
             }
         }
 
@@ -215,7 +215,12 @@ namespace SparkValueDesktopApplication.Views
         private void trashCan_Drop(object sender, DragEventArgs e)
         {
             (Image, ComponentViewModel) data = ((Image, ComponentViewModel))e.Data.GetData(DataFormats.Serializable);
-            // Still neds a call to the UpdateBreadboardComponentCommand to remove the component from the list
+            
+            if (ComponentPlaceCommand.CanExecute(null))
+            {
+                ComponentPlaceCommand?.Execute(data.Item2);
+            }
+
             trashCan.Children.Remove(data.Item1);
         }
 
@@ -370,17 +375,24 @@ namespace SparkValueDesktopApplication.Views
             {
                 List<Line> linesToRemove = new List<Line>();
                 int index = breadboard.Children.IndexOf(lineAtPoint);
+                // Traverse to upper wire end
                 linesToRemove.AddRange(RemoveLine(index + 1, new Point(lineAtPoint.X2, lineAtPoint.Y2), new List<Line>(), "up"));
                 linesToRemove.Add(lineAtPoint);
+                // Traverse to lower wire end
                 linesToRemove.AddRange(RemoveLine(index - 1, new Point(lineAtPoint.X1, lineAtPoint.Y1), new List<Line>(), "down"));
+                // Make sure there are no duplicate lines
                 linesToRemove.Distinct();
+
+                // Remove every line from the children collection
                 foreach (Line l in linesToRemove)
                 {
                     breadboard.Children.Remove(l);
                 }
-                // Logic here for start and end points!
-                return (new Point(), new Point());
+
+                // Start point is at the begining of the list and the end poin is at the end of the list
+                return (new Point(linesToRemove[0].X1, linesToRemove[0].Y1), new Point(linesToRemove[linesToRemove.Count - 1].X2, linesToRemove[linesToRemove.Count - 1].Y2));
             }
+            // No line was found to remove from the children collection
             else return null;
         }
 
@@ -388,20 +400,25 @@ namespace SparkValueDesktopApplication.Views
         {
             if (index > 0 && index < breadboard.Children.Count && breadboard.Children[index] is Line)
             {
+                // Get the line at the index, make sure it is in the bounds of the children collection
                 Line line = (Line)breadboard.Children[index];
                 if (direction.Equals("up"))
                 {
+                    // Is the next line above the previous one a part of the wire we are trying to erase?
                     if (line.X1 == origin.X && line.Y1 == origin.Y)
                     {
-                        removeList.Add(line);
+                        // Keep going up the line until the end is found
                         removeList = RemoveLine(index + 1, new Point(line.X2, line.Y2), removeList, direction);
+                        removeList.Add(line);
                     }
                 }
                 else if (direction.Equals("down"))
                 {
+                    // Is the next line below the previous one a part of the wire we are trying to erase?
                     if (line.X2 == origin.X && line.Y2 == origin.Y)
                     {
                         removeList.Add(line);
+                        // Keep going down the line until the end is found
                         removeList = RemoveLine(index - 1, new Point(line.X1, line.Y1), removeList, direction);
                     }
                 }
