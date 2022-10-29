@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SparkValueBackend.Models.Components;
 
 namespace SparkValueDesktopApplication.Views
 {
@@ -267,11 +268,32 @@ namespace SparkValueDesktopApplication.Views
                         }
                     }
                     // Create and add an adorner to the image
-                    // If it is on the breadboard, not in the menu, and there are no other adorners on teh image
+                    // If it is on the breadboard, not in the menu, and there are no other adorners on the image
                     else if (comp.Position.X != 0 && comp.Position.Y != 0)
                     {
                         ComponentAdorner adorner = new ComponentAdorner(img);
                         adornerLayer.Add(adorner);
+                    }
+                }
+
+                // Check if the type of image is a resistor or capacitor component
+                ComponentViewModel viewModel = (ComponentViewModel)img.DataContext;
+                if (viewModel.GetTypeOfComponent() == typeof(ResistorComponentModel))
+                {
+                    // Add the resistor context menu if it does not exist
+                    if (img.ContextMenu == null)
+                    {
+                        img.ContextMenu = (ContextMenu)Resources["ResistanceMenu"];
+                        img.ContextMenu.DataContext = viewModel.GetComponentViewModel();
+                    }
+                }
+                else if (viewModel.GetTypeOfComponent() == typeof(CapacitorComponentModel))
+                {
+                    // Add the capacitor context menu if it does not exist
+                    if (img.ContextMenu == null)
+                    {
+                        img.ContextMenu = (ContextMenu)Resources["CapacitanceMenu"];
+                        img.ContextMenu.DataContext = viewModel.GetComponentViewModel();
                     }
                 }
             }

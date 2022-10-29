@@ -12,9 +12,29 @@
         <converter:ComponentDescriptionBoxVisibilityConverter x:Key="ComponentDescriptionBoxVisibilityConverter"/>
         <converter:WireThicknessColorConverter x:Key="WireThicknessColorConverter"/>
         <converter:BreadboardCursorConverter x:Key="BreadboardCursorConverter"/>
+        <ContextMenu x:Key="ResistanceMenu">
+            <MenuItem>
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Change Resistance: "/>
+                        <TextBox x:Name="ResistanceValue" MinWidth="80" Text="{Binding ResistanceValue}" PreviewTextInput="NumericBox_PreviewTextInput"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="CapacitanceMenu">
+            <MenuItem>
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Change Capacitance: "/>
+                        <TextBox x:Name="CapacitanceValue" MinWidth="80" Text="{Binding CapacitanceValue}" PreviewTextInput="NumericBox_PreviewTextInput"/>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+        </ContextMenu>
     </UserControl.Resources>
     <DockPanel>
-        <!-- Left Side Bar-->
+        <!-- Left Side Bar -->
         <ScrollViewer VerticalScrollBarVisibility="Visible">
             <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
                 <StackPanel>
@@ -160,7 +180,6 @@
                 </Grid>
             </Border>
             
-
             <!-- Breadboard -->
             <Canvas 
                 x:Name="breadboard" 

@@ -95,6 +95,23 @@ namespace SparkValueBackend.ViewModels
             _breadboard = breadboard;
         }
 
+        public Type GetTypeOfComponent()
+        {
+            return _component.GetType();
+        }
+        public ComponentViewModel GetComponentViewModel()
+        {
+            if (GetTypeOfComponent() == typeof(ResistorComponentModel))
+            {
+                return new ResistorViewModel((ResistorComponentModel)_component);
+            }
+            else if (GetTypeOfComponent() == typeof(CapacitorComponentModel))
+            {
+                return new CapacitorViewModel((CapacitorComponentModel)_component);
+            }
+            return this;
+        }
+
         /// <summary>
         /// Get the output of the component using its model class methods.
         /// </summary>
