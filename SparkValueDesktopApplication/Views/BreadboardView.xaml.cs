@@ -69,40 +69,20 @@ namespace SparkValueDesktopApplication.Views
         {
             if(e.LeftButton == MouseButtonState.Pressed)
             {
-                ComponentViewModel selectedComponent = null;
-                foreach (var item in categoryList.Items)
-                {
-                    //UIElement element = (UIElement)categoryList.ItemContainerGenerator.ContainerFromItem(item);
-                    ContentPresenter container = categoryList.ItemContainerGenerator.ContainerFromItem(item) as ContentPresenter;
-                    container.ApplyTemplate();
-
-                    Expander? expander = container.ContentTemplate.FindName("dropDown", container) as Expander;
-                    ItemsControl? itemsControl = container.ContentTemplate.FindName("componentList", container) as ItemsControl;
-
-                    if (selectedComponent != null) break;
-
-                    if (expander != null && itemsControl != null && expander.IsExpanded)
-                    {
-                        if (itemsControl.Items.Count <= 0) break;
-                        foreach (var component in itemsControl.Items)
-                        {
-                            if(component.GetType() == typeof(ComponentViewModel))
-                            {
-                                ComponentViewModel comp = component as ComponentViewModel;
-                                Image targetImage = sender as Image;
-                                if (comp?.Picture == targetImage?.Source)
-                                {
-                                    selectedComponent = comp;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
                 Image image = sender as Image;
-                image.Source = selectedComponent?.Picture;
-                image.DataContext = selectedComponent;
-                DragDrop.DoDragDrop((DependencyObject)sender, new DataObject(DataFormats.Serializable, (image, selectedComponent)), DragDropEffects.Move);
+                if (image?.DataContext is ComponentViewModel)
+                {
+                    image.Source = ((ComponentViewModel)image.DataContext).Picture;
+                    ((ToolTip)image.ToolTip).DataContext = (ComponentViewModel)image.DataContext;
+                    DragDrop.DoDragDrop((DependencyObject)sender, new DataObject(DataFormats.Serializable, (image, (ComponentViewModel)image.DataContext)), DragDropEffects.Move);
+                }
+                else if ((image?.ToolTip as ToolTip).DataContext is ComponentViewModel)
+                {
+                    ComponentViewModel vm = (ComponentViewModel)(image?.ToolTip as ToolTip).DataContext;
+                    image.Source = vm.Picture;
+                    ((ToolTip)image.ToolTip).DataContext = vm;
+                    DragDrop.DoDragDrop((DependencyObject)sender, new DataObject(DataFormats.Serializable, (image, vm)), DragDropEffects.Move);
+                }
             }
         }
 
@@ -456,6 +436,7 @@ namespace SparkValueDesktopApplication.Views
             newComponent.Width = ComponentImageWidth;
             newComponent.MaxHeight = ComponentImageMaxHeight;
             newComponent.Cursor = Cursors.Hand;
+            newComponent.DataContext = newContext;
             
             newComponent.MouseEnter += Component_MouseEnter;
             newComponent.MouseLeave += Component_MouseLeave;
