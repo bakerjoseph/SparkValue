@@ -165,14 +165,14 @@ namespace SparkValueBackend.ViewModels
                 List<ComponentViewModel> visitedComponents = new List<ComponentViewModel>();
 
                 // Traverse Left, wire checking first and then component checking
-                List<WireModel> leftColumnWireMatches = GetColumnMatches(currentComponent.Position.X);
+                List<WireModel> leftColumnWireMatches = GetColumnMatches(currentComponent.Position.X, new List<object>(visitedComponents));
                 foreach (WireModel leftWire in leftColumnWireMatches)
                 {
                     (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseWire(leftWire, GetOppositeEndOfWire(leftWire, currentComponent.Position.X), visitedComponents);
                     visitedComponents = result.visitedComponents;
                     positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
                 }
-                List<ComponentViewModel> leftColumnComponentMatches = GetComponentConnections(currentComponent, currentComponent.Position.X);
+                List<ComponentViewModel> leftColumnComponentMatches = GetComponentConnections(currentComponent, currentComponent.Position.X, new List<object>(visitedComponents));
                 foreach (ComponentViewModel leftComp in leftColumnComponentMatches)
                 {
                     visitedComponents.Add(leftComp);
@@ -186,14 +186,14 @@ namespace SparkValueBackend.ViewModels
                 {
                     // Traverse Right, wire checking first and then component checking
                     double rightColumn = GetOppositeEndOfComponent(currentComponent, currentComponent.Position.X);
-                    List<WireModel> rightColumnWireMatches = GetColumnMatches(rightColumn);
+                    List<WireModel> rightColumnWireMatches = GetColumnMatches(rightColumn, new List<object>(visitedComponents));
                     foreach (WireModel rightWire in rightColumnWireMatches)
                     {
                         (bool positiveRailFound, List<ComponentViewModel> visitedComponents) result = TraverseWire(rightWire, GetOppositeEndOfWire(rightWire, rightColumn), visitedComponents);
                         visitedComponents = result.visitedComponents;
                         positiveRailFound = (!positiveRailFound) ? result.positiveRailFound : positiveRailFound;
                     }
-                    List<ComponentViewModel> rightColumnCompMatches = GetComponentConnections(currentComponent, rightColumn);
+                    List<ComponentViewModel> rightColumnCompMatches = GetComponentConnections(currentComponent, rightColumn, new List<object>(visitedComponents));
                     foreach (ComponentViewModel rightComp in rightColumnCompMatches)
                     {
                         visitedComponents.Add(rightComp);
@@ -258,7 +258,7 @@ namespace SparkValueBackend.ViewModels
                 else if (wire.IsGounded) return (false, visitedComps);
                 else
                 {
-                    List<WireModel> connectedWires = GetWireConnections(wire, wireOrigin);
+                    List<WireModel> connectedWires = GetWireConnections(wire, wireOrigin, new List<object>(visitedComps));
                     // Wire connected to other wire, traverse it!
                     if (connectedWires.Any())
                     {
@@ -270,7 +270,7 @@ namespace SparkValueBackend.ViewModels
                         }
                     }
 
-                    List<ComponentViewModel> connectedComps = GetComponentConnections(wireOrigin);
+                    List<ComponentViewModel> connectedComps = GetComponentConnections(wireOrigin, new List<object>(visitedComps));
                     // Wire connected to component
                     if (connectedComps.Any())
                     {
@@ -307,7 +307,7 @@ namespace SparkValueBackend.ViewModels
             {
                 bool positiveRailFound = false;
 
-                List<WireModel> connectedWires = GetColumnMatches(componentColumnOrigin);
+                List<WireModel> connectedWires = GetColumnMatches(componentColumnOrigin, new List<object>(visitedComps));
                 if (connectedWires.Any())
                 {
                     foreach (WireModel wire in connectedWires)
@@ -318,7 +318,7 @@ namespace SparkValueBackend.ViewModels
                     }
                 }
 
-                List<ComponentViewModel> connectedComponents = GetComponentConnections(component, componentColumnOrigin);
+                List<ComponentViewModel> connectedComponents = GetComponentConnections(component, componentColumnOrigin, new List<object>(visitedComps));
                 if (connectedComponents.Any())
                 {
                     foreach (ComponentViewModel comp in connectedComponents)
@@ -356,37 +356,43 @@ namespace SparkValueBackend.ViewModels
 
                 if (currentComponent.Position.X == 0 && currentComponent.Position.Y == 0) return false;
 
+                List<object> visitedObjects = new List<object>();
+
                 // Check left column
-                List<WireModel> leftColumnWireMatches = GetColumnMatches(currentComponent.Position.X);
+                List<WireModel> leftColumnWireMatches = GetColumnMatches(currentComponent.Position.X, visitedObjects);
                 foreach (WireModel leftWire in leftColumnWireMatches)
                 {
-                    (bool powered, bool grounded) result = TraverseWire(leftWire, GetOppositeEndOfWire(leftWire, currentComponent.Position.X));
+                    (bool powered, bool grounded) result = TraverseWire(leftWire, GetOppositeEndOfWire(leftWire, currentComponent.Position.X), visitedObjects);
                     isPowered = (!isPowered) ? result.powered : isPowered;
                     isGrounded = (!isGrounded) ? result.grounded : isGrounded;
+                    visitedObjects.Clear();
                 }
-                List<ComponentViewModel> leftColumnComponentMatches = GetComponentConnections(currentComponent, currentComponent.Position.X);
+                List<ComponentViewModel> leftColumnComponentMatches = GetComponentConnections(currentComponent, currentComponent.Position.X, visitedObjects);
                 foreach (ComponentViewModel leftComp in leftColumnComponentMatches)
                 {
-                    (bool powered, bool grounded) result = TraverseComponent(leftComp, GetOppositeEndOfComponent(leftComp, currentComponent.Position.X));
+                    (bool powered, bool grounded) result = TraverseComponent(leftComp, GetOppositeEndOfComponent(leftComp, currentComponent.Position.X), visitedObjects);
                     isPowered = (!isPowered) ? result.powered : isPowered;
                     isGrounded = (!isGrounded) ? result.grounded : isGrounded;
+                    visitedObjects.Clear();
                 }
 
                 // Check right column
                 double rightColumn = GetOppositeEndOfComponent(currentComponent, currentComponent.Position.X);
-                List<WireModel> rightColumnWireMatches = GetColumnMatches(rightColumn);
+                List<WireModel> rightColumnWireMatches = GetColumnMatches(rightColumn, visitedObjects);
                 foreach (WireModel rightWire in rightColumnWireMatches)
                 {
-                    (bool powered, bool grounded) result = TraverseWire(rightWire, GetOppositeEndOfWire(rightWire, rightColumn));
+                    (bool powered, bool grounded) result = TraverseWire(rightWire, GetOppositeEndOfWire(rightWire, rightColumn), visitedObjects);
                     isPowered = (!isPowered) ? result.powered : isPowered;
                     isGrounded = (!isGrounded) ? result.grounded : isGrounded;
+                    visitedObjects.Clear();
                 }
-                List<ComponentViewModel> rightColumnCompMatches = GetComponentConnections(currentComponent, rightColumn);
+                List<ComponentViewModel> rightColumnCompMatches = GetComponentConnections(currentComponent, rightColumn, visitedObjects);
                 foreach (ComponentViewModel rightComp in rightColumnCompMatches)
                 {
-                    (bool powered, bool grounded) result = TraverseComponent(rightComp, GetOppositeEndOfComponent(rightComp, rightColumn));
+                    (bool powered, bool grounded) result = TraverseComponent(rightComp, GetOppositeEndOfComponent(rightComp, rightColumn), visitedObjects);
                     isPowered = (!isPowered) ? result.powered : isPowered;
                     isGrounded = (!isGrounded) ? result.grounded : isGrounded;
+                    visitedObjects.Clear();
                 }
 
                 return isPowered && isGrounded;
@@ -405,10 +411,11 @@ namespace SparkValueBackend.ViewModels
         /// <param name="wire">Current wire object</param>
         /// <param name="wireOrigin">Current end/output of the wire, could be either the start or end point</param>
         /// <returns>If the positive or negative rail have been found.</returns>
-        private (bool powered, bool grounded) TraverseWire(WireModel wire, Point wireOrigin)
+        private (bool powered, bool grounded) TraverseWire(WireModel wire, Point wireOrigin, List<object> visitedObjects)
         {
             try
             {
+                visitedObjects.Add(wire);
                 (bool powered, bool grounded) state = (false, false);
 
                 double originColumn = (wireOrigin.X % gridWidth * -1) + wireOrigin.X;
@@ -419,25 +426,25 @@ namespace SparkValueBackend.ViewModels
                 else if (wire.IsGounded) state.grounded = true;
                 else
                 {
-                    List<WireModel> connectedWires = GetWireConnections(wire, wireOrigin);
+                    List<WireModel> connectedWires = GetWireConnections(wire, wireOrigin, visitedObjects);
                     // Wire connected to other wire, traverse it!
                     if (connectedWires.Any())
                     {
                         foreach (WireModel connection in connectedWires)
                         {
-                            (bool powered, bool grounded) result = TraverseWire(connection, GetNextWireOrigin(wireOrigin, connection));
+                            (bool powered, bool grounded) result = TraverseWire(connection, GetNextWireOrigin(wireOrigin, connection), visitedObjects);
                             state.powered = (!state.powered) ? result.powered : state.powered;
                             state.grounded = (!state.grounded) ? result.grounded : state.grounded;
                         }
                     }
 
-                    List<ComponentViewModel> connectedComps = GetComponentConnections(wireOrigin);
+                    List<ComponentViewModel> connectedComps = GetComponentConnections(wireOrigin, visitedObjects);
                     // Wire connected to component
                     if (connectedComps.Any())
                     {
                         foreach (ComponentViewModel component in connectedComps)
                         {
-                            (bool powered, bool grounded) result = TraverseComponent(component, GetOppositeEndOfComponent(component, originColumn));
+                            (bool powered, bool grounded) result = TraverseComponent(component, GetOppositeEndOfComponent(component, originColumn), visitedObjects);
                             state.powered = (!state.powered) ? result.powered : state.powered;
                             state.grounded = (!state.grounded) ? result.grounded : state.grounded;
                         }
@@ -460,29 +467,30 @@ namespace SparkValueBackend.ViewModels
         /// <param name="component">Current component object</param>
         /// <param name="componentColumnOrigin">Current end/output column of the component</param>
         /// <returns>If the positive or negative rail have been found.</returns>
-        private (bool powered, bool grounded) TraverseComponent(ComponentViewModel component, double componentColumnOrigin)
+        private (bool powered, bool grounded) TraverseComponent(ComponentViewModel component, double componentColumnOrigin, List<object> visitedObjects)
         {
             try
             {
+                visitedObjects.Add(component);
                 (bool powered, bool grounded) state = (false, false);
 
-                List<WireModel> connectedWires = GetColumnMatches(componentColumnOrigin);
+                List<WireModel> connectedWires = GetColumnMatches(componentColumnOrigin, visitedObjects);
                 if (connectedWires.Any())
                 {
                     foreach (WireModel wire in connectedWires)
                     {
-                        (bool powered, bool grounded) result = TraverseWire(wire, GetOppositeEndOfWire(wire, componentColumnOrigin));
+                        (bool powered, bool grounded) result = TraverseWire(wire, GetOppositeEndOfWire(wire, componentColumnOrigin), visitedObjects);
                         state.powered = (!state.powered) ? result.powered : state.powered;
                         state.grounded = (!state.grounded) ? result.grounded : state.grounded;
                     }
                 }
 
-                List<ComponentViewModel> connectedComponents = GetComponentConnections(component, componentColumnOrigin);
+                List<ComponentViewModel> connectedComponents = GetComponentConnections(component, componentColumnOrigin, visitedObjects);
                 if (connectedComponents.Any())
                 {
                     foreach (ComponentViewModel comp in connectedComponents)
                     {
-                        (bool powered, bool grounded) result = TraverseComponent(comp, GetOppositeEndOfComponent(comp, componentColumnOrigin));
+                        (bool powered, bool grounded) result = TraverseComponent(comp, GetOppositeEndOfComponent(comp, componentColumnOrigin), visitedObjects);
                         state.powered = (!state.powered) ? result.powered : state.powered;
                         state.grounded = (!state.grounded) ? result.grounded : state.grounded;
                     }
@@ -506,14 +514,15 @@ namespace SparkValueBackend.ViewModels
         /// </summary>
         /// <param name="startPoint">The column to check in</param>
         /// <returns>Wires that start or end in the specified column.</returns>
-        private List<WireModel> GetColumnMatches(double startPoint)
+        private List<WireModel> GetColumnMatches(double startPoint, List<object> visitedObjects)
         {
             try
             {
                 if (_breadboard.PlacedWires.Any())
                 {
-                    return _breadboard.PlacedWires.Where(wire => (wire.startPosition.X >= startPoint && wire.startPosition.X <= startPoint + gridWidth)
-                                                          || (wire.endPosition.X >= startPoint && wire.endPosition.X <= startPoint + gridWidth)).ToList();
+                    return _breadboard.PlacedWires.Where(wire => ((wire.startPosition.X >= startPoint && wire.startPosition.X <= startPoint + gridWidth)
+                                                          || (wire.endPosition.X >= startPoint && wire.endPosition.X <= startPoint + gridWidth))
+                                                          && !visitedObjects.Contains(wire)).ToList();
                 }
                 else
                 {
@@ -534,7 +543,7 @@ namespace SparkValueBackend.ViewModels
         /// <param name="wire">Wire object that we are comming from</param>
         /// <param name="wireOrigin">Current end/output of the wire, could be either the start or end point, that we are searching from</param>
         /// <returns>Wires that start or end in the same column as wireOrigin.</returns>
-        private List<WireModel> GetWireConnections(WireModel wire, Point wireOrigin)
+        private List<WireModel> GetWireConnections(WireModel wire, Point wireOrigin, List<object> visitedObjects)
         {
             try
             {
@@ -545,7 +554,7 @@ namespace SparkValueBackend.ViewModels
                 foreach (WireModel w in _breadboard.PlacedWires)
                 {
                     // Are we looking at the same wire? Skip if we are.
-                    if (w != wire &&
+                    if (w != wire && !visitedObjects.Contains(w) &&
                         ((w.startPosition.X >= originColumn && w.startPosition.X <= originColumn + gridWidth)
                         || (w.endPosition.X >= originColumn && w.endPosition.X <= originColumn + gridWidth)))
                     {
@@ -568,7 +577,7 @@ namespace SparkValueBackend.ViewModels
         /// </summary>
         /// <param name="wireOrigin">Current end/output of the wire, could be either the start or end point, that we are searching from</param>
         /// <returns>Components that start or end in the same column as wireOrigin.</returns>
-        private List<ComponentViewModel> GetComponentConnections(Point wireOrigin)
+        private List<ComponentViewModel> GetComponentConnections(Point wireOrigin, List<object> visitedObjects)
         {
             try
             {
@@ -579,8 +588,9 @@ namespace SparkValueBackend.ViewModels
                 foreach (ComponentViewModel comp in _breadboard.PlacedComponents)
                 {
                     double compRightSide = comp.Picture.DpiX + comp.Position.X;
-                    if ((comp.Position.X >= originColumn && comp.Position.X <= originColumn + gridWidth)
+                    if (((comp.Position.X >= originColumn && comp.Position.X <= originColumn + gridWidth)
                         || (compRightSide >= originColumn && compRightSide <= originColumn + gridWidth))
+                        && !visitedObjects.Contains(comp))
                     {
                         connections.Add(comp);
                     }
@@ -602,7 +612,7 @@ namespace SparkValueBackend.ViewModels
         /// <param name="component">Component object that we are comming from</param>
         /// <param name="componentOriginColumn">Current end/output column of the component, that we are searching from</param>
         /// <returns>Components that start or end in the same column as componentOriginColumn</returns>
-        private List<ComponentViewModel> GetComponentConnections(ComponentViewModel component, double componentOriginColumn)
+        private List<ComponentViewModel> GetComponentConnections(ComponentViewModel component, double componentOriginColumn, List<object> visitedObjects)
         {
             try
             {
@@ -611,7 +621,7 @@ namespace SparkValueBackend.ViewModels
                 foreach (ComponentViewModel comp in _breadboard.PlacedComponents)
                 {
                     double compRightSide = comp.Picture.DpiX + comp.Position.X;
-                    if (comp != component &&
+                    if (comp != component && !visitedObjects.Contains(comp) &&
                         ((comp.Position.X >= componentOriginColumn && comp.Position.X <= componentOriginColumn + gridWidth)
                         || (compRightSide >= componentOriginColumn && compRightSide <= componentOriginColumn + gridWidth)))
                     {
