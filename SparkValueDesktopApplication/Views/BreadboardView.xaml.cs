@@ -249,7 +249,7 @@ namespace SparkValueDesktopApplication.Views
                 {
                     // If there is an adorner already on the image, remove it
                     Adorner[] adorners = adornerLayer.GetAdorners(img);
-                    ComponentViewModel comp = (ComponentViewModel)img.DataContext;
+                    ComponentViewModel comp = (img.DataContext is ComponentViewModel) ? (ComponentViewModel)img.DataContext : (ComponentViewModel)((ToolTip)img.ToolTip).DataContext;
                     if (adorners != null)
                     {
                         foreach (Adorner adorner in adorners)
@@ -271,7 +271,7 @@ namespace SparkValueDesktopApplication.Views
 
                 // Check if the type of image is a resistor or capacitor component
                 // and create the context menu if needed
-                ComponentViewModel viewModel = (ComponentViewModel)img.DataContext;
+                ComponentViewModel viewModel = (img.DataContext is ComponentViewModel) ? (ComponentViewModel)img.DataContext : (ComponentViewModel)((ToolTip)img.ToolTip).DataContext;
                 if (img.ContextMenu == null && (viewModel.GetTypeOfComponent() == typeof(ResistorComponentModel) || viewModel.GetTypeOfComponent() == typeof(CapacitorComponentModel)))
                 {
                     img.ContextMenu = CreateContextMenu(viewModel);

@@ -35,10 +35,10 @@
     </UserControl.Resources>
     <DockPanel>
         <!-- Left Side Bar -->
-        <Grid>
+        <Grid DockPanel.Dock="Left">
             <ScrollViewer Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=ActualHeight}"
                           VerticalScrollBarVisibility="Visible">
-                <Border DockPanel.Dock="Left" MinWidth="200" Background="LightSlateGray">
+                <Border  MinWidth="200" Background="LightSlateGray">
                     <StackPanel>
                         <!--#region Component Menu-->
                         <TextBlock HorizontalAlignment="Center" Text="Components"/>
