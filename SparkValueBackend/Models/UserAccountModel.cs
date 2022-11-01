@@ -11,16 +11,16 @@ namespace SparkValueBackend.Models
         public string Username { get; private set; }
         public string Password { get; private set; }
         public string EmailAddress { get; private set; }
-        public string HashValue { get; private set; }
+        public string SaltValue { get; private set; }
 
         public UserAccountModel() { }
 
-        public UserAccountModel(string username, string password, string emailAddress, string hashValue)
+        public UserAccountModel(string username, string password, string emailAddress, string saltValue)
         {
             Username = username;
             Password = password;
             EmailAddress = emailAddress;
-            HashValue = hashValue;
+            SaltValue = saltValue;
         }
 
         /// <summary>

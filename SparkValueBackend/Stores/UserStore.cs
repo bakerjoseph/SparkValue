@@ -14,8 +14,8 @@ namespace SparkValueBackend.Stores
     public class UserStore
     {
         #region Logged In User
-        private UserAccountModel? _loggedInUser;
-        public UserAccountModel? LoggedInUser
+        private UserAccountModel _loggedInUser;
+        public UserAccountModel LoggedInUser
         {
             get { return _loggedInUser; }
             set

@@ -1,5 +1,6 @@
 ﻿using SparkValueBackend.Commands;
 using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,13 +46,13 @@ namespace SparkValueBackend.ViewModels
         /// <summary>
         /// Used in conjunction with NewAccountView.xaml
         /// </summary>
-        public NewAccountViewModel(NavigationService signInViewNavigationService)
+        public NewAccountViewModel(UserStore userStore, NavigationService signInViewNavigationService, SecurityService securityService)
         {
             _username = string.Empty;
             _emailAddress = string.Empty;
 
             CancelCommand = new NavigateCommand(signInViewNavigationService);
-            CreateAccountCommand = new SignInCommand(signInViewNavigationService);
+            CreateAccountCommand = new NewAccountCommand(this, userStore, signInViewNavigationService, securityService);
         }
     }
 }
