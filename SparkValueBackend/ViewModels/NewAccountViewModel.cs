@@ -4,6 +4,7 @@ using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -37,6 +38,20 @@ namespace SparkValueBackend.ViewModels
             {
                 _emailAddress = value;
                 OnPropertyChanged(nameof(EmailAddress));
+            }
+        }
+
+        private SecureString _securePassword;
+        public SecureString SecurePassword
+        {
+            get
+            {
+                return _securePassword;
+            }
+            set
+            {
+                _securePassword = value;
+                OnPropertyChanged(nameof(SecurePassword));
             }
         }
 

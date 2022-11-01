@@ -34,25 +34,26 @@ namespace SparkValueBackend.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrEmpty(_newAccountViewModel.Username) && !string.IsNullOrEmpty(_newAccountViewModel.EmailAddress) && base.CanExecute(parameter);
+            return !string.IsNullOrEmpty(_newAccountViewModel.Username) && 
+                !string.IsNullOrEmpty(_newAccountViewModel.EmailAddress) && 
+                _newAccountViewModel.SecurePassword != null && 
+                _newAccountViewModel.SecurePassword.Length > 0 && 
+                base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            if (parameter != null && parameter is PasswordBox)
-            {
-                // Create account with the password paramter and the passed in view model values
-                (string salt, string hashed) outcome = _securityService.ProtectPassword(((PasswordBox)parameter).Password);
-                UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt);
-                await _userStore.CreateUser(newUser);
-            }
+            // Create account with the password paramter and the passed in view model values
+            (string salt, string hashed) outcome = _securityService.ProtectPassword(_newAccountViewModel.SecurePassword);
+            UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt);
+            await _userStore.CreateUser(newUser);
 
             _signInViewNavigationService.Navigate();
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(NewAccountViewModel.Username) || e.PropertyName == nameof(NewAccountViewModel.EmailAddress))
+            if (e.PropertyName == nameof(NewAccountViewModel.Username) || e.PropertyName == nameof(NewAccountViewModel.EmailAddress) || e.PropertyName == nameof(NewAccountViewModel.SecurePassword))
             {
                 OnCanExecutedChanged();
             }

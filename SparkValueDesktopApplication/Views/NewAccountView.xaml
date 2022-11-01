@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:AP="clr-namespace:SparkValueDesktopApplication.AttachedProperties"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
     <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Background="LightSlateGray">
@@ -27,7 +28,9 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Password:"/>
-                        <PasswordBox x:Name="PasswordEntry" MinWidth="200" MaxWidth="200"/>
+                        <PasswordBox x:Name="PasswordEntry" MinWidth="200" MaxWidth="200"
+                                     AP:PasswordBoxAttachedProperty.EncryptedPassword="{Binding SecurePassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     PasswordChanged="PasswordEntry_PasswordChanged"/>
                     </StackPanel>
 
                     <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">
@@ -37,7 +40,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Content="Cancel" Command="{Binding CancelCommand}"/>
-                        <Button Grid.Column="2" Content="Create Account" Command="{Binding CreateAccountCommand}" CommandParameter="{Binding ElementName=PasswordEntry}"/>
+                        <Button Grid.Column="2" Content="Create Account" Command="{Binding CreateAccountCommand}"/>
                     </Grid>
                 </StackPanel>
             </Border>

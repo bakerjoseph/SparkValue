@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,18 +19,18 @@ namespace SparkValueBackend.Services
         /// </summary>
         /// <param name="password">The password string to be hashed</param>
         /// <returns>A tuple with the salt and hashed input string</returns>
-        public (string salt, string hashedPassword) ProtectPassword(string password)
+        public (string salt, string hashedPassword) ProtectPassword(SecureString password)
         {
             byte[] salt = SaltGenerator();
 
-            byte[] hash = HashGenerator(password, salt);
+            byte[] hash = HashGenerator(ConvertSecureString(password), salt);
 
             return (Convert.ToBase64String(salt), Convert.ToBase64String(hash));
         }
 
-        private string ProtectPassword(string password, string salt)
+        private string ProtectPassword(SecureString password, string salt)
         {
-            byte[] hash = HashGenerator(password, Convert.FromBase64String(salt));
+            byte[] hash = HashGenerator(ConvertSecureString(password), Convert.FromBase64String(salt));
             return Convert.ToBase64String(hash);
         }
 
@@ -40,14 +41,14 @@ namespace SparkValueBackend.Services
         /// <param name="salt">Salt from the saved hashed password</param>
         /// <param name="hashedPassword">Saved hashed password to be tested against</param>
         /// <returns>The result of the equality test between the two passwords</returns>
-        public bool PasswordMatch(string password, string salt, string hashedPassword)
+        public bool PasswordMatch(SecureString password, string salt, string hashedPassword)
         {
             string incommingHashedPassword = ProtectPassword(password, salt);
 
             return hashedPassword.Equals(incommingHashedPassword);
         }
 
-        private byte[] HashGenerator(string password, byte[] salt)
+        private byte[] HashGenerator(byte[] password, byte[] salt)
         {
             // Hashes using Password-Based Key Derivation Function 2 (PBKDF2)
             Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations);
@@ -61,6 +62,28 @@ namespace SparkValueBackend.Services
             byte[] salt = new byte[SaltSize];
             rng.GetBytes(salt);
             return salt;
+        }
+
+        private byte[] ConvertSecureString(SecureString value)
+        {
+            byte[] returnBytes = new byte[value.Length];
+
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = System.Runtime.InteropServices.Marshal.SecureStringToGlobalAllocUnicode(value);
+                for (int i = 0; i < value.Length; i++)
+                {
+                    short unicodeChar = System.Runtime.InteropServices.Marshal.ReadInt16(valuePtr, i * 2);
+                    returnBytes[i] = Convert.ToByte(unicodeChar);
+                }
+
+                return returnBytes;
+            }
+            finally
+            {
+                System.Runtime.InteropServices.Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
         }
     }
 }

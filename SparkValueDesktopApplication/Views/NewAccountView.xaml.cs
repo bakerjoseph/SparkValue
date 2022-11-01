@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparkValueDesktopApplication.AttachedProperties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace SparkValueDesktopApplication.Views
         public NewAccountView()
         {
             InitializeComponent();
+        }
+
+        private void PasswordEntry_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordBox = sender as PasswordBox;
+            PasswordBoxAttachedProperty.SetEncryptedPassword(passwordBox, passwordBox.SecurePassword);
         }
     }
 }
