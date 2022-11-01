@@ -38,7 +38,7 @@
         <Grid DockPanel.Dock="Left">
             <ScrollViewer Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=ActualHeight}"
                           VerticalScrollBarVisibility="Visible">
-                <Border  MinWidth="200" Background="LightSlateGray">
+                <Border  MinWidth="200" Background="LightSlateGray" DragLeave="expander_DragLeave">
                     <StackPanel>
                         <!--#region Component Menu-->
                         <TextBlock HorizontalAlignment="Center" Text="Components"/>
@@ -55,7 +55,7 @@
                                     <Border Background="LightSlateGray">
                                         <Expander Margin="5 2" x:Name="dropDown" Header="{Binding CategoryTitle}" VerticalAlignment="Center" FlowDirection="RightToLeft" HorizontalAlignment="Left">
                                             <WrapPanel>
-                                                <ItemsControl x:Name="componentList" ItemsSource="{Binding Components}" AllowDrop="True" DragLeave="expander_DragLeave">
+                                                <ItemsControl x:Name="componentList" ItemsSource="{Binding Components}" AllowDrop="True">
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
                                                             <Grid Margin="5">

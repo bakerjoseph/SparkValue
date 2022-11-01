@@ -135,7 +135,7 @@ namespace SparkValueDesktopApplication.Views
             Grid parent = data.Item1.Parent as Grid;
             if (parent != null && parent.Children.Count > 0)
             {
-                parent.Children.RemoveAt(0);
+                parent.Children.Clear();
 
                 // Create a new image with the same content as the previous image
                 ComponentViewModel source = parent.DataContext as ComponentViewModel;
