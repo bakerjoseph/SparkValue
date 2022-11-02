@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
              xmlns:AP="clr-namespace:SparkValueDesktopApplication.AttachedProperties"
+             xmlns:VR="clr-namespace:SparkValueDesktopApplication.ValidationRules"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
     <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Background="LightSlateGray">
@@ -20,17 +21,41 @@
                 <StackPanel VerticalAlignment="Center" Margin="10">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Username:"/>
-                        <TextBox Text="{Binding Username}" MinWidth="200" MaxWidth="200"/>
+                        <TextBox MinWidth="200" MaxWidth="200" Style="{StaticResource ControlInError}">
+                            <TextBox.Text>
+                                <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <VR:UsernameRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Email Address:"/>
-                        <TextBox Text="{Binding EmailAddress}" MinWidth="200" MaxWidth="200"/>
+                        <TextBox MinWidth="200" MaxWidth="200" Style="{StaticResource ControlInError}">
+                            <TextBox.Text>
+                                <Binding Path="EmailAddress" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <VR:EmailAddressRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Password:"/>
                         <PasswordBox x:Name="PasswordEntry" MinWidth="200" MaxWidth="200"
-                                     AP:PasswordBoxAttachedProperty.EncryptedPassword="{Binding SecurePassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     PasswordChanged="PasswordEntry_PasswordChanged"/>
+                                     PasswordChanged="PasswordEntry_PasswordChanged"
+                                     Style="{StaticResource ControlInError}">
+                            <AP:PasswordBoxAttachedProperty.EncryptedPassword>
+                                <Binding Path="SecurePassword" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <VR:PasswordRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </AP:PasswordBoxAttachedProperty.EncryptedPassword>
+                        </PasswordBox>
                     </StackPanel>
 
                     <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">

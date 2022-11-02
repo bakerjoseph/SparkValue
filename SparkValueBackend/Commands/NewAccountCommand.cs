@@ -43,6 +43,7 @@ namespace SparkValueBackend.Commands
 
         public override async Task ExecuteAsync(object? parameter)
         {
+            // Check if an account already has that username, if it does do not create an account, stay here and provide error text!
             // Create account with the password paramter and the passed in view model values
             (string salt, string hashed) outcome = _securityService.ProtectPassword(_newAccountViewModel.SecurePassword);
             UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt);
