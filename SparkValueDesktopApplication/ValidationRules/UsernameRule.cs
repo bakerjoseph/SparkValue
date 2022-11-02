@@ -32,7 +32,7 @@ namespace SparkValueDesktopApplication.ValidationRules
             if (inverseUsernameRegex.IsMatch(inputUsername))
             {
                 // Will match if there are characters other than 0-9 or a-z
-                return new ValidationResult(false, "Username must contain only alphabet and numerical characters.");
+                return new ValidationResult(false, "Username must contain only alphabetical and numerical characters.");
             }
 
             return new ValidationResult(true, null);
