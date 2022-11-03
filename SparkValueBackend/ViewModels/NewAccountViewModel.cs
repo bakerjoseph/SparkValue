@@ -55,6 +55,20 @@ namespace SparkValueBackend.ViewModels
             }
         }
 
+        private string _errorText;
+        public string ErrorText
+        {
+            get
+            {
+                return _errorText;
+            }
+            set
+            {
+                _errorText = value;
+                OnPropertyChanged(nameof(ErrorText));
+            }
+        }
+
         public ICommand CancelCommand { get; }
         public ICommand CreateAccountCommand { get; }
 

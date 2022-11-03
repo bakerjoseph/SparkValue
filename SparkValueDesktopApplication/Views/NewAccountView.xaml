@@ -13,6 +13,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock HorizontalAlignment="Center" Padding="15" Grid.Row="0" Grid.ColumnSpan="2" MinHeight="50" FontSize="22" FontWeight="Bold" Text="Create a New Account"/>
@@ -69,7 +70,7 @@
                     </Grid>
                 </StackPanel>
             </Border>
-            
+            <TextBlock MaxWidth="300" Grid.Row="2" Foreground="LightYellow" Text="{Binding ErrorText}" HorizontalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"/>
         </Grid>
     </Border>
 </UserControl>

@@ -5,6 +5,7 @@ using SparkValueBackend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,13 +44,28 @@ namespace SparkValueBackend.Commands
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            // Check if an account already has that username, if it does do not create an account, stay here and provide error text!
-            // Create account with the password paramter and the passed in view model values
-            (string salt, string hashed) outcome = _securityService.ProtectPassword(_newAccountViewModel.SecurePassword);
-            UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt);
-            await _userStore.CreateUser(newUser);
+            // Does an other account have the same username?
+            List<UserAccountModel> users = new List<UserAccountModel>(_userStore.Users);
+            if (users.Where(x => x.Username == _newAccountViewModel.Username).Any())
+            {
+                _newAccountViewModel.ErrorText = "Another account already exists with this username, please enter a different username to continue.";
+                return;
+            }
 
-            _signInViewNavigationService.Navigate();
+            try
+            {
+                // Create account with the passed in view model values
+                (string salt, string hashed) outcome = _securityService.ProtectPassword(_newAccountViewModel.SecurePassword);
+                UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt);
+                await _userStore.CreateUser(newUser);
+
+                _signInViewNavigationService.Navigate();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex, "Create New User");
+                _newAccountViewModel.ErrorText = "Unable to create account, please try again later.";
+            }
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
