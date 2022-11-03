@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:AP="clr-namespace:SparkValueDesktopApplication.AttachedProperties"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
     <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Background="LightSlateGray">
@@ -20,7 +21,7 @@
             <TextBlock HorizontalAlignment="Center" Padding="15" Grid.Row="0" Grid.ColumnSpan="2" MinHeight="50" FontSize="22" FontWeight="Bold" Text="Welcome to Spark Value"/>
             
             <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-                <StackPanel  VerticalAlignment="Center" Margin="10">
+                <StackPanel  VerticalAlignment="Center" Margin="10 20">
                     <TextBlock HorizontalAlignment="Center" Text="New to Spark Value?"/>
                     <Button Content="Create a free account here" Command="{Binding CreateAccountCommand}" Margin="10 0 10 10" />
                     <Separator  Margin="0 5"/>
@@ -30,10 +31,10 @@
             </Border>
 
             <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0,1,1,1">
-                <StackPanel VerticalAlignment="Center" Margin="10">
-                    <StackPanel Orientation="Horizontal" Margin="5">
+                <StackPanel VerticalAlignment="Center" Margin="10 20">
+                    <StackPanel Orientation="Horizontal" Margin="5 30 5 5">
                         <TextBlock Text="Username:"/>
-                        <TextBox Text="{Binding Username}" MinWidth="150" MaxWidth="150"/>
+                        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" MinWidth="150" MaxWidth="150"/>
                     </StackPanel>
                     <TextBlock HorizontalAlignment="Right" FontSize="12" Margin="5 5 5 1">
                         <Hyperlink Command="{Binding ForgotPasswordNavigateCommand}">
@@ -42,9 +43,12 @@
                     </TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="5 0 5 5">
                         <TextBlock Text="Password:"/>
-                        <PasswordBox x:Name="PasswordEntry" MinWidth="150" MaxWidth="150"/>
+                        <PasswordBox x:Name="PasswordEntry" MinWidth="150" MaxWidth="150" VerticalContentAlignment="Center"
+                                     AP:PasswordBoxAttachedProperty.EncryptedPassword="{Binding SecurePassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     PasswordChanged="PasswordEntry_PasswordChanged"/>
                     </StackPanel>
-                    <Button Content="Sign in" Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=PasswordEntry}" MaxWidth="80" MinWidth="60"/>
+                    <Button Content="Sign in" Command="{Binding SignInCommand}" MaxWidth="80" MinWidth="60"/>
+                    <TextBlock MaxWidth="230" Foreground="LightYellow" Text="{Binding ErrorText}" HorizontalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"/>
                 </StackPanel>
             </Border>
             

@@ -1,8 +1,10 @@
 ﻿using SparkValueBackend.Commands;
 using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -25,6 +27,34 @@ namespace SparkValueBackend.ViewModels
             }
         }
 
+        private SecureString _securePassword;
+        public SecureString SecurePassword
+        {
+            get
+            {
+                return _securePassword;
+            }
+            set
+            {
+                _securePassword = value;
+                OnPropertyChanged(nameof(SecurePassword));
+            }
+        }
+
+        private string _errorText;
+        public string ErrorText
+        {
+            get
+            {
+                return _errorText;
+            }
+            set
+            {
+                _errorText = value;
+                OnPropertyChanged(nameof(ErrorText));
+            }
+        }
+
         public ICommand CreateAccountCommand { get; }
         public ICommand BreadboardNavigateCommand { get; }
         public ICommand SignInCommand { get; }
@@ -33,16 +63,18 @@ namespace SparkValueBackend.ViewModels
         /// <summary>
         /// Used in conjunction with SignInView.xaml
         /// </summary>
-        public SignInViewModel(NavigationService breadboardViewNavigationService,
+        public SignInViewModel(UserStore userStore,
+                            NavigationService breadboardViewNavigationService,
                             NavigationService newAccountViewNavigationService,
                             NavigationService dashboardViewNavigationService,
-                            NavigationService passwordChangeViewNavigationService)
+                            NavigationService passwordChangeViewNavigationService,
+                            SecurityService security)
         {
             _username = string.Empty;
 
             BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);
             CreateAccountCommand = new NavigateCommand(newAccountViewNavigationService);
-            SignInCommand = new SignInCommand(dashboardViewNavigationService);
+            SignInCommand = new SignInCommand(this, userStore, dashboardViewNavigationService, security);
             ForgotPasswordNavigateCommand = new NavigateCommand(passwordChangeViewNavigationService);
         }
     }

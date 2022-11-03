@@ -22,7 +22,7 @@
                 <StackPanel VerticalAlignment="Center" Margin="10">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Username:"/>
-                        <TextBox MinWidth="200" MaxWidth="200" Style="{StaticResource ControlInError}">
+                        <TextBox MinWidth="200" MaxWidth="200" Style="{StaticResource ControlInError}" VerticalContentAlignment="Center">
                             <TextBox.Text>
                                 <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
@@ -34,7 +34,7 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Email Address:"/>
-                        <TextBox MinWidth="200" MaxWidth="200" Style="{StaticResource ControlInError}">
+                        <TextBox MinWidth="200" MaxWidth="200" Style="{StaticResource ControlInError}" VerticalContentAlignment="Center">
                             <TextBox.Text>
                                 <Binding Path="EmailAddress" UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
@@ -46,7 +46,7 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Password:"/>
-                        <PasswordBox x:Name="PasswordEntry" MinWidth="200" MaxWidth="200"
+                        <PasswordBox x:Name="PasswordEntry" MinWidth="200" MaxWidth="200" VerticalContentAlignment="Center"
                                      PasswordChanged="PasswordEntry_PasswordChanged"
                                      Style="{StaticResource ControlInError}">
                             <AP:PasswordBoxAttachedProperty.EncryptedPassword>

@@ -71,10 +71,12 @@ namespace SparkValueDesktopApplication
         private SignInViewModel CreateSignInViewModel()
         {
             return new SignInViewModel(
+                _userStore,
                 new NavigationService(_navigationStore, CreateBreadboardViewModel),
                 new NavigationService(_navigationStore, CreateNewAccountViewModel),
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
-                new NavigationService(_navigationStore, CreateResetPasswordViewModel));
+                new NavigationService(_navigationStore, CreateResetPasswordViewModel),
+                _securityService);
         }
 
         private DashboardViewModel CreateDashboardViewModel()
