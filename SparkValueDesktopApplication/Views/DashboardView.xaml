@@ -49,36 +49,31 @@
                 <ItemsControl ItemsSource="{Binding Units}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel IsItemsHost="True">
+                            <StackPanel Width="550" IsItemsHost="True">
                             </StackPanel>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="LightSlateGray">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Title}"/>
-                                    
-                                    <Expander>
-                                        <ItemsControl ItemsSource="{Binding Lessons}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel IsItemsHost="True">
-                                                    </StackPanel>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{Binding Title}"/>
-                                                        <Button Content="Go to lesson" Command="{Binding LessonNavigateCommand}"/>
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Expander>
-                                    
-                                </StackPanel>
+                            <Border Width="550" Margin="1.5" Background="LightSlateGray" CornerRadius="5">
+                                <Expander HorizontalAlignment="Right" Header="{Binding Title}" FlowDirection="RightToLeft" Margin="5">
+                                    <ItemsControl ItemsSource="{Binding Lessons}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel FlowDirection="LeftToRight" IsItemsHost="True">
+                                                </StackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Title}"/>
+                                                    <Button Content="Go to lesson" Command="{Binding LessonNavigateCommand}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Expander>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
