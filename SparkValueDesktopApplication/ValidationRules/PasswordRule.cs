@@ -20,17 +20,15 @@ namespace SparkValueDesktopApplication.ValidationRules
 
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            string inputPassword = (value is SecureString) ? ConvertSecureString((SecureString)value) : (string)value;
-
             // Is the length of the password greater than 8?
-            if (inputPassword.Length < MinPasswordLength)
+            if (((value is SecureString) ? ConvertSecureString((SecureString)value) : (string)value).Length < MinPasswordLength)
             {
                 return new ValidationResult(false, $"Password must contain {MinPasswordLength} characters or more.");
             }
 
             // Does the password contain at least one uppercase character?
             Regex inverseUppercaseRegex = new Regex(AntiUppercaseRegex);
-            if (inverseUppercaseRegex.IsMatch(inputPassword))
+            if (inverseUppercaseRegex.IsMatch((value is SecureString) ? ConvertSecureString((SecureString)value) : (string)value))
             {
                 // Will match if there are no uppercase letters
                 return new ValidationResult(false, "Password must contain at least one uppercase letter.");
@@ -38,7 +36,7 @@ namespace SparkValueDesktopApplication.ValidationRules
 
             // Does the password contain at least one lower case character?
             Regex inverseLowerCaseRegex = new Regex(AntiLowerCaseRegex);
-            if (inverseLowerCaseRegex.IsMatch(inputPassword))
+            if (inverseLowerCaseRegex.IsMatch((value is SecureString) ? ConvertSecureString((SecureString)value) : (string)value))
             {
                 // Will match if there are no lower case letters
                 return new ValidationResult(false, "Password must contain at least one lower case letter.");
@@ -46,7 +44,7 @@ namespace SparkValueDesktopApplication.ValidationRules
 
             // Does the password contain at least one numerical character?
             Regex inverseNumericalRegex = new Regex(AntiNumericalRegex);
-            if (inverseNumericalRegex.IsMatch(inputPassword))
+            if (inverseNumericalRegex.IsMatch((value is SecureString) ? ConvertSecureString((SecureString)value) : (string)value))
             {
                 // Will match if there are no numerical characters
                 return new ValidationResult(false, "Password must contain at least one numerical character.");
@@ -54,7 +52,7 @@ namespace SparkValueDesktopApplication.ValidationRules
 
             // Does the password contain at least one special character?
             Regex inverseSpecialRegex = new Regex(AntiSpecialRegex, RegexOptions.IgnoreCase);
-            if (inverseSpecialRegex.IsMatch(inputPassword))
+            if (inverseSpecialRegex.IsMatch((value is SecureString) ? ConvertSecureString((SecureString)value) : (string)value))
             {
                 // Will match if there are no special characters, ie. characters other than a-z or 0-9 ignoring case
                 return new ValidationResult(false, "Password must contain at least one special character.");

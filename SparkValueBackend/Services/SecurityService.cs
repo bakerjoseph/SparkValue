@@ -28,7 +28,7 @@ namespace SparkValueBackend.Services
             return (Convert.ToBase64String(salt), Convert.ToBase64String(hash));
         }
 
-        private string ProtectPassword(SecureString password, string salt)
+        private static string ProtectPassword(SecureString password, string salt)
         {
             byte[] hash = HashGenerator(ConvertSecureString(password), Convert.FromBase64String(salt));
             return Convert.ToBase64String(hash);
@@ -48,14 +48,14 @@ namespace SparkValueBackend.Services
             return hashedPassword.Equals(incommingHashedPassword);
         }
 
-        private byte[] HashGenerator(byte[] password, byte[] salt)
+        private static byte[] HashGenerator(byte[] password, byte[] salt)
         {
             // Hashes using Password-Based Key Derivation Function 2 (PBKDF2)
             Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations);
             return pbkdf2.GetBytes(HashSize);
         }
 
-        private byte[] SaltGenerator()
+        private static byte[] SaltGenerator()
         {
             // Generates the salt from a cryptographic random number generator
             RandomNumberGenerator rng = RandomNumberGenerator.Create();
@@ -64,7 +64,7 @@ namespace SparkValueBackend.Services
             return salt;
         }
 
-        private byte[] ConvertSecureString(SecureString value)
+        private static byte[] ConvertSecureString(SecureString value)
         {
             byte[] returnBytes = new byte[value.Length];
 
