@@ -30,15 +30,30 @@ namespace SparkValueBackend.Services
                 From = new EmailAddress(SendingEmail, "Spark Value Bot"),
                 Subject = "Welcome to Spark Value",
                 PlainTextContent = $"Welcome, {user.Username}, to the world of electronics! " +
-                                    "We hope that you learn a lot and have fun while doing so."
+                                    "We hope that you learn a lot and have fun while doing so.",
+                HtmlContent = $"<p>Welcome, {user.Username}, to the world of electronics! " +
+                               "We hope that you learn a lot and have fun while doing so. </p>"
             };
             msg.AddTo(user.EmailAddress, user.Username);
-            var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
+            Response response = await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
 
-        public async Task SendPasswordResetEmail()
+        public async Task SendPasswordResetEmail(UserAccountModel user, string passwordReset)
         {
-            throw new NotImplementedException();
+            SendGridClient client = new SendGridClient(APIKey);
+            SendGridMessage msg = new SendGridMessage()
+            {
+                From = new EmailAddress(SendingEmail, "Spark Value Bot"),
+                Subject = "Welcome to Spark Value",
+                PlainTextContent = $"You, {user.Username}, have requested to change your password. " +
+                                   "Please enter the following code in the application to continue this process. " +
+                                   $"{passwordReset}",
+                HtmlContent = $"<p>You, {user.Username}, have <strong>requested to change your password</strong>. " +
+                               "Please enter the following code in the application to continue this process. </p>" +
+                               $"<p><strong>{passwordReset}</strong></p>"
+            };
+            msg.AddTo(user.EmailAddress, user.Username);
+            Response response = await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
     }
 }
