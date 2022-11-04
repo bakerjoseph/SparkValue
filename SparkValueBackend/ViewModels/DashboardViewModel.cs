@@ -38,6 +38,7 @@ namespace SparkValueBackend.ViewModels
         /// </summary>
         public DashboardViewModel(
             NavigationStore navigationStore,
+            UnitStore unitStore,
             NavigationService breadboardViewNavigationService, 
             NavigationService userSettingsViewNavigationService,
             NavigationService signInViewNavigationService,
@@ -45,42 +46,8 @@ namespace SparkValueBackend.ViewModels
             string username)
         {
             Username = username;
-            _units = new ObservableCollection<UnitViewModel>
-            {
-                new UnitViewModel(
-                    "Unit 1 - Shocking Introduction", 
-                    "The intro unit", 
-                    new List<PartialLessonViewModel>()
-                    {
-                        new PartialLessonViewModel(
-                            navigationStore,
-                            dashboardViewNavigationService,
-                            userSettingsViewNavigationService,
-                            "Lesson 1 - Electricity Primer",
-                            "An intro to electricity",
-                            "0/0"),
-                        new PartialLessonViewModel(
-                            navigationStore,
-                            dashboardViewNavigationService,
-                            userSettingsViewNavigationService,
-                            "Lesson 2 - Reading Circuit Diagrams",
-                            "Learn how to read circuit diagrams to build your own circuits",
-                            "0/0"),
-                    }),
-                new UnitViewModel(
-                    "Unit 2 - Components Galore",
-                    "Component Discussion",
-                    new List<PartialLessonViewModel>()
-                    {
-                        new PartialLessonViewModel(
-                            navigationStore,
-                            dashboardViewNavigationService,
-                            userSettingsViewNavigationService,
-                            "Lesson 1 - Resistors",
-                            "Let's talk about resistors",
-                            "0/0"),
-                    })
-            };
+            // Is not currently working, needs to be mapped from the list of units with lessons to viewmodels for units and partial lessons
+            _units = new ObservableCollection<UnitViewModel>((IEnumerable<UnitViewModel>)unitStore.Units);
 
             BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);
             SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);

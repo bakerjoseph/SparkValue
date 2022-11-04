@@ -7,10 +7,10 @@ namespace SparkValueBackend.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; }
-        public string Title { get; }
-        public string Description { get; }
-        public List<LessonModel> Lessons { get; }
+        public string Id { get; private set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public List<LessonModel> Lessons { get; private set; }
 
         public UnitModel() { }
 

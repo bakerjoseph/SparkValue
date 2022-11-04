@@ -36,7 +36,7 @@ namespace SparkValueBackend.ViewModels
 
         private readonly ObservableCollection<PartialLessonViewModel> _lessons;
         public IEnumerable<PartialLessonViewModel> Lessons => _lessons;
-
+        // Change this to accept the models and build the partial lesson views from the lesson model
         public UnitViewModel(string title, string description, List<PartialLessonViewModel> lessons)
         {
             Title = title;

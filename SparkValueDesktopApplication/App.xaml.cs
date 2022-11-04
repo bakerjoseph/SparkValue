@@ -83,6 +83,7 @@ namespace SparkValueDesktopApplication
         {
             return new DashboardViewModel(
                 _navigationStore,
+                _unitStore,
                 new NavigationService(_navigationStore, CreateBreadboardViewModel),
                 new NavigationService(_navigationStore, CreateUserSettingsGeneralViewModel),
                 new NavigationService(_navigationStore, CreateSignInViewModel),
