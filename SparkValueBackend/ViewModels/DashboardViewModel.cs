@@ -1,4 +1,5 @@
 ﻿using SparkValueBackend.Commands;
+using SparkValueBackend.Models;
 using SparkValueBackend.Services;
 using SparkValueBackend.Stores;
 using System;
@@ -46,8 +47,12 @@ namespace SparkValueBackend.ViewModels
             string username)
         {
             Username = username;
-            // Is not currently working, needs to be mapped from the list of units with lessons to viewmodels for units and partial lessons
-            _units = new ObservableCollection<UnitViewModel>((IEnumerable<UnitViewModel>)unitStore.Units);
+
+            _units = new ObservableCollection<UnitViewModel>();
+            foreach (UnitModel unit in unitStore.Units)
+            {
+                _units.Add(new UnitViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, unit, username));
+            }
 
             BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);
             SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);

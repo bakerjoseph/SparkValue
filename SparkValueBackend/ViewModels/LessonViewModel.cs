@@ -1,5 +1,7 @@
 ﻿using SparkValueBackend.Commands;
+using SparkValueBackend.Models;
 using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -58,24 +60,34 @@ namespace SparkValueBackend.ViewModels
 
         public ICommand MenuNavigateCommand { get; }
         public ICommand SettingsNavigateCommand { get; }
+        public ICommand LessonNavigateCommand { get; }
         public ICommand PreviousPageCommand { get; }
         public ICommand NextPageCommand { get; }
 
-        public LessonViewModel(NavigationService dashboardViewNavigationService, NavigationService userSettingsViewNavigationService, string username, string title, List<string> content, List<ViewModelBase> interactiveElements)
+        public LessonViewModel(NavigationStore navigationStore, 
+                               NavigationService dashboardViewNavigationService, 
+                               NavigationService userSettingsViewNavigationService,
+                               string username, 
+                               LessonModel lesson)
         {
-            _content = new ObservableCollection<string>(content);
-            _interactiveElements = new ObservableCollection<ViewModelBase>(interactiveElements);
+            _content = new ObservableCollection<string>(lesson.Content);
+            //_interactiveElements = new ObservableCollection<ViewModelBase>(lesson.InteractiveElementTitles);
 
             Username = username;
-            Title = title;
-            Progress = $"1/{_content.Count}";
+            Title = lesson.Title;
+            Progress = $"0/{_content.Count}";
 
             MenuNavigateCommand = new NavigateCommand(dashboardViewNavigationService);
             SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);
+            LessonNavigateCommand = new NavigateCommand(new NavigationService(navigationStore, CreateLessonViewModel));
 
             PreviousPageCommand = new LessonIterateBackwardCommand(this);
             NextPageCommand = new LessonIterateForwardCommand(this);
+        }
 
+        private LessonViewModel CreateLessonViewModel()
+        {
+            return this;
         }
     }
 }
