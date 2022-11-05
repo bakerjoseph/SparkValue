@@ -1,5 +1,6 @@
 ﻿using SparkValueBackend.Commands;
 using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,9 +47,9 @@ namespace SparkValueBackend.ViewModels
         /// <summary>
         /// Used in conjunction with UserSettingsView.xaml
         /// </summary>
-        public SettingsViewModel(NavigationService dashboardViewNavigationService, List<NavigationService> generalNavigationServices, List<NavigationService> accountNavigationServices, string username, string currentSettingViewModel)
+        public SettingsViewModel(UserStore userStore, NavigationService dashboardViewNavigationService, List<NavigationService> generalNavigationServices, List<NavigationService> accountNavigationServices, string currentSettingViewModel)
         {
-            _username = username;
+            _username = userStore.LoggedInUser.Username;
             _currentSettingViewModel = (currentSettingViewModel.Equals("General"))? new SettingsGeneralViewModel(generalNavigationServices) : 
                                        (currentSettingViewModel.Equals("Account")) ? new SettingsAccountViewModel(accountNavigationServices) : throw new Exception($"{currentSettingViewModel} is not a recognized settings view model");
 

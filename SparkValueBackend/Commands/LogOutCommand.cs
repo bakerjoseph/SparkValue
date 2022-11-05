@@ -1,4 +1,5 @@
 ﻿using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,19 @@ namespace SparkValueBackend.Commands
     {
         private readonly NavigationService _signInViewNavigationService;
 
-        public LogOutCommand(NavigationService signInViewNavigationService)
+        private readonly UserStore _userStore;
+
+        public LogOutCommand(NavigationService signInViewNavigationService, UserStore userStore)
         {
             _signInViewNavigationService = signInViewNavigationService;
+
+            _userStore = userStore;
         }
 
         public override void Execute(object? parameter)
         {
-            // Sign out logic goes here!
+            // Sign out the current logged in user
+            _userStore.LoggedInUser = new Models.UserAccountModel();
 
             _signInViewNavigationService.Navigate();
         }

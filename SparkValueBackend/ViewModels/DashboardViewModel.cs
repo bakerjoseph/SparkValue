@@ -40,23 +40,23 @@ namespace SparkValueBackend.ViewModels
         public DashboardViewModel(
             NavigationStore navigationStore,
             UnitStore unitStore,
+            UserStore userStore,
             NavigationService breadboardViewNavigationService, 
             NavigationService userSettingsViewNavigationService,
             NavigationService signInViewNavigationService,
-            NavigationService dashboardViewNavigationService,
-            string username)
+            NavigationService dashboardViewNavigationService)
         {
-            Username = username;
+            Username = userStore.LoggedInUser.Username;
 
             _units = new ObservableCollection<UnitViewModel>();
             foreach (UnitModel unit in unitStore.Units)
             {
-                _units.Add(new UnitViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, unit, username));
+                _units.Add(new UnitViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, unit, userStore.LoggedInUser.Username));
             }
 
             BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);
             SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);
-            LogOutCommand = new LogOutCommand(signInViewNavigationService);
+            LogOutCommand = new LogOutCommand(signInViewNavigationService, userStore);
         }
     }
 }

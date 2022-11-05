@@ -86,17 +86,17 @@ namespace SparkValueDesktopApplication
             return new DashboardViewModel(
                 _navigationStore,
                 _unitStore,
+                _userStore,
                 new NavigationService(_navigationStore, CreateBreadboardViewModel),
                 new NavigationService(_navigationStore, CreateUserSettingsGeneralViewModel),
                 new NavigationService(_navigationStore, CreateSignInViewModel),
-                new NavigationService(_navigationStore, CreateDashboardViewModel),
-                // Temp band-aid until you can actually log in with an account!!
-                (_userStore.LoggedInUser != null)? _userStore.LoggedInUser.Username : "none found");
+                new NavigationService(_navigationStore, CreateDashboardViewModel));
         }
 
         private SettingsViewModel CreateUserSettingsGeneralViewModel()
         {
             return new SettingsViewModel(
+                _userStore,
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
                 new List<NavigationService>() 
                 { 
@@ -109,14 +109,13 @@ namespace SparkValueDesktopApplication
                     new NavigationService(_navigationStore, CreateResetPasswordViewModel),
                     new NavigationService(_navigationStore, CreateDashboardViewModel)
                 },
-                // Temp band-aid until you can actually log in with an account!!
-                (_userStore.LoggedInUser != null) ? _userStore.LoggedInUser.Username : "none found",
                 "General");
         }
 
         private SettingsViewModel CreateUserSettingsAccountViewModel()
         {
             return new SettingsViewModel(
+                _userStore,
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
                 new List<NavigationService>()
                 {
@@ -129,8 +128,6 @@ namespace SparkValueDesktopApplication
                     new NavigationService(_navigationStore, CreateResetPasswordViewModel),
                     new NavigationService(_navigationStore, CreateDashboardViewModel)
                 },
-                // Temp band-aid until you can actually log in with an account!!
-                (_userStore.LoggedInUser != null) ? _userStore.LoggedInUser.Username : "none found",
                 "Account");
         }
 
