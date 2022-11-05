@@ -21,8 +21,9 @@ namespace SparkValueBackend.Commands
         private readonly NewAccountViewModel _newAccountViewModel;
 
         private readonly UserStore _userStore;
+        private readonly UnitStore _unitStore;
 
-        public NewAccountCommand(NewAccountViewModel accountVM, UserStore userStore, NavigationService signInViewNavigationService, SecurityService security)
+        public NewAccountCommand(NewAccountViewModel accountVM, UserStore userStore, UnitStore unitStore, NavigationService signInViewNavigationService, SecurityService security)
         {
             _signInViewNavigationService = signInViewNavigationService;
             _securityService = security;
@@ -31,6 +32,7 @@ namespace SparkValueBackend.Commands
             accountVM.PropertyChanged += OnViewModelPropertyChanged;
 
             _userStore = userStore;
+            _unitStore = unitStore; 
         }
 
         public override bool CanExecute(object? parameter)
@@ -56,7 +58,7 @@ namespace SparkValueBackend.Commands
             {
                 // Create account with the passed in view model values
                 (string salt, string hashed) outcome = _securityService.ProtectPassword(_newAccountViewModel.SecurePassword);
-                UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt);
+                UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt, GetDefaultUnitProgress(), GetDefaultLessonProgress());
                 await _userStore.CreateUser(newUser);
 
                 _signInViewNavigationService.Navigate();
@@ -74,6 +76,33 @@ namespace SparkValueBackend.Commands
             {
                 OnCanExecutedChanged();
             }
+        }
+
+        private List<ProgressModel> GetDefaultUnitProgress()
+        {
+            List<ProgressModel> unitProgressModels = new List<ProgressModel>();
+
+            foreach (UnitModel unit in _unitStore.Units)
+            {
+                unitProgressModels.Add(new ProgressModel(unit.Title, 0));
+            }
+
+            return unitProgressModels;
+        }
+
+        private List<ProgressModel> GetDefaultLessonProgress()
+        {
+            List<ProgressModel> lessonProgresModels = new List<ProgressModel>();
+
+            foreach (UnitModel unit in _unitStore.Units)
+            {
+                foreach (LessonModel lesson in unit.Lessons)
+                {
+                    lessonProgresModels.Add(new ProgressModel(lesson.Title, 0));
+                }
+            }
+
+            return lessonProgresModels;
         }
     }
 }

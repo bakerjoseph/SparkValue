@@ -14,14 +14,20 @@ namespace SparkValueBackend.Models
         public string EmailAddress { get; private set; }
         public string SaltValue { get; private set; }
 
+        public List<ProgressModel> AccountOverallProgress { get; private set; }
+        public List<ProgressModel> LessonProgress { get; private set; }
+
         public UserAccountModel() { }
 
-        public UserAccountModel(string username, string password, string emailAddress, string saltValue)
+        public UserAccountModel(string username, string password, string emailAddress, string saltValue, List<ProgressModel> accountOverallProgress, List<ProgressModel> lessonProgress)
         {
             Username = username;
             Password = password;
             EmailAddress = emailAddress;
             SaltValue = saltValue;
+
+            AccountOverallProgress = accountOverallProgress;
+            LessonProgress = lessonProgress;
         }
 
         /// <summary>
@@ -49,6 +55,36 @@ namespace SparkValueBackend.Models
         public void UpdateEmailAddress(string newEmailAddress)
         {
             EmailAddress = newEmailAddress;
+        }
+
+        /// <summary>
+        /// Update account progress
+        /// </summary>
+        /// <param name="item">Unit name</param>
+        /// <param name="value">Progress in that unit</param>
+        public void UpdateAccountOverallProgress(string item, int value)
+        {
+            ProgressModel? modelFound = AccountOverallProgress.FirstOrDefault(pm => pm.ItemName.Equals(item));
+
+            // Is the item a valid name in the progress?
+            if (modelFound == null) return;
+
+            modelFound.UpdateProgress(value);
+        }
+
+        /// <summary>
+        /// Update lesson progress
+        /// </summary>
+        /// <param name="item">Lesson name</param>
+        /// <param name="value">Progress in that lesson</param>
+        public void UpdateLessonProgress(string item, int value)
+        {
+            ProgressModel? modelFound = LessonProgress.FirstOrDefault(pm => pm.ItemName.Equals(item));
+
+            // Is the item a valid name in the progress?
+            if (modelFound == null) return;
+
+            modelFound.UpdateProgress(value);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace SparkValueDesktopApplication
 
         private NewAccountViewModel CreateNewAccountViewModel()
         {
-            return new NewAccountViewModel(_userStore, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService);
+            return new NewAccountViewModel(_userStore, _unitStore, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService);
         }
 
         private SignInViewModel CreateSignInViewModel()
