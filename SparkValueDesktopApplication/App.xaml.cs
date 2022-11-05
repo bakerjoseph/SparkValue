@@ -27,12 +27,14 @@ namespace SparkValueDesktopApplication
         private readonly LocalComponentStore _componentStore;
 
         private readonly SecurityService _securityService;
+        private readonly MongoInitService _mongoInitService;
 
         private readonly IEnumerable<ComponentCategoryViewModel> _componentCategories;
 
         public App()
         {
             _securityService = new SecurityService();
+            _mongoInitService = new MongoInitService(ConnectionString, DatabaseName, UnitCollection);
 
             _navigationStore = new NavigationStore();
             _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
