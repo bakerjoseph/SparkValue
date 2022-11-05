@@ -105,5 +105,38 @@ namespace SparkValueBackend.Stores
 
             await _userUpdater.UpdateUsersPassword(user);
         }
+
+        public async Task UpdateUserUnitProgress(UserAccountModel user, string unitTitle, int value)
+        {
+            // Under normal conditions this should never return
+            // You would always have at least one user, since it is required to have an account to log in
+            if (!_users.Any()) return;
+
+            user.UpdateAccountOverallProgress(unitTitle, value);
+
+            await _userUpdater.UpdateUnitProgress(user);
+        }
+
+        public async Task UpdateUserLessonProgress(UserAccountModel user, string lessonTitle, int value)
+        {
+            // Under normal conditions this should never return
+            // You would always have at least one user, since it is required to have an account to log in
+            if (!_users.Any()) return;
+
+            user.UpdateLessonProgress(lessonTitle, value);
+
+            await _userUpdater.UpdateLessonProgres(user);
+        }
+
+        public async Task ResetAllUserProgress(UserAccountModel user)
+        {
+            // Under normal conditions this should never return
+            // You would always have at least one user, since it is required to have an account to log in
+            if (!_users.Any()) return;
+
+            user.ResetAllProgress();
+
+            await _userUpdater.ResetProgress(user);
+        }
     }
 }

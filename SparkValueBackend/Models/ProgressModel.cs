@@ -33,5 +33,13 @@ namespace SparkValueBackend.Models
 
             Progress = value;
         }
+
+        /// <summary>
+        /// Reset the progress back to zero.
+        /// </summary>
+        public void ResetProgress()
+        {
+            Progress = 0;
+        }
     }
 }

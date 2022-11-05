@@ -1,4 +1,6 @@
-﻿using SparkValueBackend.Services;
+﻿using SparkValueBackend.Models;
+using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +9,24 @@ using System.Threading.Tasks;
 
 namespace SparkValueBackend.Commands
 {
-    public class WipeAccountCommand : CommandBase
+    public class WipeAccountCommand : AsyncCommandBase
     {
         private readonly NavigationService _dashboardViewNavigationService;
 
-        public WipeAccountCommand(NavigationService dashboardViewNavigationService)
+        private readonly UserStore _userStore;
+
+        public WipeAccountCommand(NavigationService dashboardViewNavigationService, UserStore userStore)
         {
             _dashboardViewNavigationService = dashboardViewNavigationService;
+
+            _userStore = userStore; 
         }
 
-        public override void Execute(object? parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
-            // Wipe an account logic here!!
+            // Wipe an account's progress on all units and lessons
+            UserAccountModel user = _userStore.LoggedInUser;
+            await _userStore.ResetAllUserProgress(user);
 
             _dashboardViewNavigationService.Navigate();
         }

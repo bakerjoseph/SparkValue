@@ -1,5 +1,6 @@
 ﻿using SparkValueBackend.Commands;
 using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,14 @@ namespace SparkValueBackend.ViewModels
         public ICommand ResetPasswordCommand { get; }
         public ICommand ResetAccountCommand { get; }
 
-        public SettingsAccountViewModel(List<NavigationService>? navigationServices)
+        public SettingsAccountViewModel(List<NavigationService>? navigationServices, UserStore userStore)
         {
             if (navigationServices != null && navigationServices.Count == 4)
             {
                 ResetUsernameCommand = new NavigateCommand(navigationServices[0]);
                 ResetEmailAddressCommand = new NavigateCommand(navigationServices[1]);
                 ResetPasswordCommand = new NavigateCommand(navigationServices[2]);
-                ResetAccountCommand = new WipeAccountCommand(navigationServices[3]);
+                ResetAccountCommand = new WipeAccountCommand(navigationServices[3], userStore);
             }
             else
             {

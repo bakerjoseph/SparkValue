@@ -22,6 +22,27 @@ namespace SparkValueBackend.Services.UserUpdaters
             _userProvider = new MongoUserProvider(connectionString, databaseName, userCollection);
         }
 
+        public async Task ResetProgress(UserAccountModel user)
+        {
+            IMongoCollection<UserAccountModel> usersCollection = ConnectToMongo<UserAccountModel>(_userCollection);
+            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", user.Id);
+            await usersCollection.ReplaceOneAsync(filter, user);
+        }
+
+        public async Task UpdateLessonProgres(UserAccountModel user)
+        {
+            IMongoCollection<UserAccountModel> usersCollection = ConnectToMongo<UserAccountModel>(_userCollection);
+            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", user.Id);
+            await usersCollection.ReplaceOneAsync(filter, user);
+        }
+
+        public async Task UpdateUnitProgress(UserAccountModel user)
+        {
+            IMongoCollection<UserAccountModel> usersCollection = ConnectToMongo<UserAccountModel>(_userCollection);
+            FilterDefinition<UserAccountModel> filter = Builders<UserAccountModel>.Filter.Eq("Id", user.Id);
+            await usersCollection.ReplaceOneAsync(filter, user);
+        }
+
         public async Task UpdateUsersEmailAddress(UserAccountModel user)
         {
             IMongoCollection<UserAccountModel> usersCollection = ConnectToMongo<UserAccountModel>(_userCollection);

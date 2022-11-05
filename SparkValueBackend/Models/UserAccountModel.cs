@@ -86,5 +86,22 @@ namespace SparkValueBackend.Models
 
             modelFound.UpdateProgress(value);
         }
+
+        /// <summary>
+        /// Reset all unit and lesson progress back to zero.
+        /// </summary>
+        public void ResetAllProgress()
+        {
+
+            foreach (ProgressModel pmU in AccountOverallProgress)
+            {
+                pmU.ResetProgress();
+            }
+
+            foreach (ProgressModel pmL in LessonProgress)
+            {
+                pmL.ResetProgress();
+            }
+        }
     }
 }

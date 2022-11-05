@@ -14,5 +14,11 @@ namespace SparkValueBackend.Services.UserUpdaters
         public Task UpdateUsersPassword(UserAccountModel user);
 
         public Task UpdateUsersEmailAddress(UserAccountModel user);
+
+        public Task UpdateUnitProgress(UserAccountModel user);
+
+        public Task UpdateLessonProgres(UserAccountModel user);
+
+        public Task ResetProgress(UserAccountModel user);
     }
 }
