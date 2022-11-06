@@ -79,7 +79,7 @@ namespace SparkValueDesktopApplication
                 new NavigationService(_navigationStore, CreateBreadboardViewModel),
                 new NavigationService(_navigationStore, CreateNewAccountViewModel),
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
-                new NavigationService(_navigationStore, CreateResetPasswordViewModel),
+                new NavigationService(_navigationStore, CreateResetPasswordViewModelToSignIn),
                 _securityService);
         }
 
@@ -108,7 +108,7 @@ namespace SparkValueDesktopApplication
                 {
                     new NavigationService(_navigationStore, CreateResetUsernameViewModel),
                     new NavigationService(_navigationStore, CreateResetEmailAddressViewModel),
-                    new NavigationService(_navigationStore, CreateResetPasswordViewModel),
+                    new NavigationService(_navigationStore, CreateResetPasswordViewModelToSettings),
                     new NavigationService(_navigationStore, CreateDashboardViewModel)
                 },
                 "General");
@@ -127,7 +127,7 @@ namespace SparkValueDesktopApplication
                 {
                     new NavigationService(_navigationStore, CreateResetUsernameViewModel),
                     new NavigationService(_navigationStore, CreateResetEmailAddressViewModel),
-                    new NavigationService(_navigationStore, CreateResetPasswordViewModel),
+                    new NavigationService(_navigationStore, CreateResetPasswordViewModelToSettings),
                     new NavigationService(_navigationStore, CreateDashboardViewModel)
                 },
                 "Account");
@@ -143,9 +143,14 @@ namespace SparkValueDesktopApplication
             return new ResetEmailAddressViewModel(new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
         }
 
-        private ResetPasswordViewModel CreateResetPasswordViewModel()
+        private ResetPasswordViewModel CreateResetPasswordViewModelToSettings()
         {
-            return new ResetPasswordViewModel(new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
+            return new ResetPasswordViewModel(_userStore, new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
+        }
+
+        private ResetPasswordViewModel CreateResetPasswordViewModelToSignIn()
+        {
+            return new ResetPasswordViewModel(_userStore, new NavigationService(_navigationStore, CreateSignInViewModel));
         }
     }
 }
