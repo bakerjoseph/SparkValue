@@ -14,14 +14,19 @@ namespace SparkValueBackend.Services
         private readonly string APIKey;
         private readonly string SendingEmail;
 
-        public EmailService()
+        public EmailService(string apiKey)
         {
             // API key is created here, in the future store in some other place secure
-            APIKey = "";
+            APIKey = apiKey;
             // Get our from address from some other secure palce
-            SendingEmail = "learningelectronics@sparkvalue.com";
+            SendingEmail = "jobaker@student.neumont.edu";
         }
 
+        /// <summary>
+        /// Send a welcome email to the user.
+        /// </summary>
+        /// <param name="user">User to send the email to</param>
+        /// <returns></returns>
         public async Task SendWelcomeEmail(UserAccountModel user)
         {
             SendGridClient client = new SendGridClient(APIKey);
@@ -38,6 +43,12 @@ namespace SparkValueBackend.Services
             Response response = await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Send a password reset email to the user.
+        /// </summary>
+        /// <param name="user">User to send the email to</param>
+        /// <param name="passwordReset">Password reset verification string</param>
+        /// <returns></returns>
         public async Task SendPasswordResetEmail(UserAccountModel user, string passwordReset)
         {
             SendGridClient client = new SendGridClient(APIKey);

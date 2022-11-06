@@ -28,6 +28,7 @@ namespace SparkValueDesktopApplication
 
         private readonly SecurityService _securityService;
         private readonly MongoInitService _mongoInitService;
+        private readonly EmailService _emailService;
 
         private readonly IEnumerable<ComponentCategoryViewModel> _componentCategories;
 
@@ -35,6 +36,7 @@ namespace SparkValueDesktopApplication
         {
             _securityService = new SecurityService();
             _mongoInitService = new MongoInitService(ConnectionString, DatabaseName, UnitCollection);
+            _emailService = new EmailService(config["Email:ApiKey"]);
 
             _navigationStore = new NavigationStore();
             _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
@@ -67,7 +69,7 @@ namespace SparkValueDesktopApplication
 
         private NewAccountViewModel CreateNewAccountViewModel()
         {
-            return new NewAccountViewModel(_userStore, _unitStore, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService);
+            return new NewAccountViewModel(_userStore, _unitStore, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService, _emailService);
         }
 
         private SignInViewModel CreateSignInViewModel()

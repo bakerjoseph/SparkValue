@@ -17,22 +17,24 @@ namespace SparkValueBackend.Commands
     {
         private readonly NavigationService _signInViewNavigationService;
         private readonly SecurityService _securityService;
+        private readonly EmailService _emailService;
 
         private readonly NewAccountViewModel _newAccountViewModel;
 
         private readonly UserStore _userStore;
         private readonly UnitStore _unitStore;
 
-        public NewAccountCommand(NewAccountViewModel accountVM, UserStore userStore, UnitStore unitStore, NavigationService signInViewNavigationService, SecurityService security)
+        public NewAccountCommand(NewAccountViewModel accountVM, UserStore userStore, UnitStore unitStore, NavigationService signInViewNavigationService, SecurityService security, EmailService emailService)
         {
             _signInViewNavigationService = signInViewNavigationService;
             _securityService = security;
+            _emailService = emailService;
 
             _newAccountViewModel = accountVM;
             accountVM.PropertyChanged += OnViewModelPropertyChanged;
 
             _userStore = userStore;
-            _unitStore = unitStore; 
+            _unitStore = unitStore;
         }
 
         public override bool CanExecute(object? parameter)
@@ -60,6 +62,9 @@ namespace SparkValueBackend.Commands
                 (string salt, string hashed) outcome = _securityService.ProtectPassword(_newAccountViewModel.SecurePassword);
                 UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt, GetDefaultUnitProgress(), GetDefaultLessonProgress());
                 await _userStore.CreateUser(newUser);
+
+                // Send a welcome email to the new user
+                await _emailService.SendWelcomeEmail(newUser);
 
                 _signInViewNavigationService.Navigate();
             }

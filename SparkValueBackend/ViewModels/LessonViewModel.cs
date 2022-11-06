@@ -38,6 +38,20 @@ namespace SparkValueBackend.ViewModels
             }
         }
 
+        private string _description;
+        public string Description
+        {
+            get 
+            { 
+                return _description; 
+            }
+            set
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
         private string _progress;
         public string Progress
         {
@@ -75,6 +89,7 @@ namespace SparkValueBackend.ViewModels
 
             Username = username;
             Title = lesson.Title;
+            Description = lesson.Description;
             Progress = $"0/{_content.Count}";
 
             MenuNavigateCommand = new NavigateCommand(dashboardViewNavigationService);
