@@ -145,12 +145,13 @@ namespace SparkValueDesktopApplication
 
         private ResetPasswordViewModel CreateResetPasswordViewModelToSettings()
         {
-            return new ResetPasswordViewModel(_userStore, new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
+            return new ResetPasswordViewModel(_userStore, _emailService, new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel), _securityService);
         }
 
         private ResetPasswordViewModel CreateResetPasswordViewModelToSignIn()
         {
-            return new ResetPasswordViewModel(_userStore, new NavigationService(_navigationStore, CreateSignInViewModel));
+            // Most likely needs to be moved so we can construct a user object before this is called
+            return new ResetPasswordViewModel(_userStore, _emailService, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService);
         }
     }
 }

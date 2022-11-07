@@ -1,4 +1,5 @@
 ﻿using SparkValueBackend.Commands;
+using SparkValueBackend.Models;
 using SparkValueBackend.Services;
 using SparkValueBackend.Stores;
 using System;
@@ -14,20 +15,6 @@ namespace SparkValueBackend.ViewModels
 {
     public class ResetPasswordViewModel : ViewModelBase
     {
-        private string _username;
-        public string Username
-        {
-            get 
-            { 
-                return _username; 
-            }
-            set
-            {
-                _username = value;
-                OnPropertyChanged(nameof(Username));
-            }
-        }
-
         private string _passwordVerification;
         public string PasswordVerification
         {
@@ -75,25 +62,39 @@ namespace SparkValueBackend.ViewModels
 
         /// <summary>
         /// Used in conjunction with PasswordChangeView.xaml
+        /// Constructor for the settings page
         /// </summary>
-        public ResetPasswordViewModel(UserStore userStore, NavigationService userSettingsViewNavigationService)
+        public ResetPasswordViewModel(UserStore userStore, EmailService emailService, NavigationService userSettingsViewNavigationService, SecurityService securityService)
         {
+            string verificationString = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 10);
+
             // Use the email from the logged in user
-            _username = (userStore.LoggedInUser != null) ? userStore.LoggedInUser.Username : string.Empty;
+            SendResetEmail(emailService, userStore.LoggedInUser, verificationString);
             MessageBox.Show("A email was sent to the address in your account. Use the code in that email to continue on the next screen");
 
             CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
-            ResetPasswordCommand = new ChangePasswordCommand(this, userSettingsViewNavigationService, userStore);
+            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, userSettingsViewNavigationService, securityService, userStore, null);
         }
 
-        public ResetPasswordViewModel(UserStore userStore, NavigationService userSettingsViewNavigationService, string username, string email)
+        /// <summary>
+        /// Used in conjunction with PasswordChangeView.xaml
+        /// Constructor for the log in page
+        /// </summary>
+        public ResetPasswordViewModel(UserStore userStore, EmailService emailService, NavigationService userSettingsViewNavigationService, SecurityService securityService, UserAccountModel user)
         {
-            // Use the email from the previous screen
-            _username = username;
+            string verificationString = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 10);
+
+            // Use the details from the previous screen
+            SendResetEmail(emailService, user, verificationString);
             MessageBox.Show("A email was sent to the address in your account. Use the code in that email to continue on the next screen");
 
             CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
-            ResetPasswordCommand = new ChangePasswordCommand(this, userSettingsViewNavigationService, userStore);
+            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, userSettingsViewNavigationService, securityService, userStore, user);
+        }
+
+        private async void SendResetEmail(EmailService emailService, UserAccountModel user, string verificationString)
+        {
+            await emailService.SendPasswordResetEmail(user, verificationString);
         }
     }
 }

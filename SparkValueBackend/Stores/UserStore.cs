@@ -95,13 +95,14 @@ namespace SparkValueBackend.Stores
             await _userUpdater.UpdateUsersEmailAddress(user);
         }
 
-        public async Task UpdateUsersPassword(UserAccountModel user, string newPassword)
+        public async Task UpdateUsersPassword(UserAccountModel user, (string salt, string hashedPassword) password)
         {
             // Under normal conditions this should never return
             // You would always have at least one user, since it is required to have an account to log in
             if (!_users.Any()) return;
 
-            user.UpdatePassword(newPassword);
+            user.UpdateSalt(password.salt);
+            user.UpdatePassword(password.hashedPassword);
 
             await _userUpdater.UpdateUsersPassword(user);
         }

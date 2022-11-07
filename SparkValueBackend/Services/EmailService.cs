@@ -55,7 +55,7 @@ namespace SparkValueBackend.Services
             SendGridMessage msg = new SendGridMessage()
             {
                 From = new EmailAddress(SendingEmail, "Spark Value Bot"),
-                Subject = "Welcome to Spark Value",
+                Subject = "Password Reset Confirmation",
                 PlainTextContent = $"You, {user.Username}, have requested to change your password. " +
                                    "Please enter the following code in the application to continue this process. " +
                                    $"{passwordReset}",

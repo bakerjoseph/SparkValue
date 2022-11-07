@@ -40,6 +40,15 @@ namespace SparkValueBackend.Models
         }
 
         /// <summary>
+        /// Update a user's salt value
+        /// </summary>
+        /// <param name="newSalt"></param>
+        public void UpdateSalt(string newSalt)
+        {
+            SaltValue = newSalt;
+        }
+
+        /// <summary>
         /// Update a user's password
         /// </summary>
         /// <param name="newPassword">The new password of the user</param>
