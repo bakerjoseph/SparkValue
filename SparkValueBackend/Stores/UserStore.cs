@@ -66,6 +66,11 @@ namespace SparkValueBackend.Stores
             _users.AddRange(users);
         }
 
+        public UserAccountModel GetUserByUsername(string username)
+        {
+            return _users.FirstOrDefault(u => u.Username.Equals(username));
+        }
+
         public async Task CreateUser(UserAccountModel user)
         {
             await _userCreator.CreateUser(user);

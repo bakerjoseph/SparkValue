@@ -42,6 +42,9 @@
             <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
                 <views:UserSettings/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:UsernameEmailRequestViewModel}">
+                <views:UsernameEmailRequestView/>
+            </DataTemplate>
         </Viewbox.Resources>
         <Border BorderBrush="Black" BorderThickness="0.25">
             <ContentControl Content="{Binding CurrentViewModel}"/>

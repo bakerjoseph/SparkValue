@@ -20,18 +20,27 @@
             
             <TextBlock HorizontalAlignment="Center" Padding="15" Grid.Row="0" Grid.ColumnSpan="2" MinHeight="50" FontSize="22" FontWeight="Bold" Text="Welcome to Spark Value"/>
             
+            <!--#region Left Side Menu -->
             <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
                 <StackPanel  VerticalAlignment="Center" Margin="10 20">
+                    
                     <TextBlock HorizontalAlignment="Center" Text="New to Spark Value?"/>
                     <Button Content="Create a free account here" Command="{Binding CreateAccountCommand}" Margin="10 0 10 10" />
+                    
                     <Separator  Margin="0 5"/>
+                    
                     <TextBlock HorizontalAlignment="Center" Text="Not interested in our lessons?"/>
                     <Button Content="Try our virtual breadboard here" Command="{Binding BreadboardNavigateCommand}" Margin="10 0 10 10"/>
+                    
                 </StackPanel>
             </Border>
+            <!--#endregion-->
 
+            <!--#region Right Side Menu -->
             <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0,1,1,1">
                 <StackPanel VerticalAlignment="Center" Margin="10 20">
+                    
+                    <!--#region Form Inputs -->
                     <StackPanel Orientation="Horizontal" Margin="5 30 5 5">
                         <TextBlock Text="Username:"/>
                         <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" MinWidth="150" MaxWidth="150"/>
@@ -47,11 +56,14 @@
                                      AP:PasswordBoxAttachedProperty.EncryptedPassword="{Binding SecurePassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      PasswordChanged="PasswordEntry_PasswordChanged"/>
                     </StackPanel>
+                    <!--#endregion-->
+                    
                     <Button Content="Sign in" Command="{Binding SignInCommand}" MaxWidth="80" MinWidth="60"/>
+                    
                     <TextBlock MaxWidth="230" Foreground="LightYellow" Text="{Binding ErrorText}" HorizontalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold"/>
                 </StackPanel>
             </Border>
-            
+            <!--#endregion-->
         </Grid>
     </Border>
 </UserControl>

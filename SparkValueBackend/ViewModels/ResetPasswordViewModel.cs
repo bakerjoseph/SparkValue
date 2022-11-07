@@ -80,7 +80,7 @@ namespace SparkValueBackend.ViewModels
         /// Used in conjunction with PasswordChangeView.xaml
         /// Constructor for the log in page
         /// </summary>
-        public ResetPasswordViewModel(UserStore userStore, EmailService emailService, NavigationService userSettingsViewNavigationService, SecurityService securityService, UserAccountModel user)
+        public ResetPasswordViewModel(UserStore userStore, EmailService emailService, NavigationService logInViewNavigationService, SecurityService securityService, UserAccountModel user)
         {
             string verificationString = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 10);
 
@@ -88,8 +88,8 @@ namespace SparkValueBackend.ViewModels
             SendResetEmail(emailService, user, verificationString);
             MessageBox.Show("A email was sent to the address in your account. Use the code in that email to continue on the next screen");
 
-            CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
-            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, userSettingsViewNavigationService, securityService, userStore, user);
+            CancelCommand = new NavigateCommand(logInViewNavigationService);
+            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, logInViewNavigationService, securityService, userStore, user);
         }
 
         private async void SendResetEmail(EmailService emailService, UserAccountModel user, string verificationString)
