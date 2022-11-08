@@ -51,7 +51,7 @@ namespace SparkValueBackend.ViewModels
             _units = new ObservableCollection<UnitViewModel>();
             foreach (UnitModel unit in unitStore.Units)
             {
-                _units.Add(new UnitViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, unit, userStore.LoggedInUser.Username));
+                _units.Add(new UnitViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, unit, userStore.LoggedInUser));
             }
 
             BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);

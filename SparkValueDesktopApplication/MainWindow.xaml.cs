@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparkValueBackend.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace SparkValueDesktopApplication
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ViewModelContainer.Content.GetType() == typeof(LessonViewModel))
+            {
+                // If the view model is a lesson, call its close command, then close the application
+                ((LessonViewModel)ViewModelContainer.Content).CloseCommand.Execute(null);
+            }
         }
     }
 }

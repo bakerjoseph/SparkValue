@@ -72,6 +72,7 @@ namespace SparkValueBackend.ViewModels
         private ObservableCollection<ViewModelBase> _interactiveElements;
         public IEnumerable<ViewModelBase> InteractiveElements => _interactiveElements;
 
+        public ICommand CloseCommand { get; }
         public ICommand MenuNavigateCommand { get; }
         public ICommand SettingsNavigateCommand { get; }
         public ICommand LessonNavigateCommand { get; }
@@ -80,20 +81,29 @@ namespace SparkValueBackend.ViewModels
 
         public LessonViewModel(NavigationStore navigationStore, 
                                NavigationService dashboardViewNavigationService, 
-                               NavigationService userSettingsViewNavigationService,
-                               string username, 
-                               LessonModel lesson)
+                               NavigationService userSettingsViewNavigationService, 
+                               LessonModel lesson,
+                               UserAccountModel user)
         {
             _content = new ObservableCollection<string>(lesson.Content);
             //_interactiveElements = new ObservableCollection<ViewModelBase>(lesson.InteractiveElementTitles);
 
-            Username = username;
+            Username = user.Username;
             Title = lesson.Title;
             Description = lesson.Description;
-            Progress = $"0/{_content.Count}";
 
-            MenuNavigateCommand = new NavigateCommand(dashboardViewNavigationService);
-            SettingsNavigateCommand = new NavigateCommand(userSettingsViewNavigationService);
+            ProgressModel targetProgress = user.LessonProgress.First(p => p.ItemName.Equals(lesson.Title));
+            // Check the progress on the lesson, if it is zero, set it to one and diplay it
+            if (targetProgress.Progress == 0)
+            {
+                user.UpdateLessonProgress(targetProgress.ItemName, 1);
+            }
+
+            Progress = $"{targetProgress.Progress}/{_content.Count}";
+
+            CloseCommand = new NavigateAwayFromLessonCommand(this, null, user);
+            MenuNavigateCommand = new NavigateAwayFromLessonCommand(this, dashboardViewNavigationService, user);
+            SettingsNavigateCommand = new NavigateAwayFromLessonCommand(this, userSettingsViewNavigationService, user);
             LessonNavigateCommand = new NavigateCommand(new NavigationService(navigationStore, CreateLessonViewModel));
 
             PreviousPageCommand = new LessonIterateBackwardCommand(this);
@@ -103,6 +113,22 @@ namespace SparkValueBackend.ViewModels
         private LessonViewModel CreateLessonViewModel()
         {
             return this;
+        }
+
+        public int GetLessonProgress()
+        {
+            // Convert "1/5" to "1", we just need the first number to update the users progress
+            return int.Parse(Progress.Split("/")[0].Trim());
+        }
+
+        public bool CanGoBack()
+        {
+            return GetLessonProgress() > Content.Count();
+        }
+
+        public bool CanGoForward()
+        {
+            return GetLessonProgress() < Content.Count();
         }
     }
 }

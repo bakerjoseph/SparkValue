@@ -43,7 +43,7 @@ namespace SparkValueBackend.ViewModels
                              NavigationService dashboardViewNavigationService, 
                              NavigationService userSettingsViewNavigationService,
                              UnitModel unit,
-                             string username)
+                             UserAccountModel user)
         {
             Title = unit.Title;
             Description = unit.Description;
@@ -51,7 +51,7 @@ namespace SparkValueBackend.ViewModels
             _lessons = new ObservableCollection<LessonViewModel>();
             foreach (var lesson in unit.Lessons)
             {
-                _lessons.Add(new LessonViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, username, lesson));
+                _lessons.Add(new LessonViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, lesson, user));
             }
         }
     }

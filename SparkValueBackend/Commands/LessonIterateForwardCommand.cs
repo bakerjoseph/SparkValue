@@ -14,11 +14,25 @@ namespace SparkValueBackend.Commands
         public LessonIterateForwardCommand(LessonViewModel lesson)
         {
             _lesson = lesson;
+            lesson.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        public override bool CanExecute(object? parameter)
+        {
+            return _lesson.CanGoForward() && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
             throw new NotImplementedException();
+        }
+
+        private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(LessonViewModel.Progress))
+            {
+                OnCanExecutedChanged();
+            }
         }
     }
 }
