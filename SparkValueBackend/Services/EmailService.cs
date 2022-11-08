@@ -1,11 +1,14 @@
-﻿using SendGrid;
+﻿using Microsoft.Extensions.Configuration;
+using SendGrid;
 using SendGrid.Helpers.Mail;
 using SparkValueBackend.Models;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SparkValueBackend.Services
 {
@@ -14,12 +17,13 @@ namespace SparkValueBackend.Services
         private readonly string APIKey;
         private readonly string SendingEmail;
 
-        public EmailService(string apiKey)
+        public EmailService()
         {
-            // API key is created here, in the future store in some other place secure
-            APIKey = apiKey;
-            // Get our from address from some other secure palce
-            SendingEmail = "jobaker@student.neumont.edu";
+            var config = new ConfigurationBuilder().AddUserSecrets<EmailService>().Build();
+
+            APIKey = config["Email:ApiKey"];
+
+            SendingEmail = config["Email:SendingEmail"];
         }
 
         /// <summary>

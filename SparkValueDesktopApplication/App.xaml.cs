@@ -36,7 +36,7 @@ namespace SparkValueDesktopApplication
         {
             _securityService = new SecurityService();
             _mongoInitService = new MongoInitService(ConnectionString, DatabaseName, UnitCollection);
-            _emailService = new EmailService(config["Email:ApiKey"]);
+            _emailService = new EmailService();
 
             _navigationStore = new NavigationStore();
             _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
