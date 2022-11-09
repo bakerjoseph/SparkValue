@@ -2,6 +2,7 @@
 using SparkValueBackend.Models;
 using SparkValueBackend.Services;
 using SparkValueBackend.Stores;
+using SparkValueBackend.ViewModels.LessonContent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -66,11 +67,21 @@ namespace SparkValueBackend.ViewModels
             }
         }
 
-        private ObservableCollection<string> _content;
-        public IEnumerable<string> Content => _content;
+        private LessonModel _lesson;
 
-        private ObservableCollection<ViewModelBase> _interactiveElements;
-        public IEnumerable<ViewModelBase> InteractiveElements => _interactiveElements;
+        private LessonContentViewModelBase _displayedContent;
+        public LessonContentViewModelBase DisplayedContent 
+        { 
+            get 
+            { 
+                return _displayedContent; 
+            }
+            set
+            {
+                _displayedContent = value;
+                OnPropertyChanged(nameof(DisplayedContent));
+            }
+        }
 
         public ICommand CloseCommand { get; }
         public ICommand MenuNavigateCommand { get; }
@@ -85,8 +96,7 @@ namespace SparkValueBackend.ViewModels
                                LessonModel lesson,
                                UserAccountModel user)
         {
-            _content = new ObservableCollection<string>(lesson.Content);
-            //_interactiveElements = new ObservableCollection<ViewModelBase>(lesson.InteractiveElementTitles);
+            _lesson = lesson;
 
             Username = user.Username;
             Title = lesson.Title;
@@ -99,7 +109,7 @@ namespace SparkValueBackend.ViewModels
                 user.UpdateLessonProgress(targetProgress.ItemName, 1);
             }
 
-            Progress = $"{targetProgress.Progress}/{_content.Count}";
+            Progress = $"{targetProgress.Progress}/{_lesson.Content.Count}";
 
             CloseCommand = new NavigateAwayFromLessonCommand(this, null, user);
             MenuNavigateCommand = new NavigateAwayFromLessonCommand(this, dashboardViewNavigationService, user);
@@ -123,12 +133,12 @@ namespace SparkValueBackend.ViewModels
 
         public bool CanGoBack()
         {
-            return GetLessonProgress() > Content.Count();
+            return GetLessonProgress() > _lesson.Content.Count();
         }
 
         public bool CanGoForward()
         {
-            return GetLessonProgress() < Content.Count();
+            return GetLessonProgress() < _lesson.Content.Count();
         }
     }
 }

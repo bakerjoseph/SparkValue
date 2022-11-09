@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:lvms="clr-namespace:SparkValueBackend.ViewModels.LessonContent;assembly=SparkValueBackend"
+             xmlns:lv="clr-namespace:SparkValueDesktopApplication.Views.LessonContent"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
     <Grid Height="500" Width="850">
@@ -44,7 +46,23 @@
                     <Button Content="->" Command="{Binding NextPageCommand}"/>
                     <TextBlock VerticalAlignment="Center" Text="{Binding Progress}"/>
                 </StackPanel>
-                <!-- Insert template -->
+                <Grid>
+                    <Grid.Resources>
+                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateOneViewModel}">
+                            <lv:LessonContentTemplateOneView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateTwoViewModel}">
+                            <lv:LessonContentTemplateTwoView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateThreeViewModel}">
+                            <lv:LessonContentTemplateThreeView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateFourViewModel}">
+                            <lv:LessonContentTemplateFourView/>
+                        </DataTemplate>
+                    </Grid.Resources>
+                    <ContentControl Content="{Binding DisplayedContent}"/>
+                </Grid>
             </StackPanel>
         </DockPanel>
 
