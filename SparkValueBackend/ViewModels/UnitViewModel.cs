@@ -40,6 +40,7 @@ namespace SparkValueBackend.ViewModels
         public IEnumerable<LessonViewModel> Lessons => _lessons;
 
         public UnitViewModel(NavigationStore navigationStore,
+                             UserStore userStore,
                              NavigationService dashboardViewNavigationService, 
                              NavigationService userSettingsViewNavigationService,
                              UnitModel unit,
@@ -51,7 +52,7 @@ namespace SparkValueBackend.ViewModels
             _lessons = new ObservableCollection<LessonViewModel>();
             foreach (var lesson in unit.Lessons)
             {
-                _lessons.Add(new LessonViewModel(navigationStore, dashboardViewNavigationService, userSettingsViewNavigationService, lesson, user));
+                _lessons.Add(new LessonViewModel(navigationStore, userStore, dashboardViewNavigationService, userSettingsViewNavigationService, lesson, user));
             }
         }
     }

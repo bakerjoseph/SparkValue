@@ -24,7 +24,7 @@ namespace SparkValueBackend.Commands
 
         public override void Execute(object? parameter)
         {
-            throw new NotImplementedException();
+            _lesson.IncrementLessonProgress();
         }
 
         private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

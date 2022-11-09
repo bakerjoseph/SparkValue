@@ -92,6 +92,7 @@ namespace SparkValueBackend.ViewModels
         public ICommand NextPageCommand { get; }
 
         public LessonViewModel(NavigationStore navigationStore, 
+                               UserStore userStore,
                                NavigationService dashboardViewNavigationService, 
                                NavigationService userSettingsViewNavigationService, 
                                LessonModel lesson,
@@ -114,9 +115,9 @@ namespace SparkValueBackend.ViewModels
 
             CreateContent(targetProgress.Progress);
 
-            CloseCommand = new NavigateAwayFromLessonCommand(this, null, user);
-            MenuNavigateCommand = new NavigateAwayFromLessonCommand(this, dashboardViewNavigationService, user);
-            SettingsNavigateCommand = new NavigateAwayFromLessonCommand(this, userSettingsViewNavigationService, user);
+            CloseCommand = new NavigateAwayFromLessonCommand(this, null, userStore, user);
+            MenuNavigateCommand = new NavigateAwayFromLessonCommand(this, dashboardViewNavigationService, userStore, user);
+            SettingsNavigateCommand = new NavigateAwayFromLessonCommand(this, userSettingsViewNavigationService, userStore, user);
             LessonNavigateCommand = new NavigateCommand(new NavigationService(navigationStore, CreateLessonViewModel));
 
             PreviousPageCommand = new LessonIterateBackwardCommand(this);
@@ -128,17 +129,55 @@ namespace SparkValueBackend.ViewModels
             return this;
         }
 
+        /// <summary>
+        /// Get a users progress through the lesson
+        /// </summary>
+        /// <returns>A users progress number</returns>
         public int GetLessonProgress()
         {
             // Convert "1/5" to "1", we just need the first number to update the users progress
             return int.Parse(Progress.Split("/")[0].Trim());
         }
 
+        /// <summary>
+        /// Increment the lesson progress, generates new displayed content
+        /// </summary>
+        public void IncrementLessonProgress()
+        {
+            // Increment progress
+            int previousProgress = GetLessonProgress();
+            _progress = $"{previousProgress + 1}/{_lesson.Content.Count}";
+
+            // Generate new displayed content
+            CreateContent(previousProgress + 1);
+        }
+
+        /// <summary>
+        /// Decrement the lesson progress, generates new displayed content
+        /// </summary>
+        public void DecrementLessonProgress()
+        {
+            // Decrement progress
+            int previousProgress = GetLessonProgress();
+            _progress = $"{previousProgress - 1}/{_lesson.Content.Count}";
+
+            // Generate new displayed content
+            CreateContent(previousProgress - 1);
+        }
+
+        /// <summary>
+        /// Can we traverse backwards through the lesson?
+        /// </summary>
+        /// <returns>A bool: True = yes | False = no</returns>
         public bool CanGoBack()
         {
             return GetLessonProgress() > _lesson.Content.Count();
         }
 
+        /// <summary>
+        /// Can we traverse forwards through the lesson?
+        /// </summary>
+        /// <returns>A bool: True = yes | False = no</returns>
         public bool CanGoForward()
         {
             return GetLessonProgress() < _lesson.Content.Count();
