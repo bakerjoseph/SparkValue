@@ -12,6 +12,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <!-- Top content -->
+        <TextBlock Grid.Row="0" Text="{Binding PlainText}" TextWrapping="Wrap" />
         <!-- Bottom interactive element -->
     </Grid>
 </UserControl>

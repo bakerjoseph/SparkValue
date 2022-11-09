@@ -14,6 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--#region Top Bar -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -30,15 +31,20 @@
                 </Button>
             </StackPanel>
         </Grid>
+        <!--#endregion-->
 
+        <!--#region Page Body -->
         <DockPanel Grid.Row="1">
+            <!--#region Left Menu Bar -->
             <Border DockPanel.Dock="Left" Background="LightSlateGray" MaxWidth="200">
                 <DockPanel LastChildFill="False">
                     <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command="{Binding MenuNavigateCommand}"/>
                 </DockPanel>
 
             </Border>
+            <!--#endregion-->
 
+            <!--#region Lesson -->
             <StackPanel DockPanel.Dock="Right" Margin="20">
                 <TextBlock Text="{Binding Title}"/>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -46,8 +52,12 @@
                     <Button Content="->" Command="{Binding NextPageCommand}"/>
                     <TextBlock VerticalAlignment="Center" Text="{Binding Progress}"/>
                 </StackPanel>
+                <!--#region Lesson Content -->
                 <Grid>
                     <Grid.Resources>
+                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateDefaultViewModel}">
+                            <lv:LessonContentTemplateDefaultView/>
+                        </DataTemplate>
                         <DataTemplate DataType="{x:Type lvms:LessonContentTemplateOneViewModel}">
                             <lv:LessonContentTemplateOneView/>
                         </DataTemplate>
@@ -63,8 +73,10 @@
                     </Grid.Resources>
                     <ContentControl Content="{Binding DisplayedContent}"/>
                 </Grid>
+                <!--#endregion-->
             </StackPanel>
+            <!--#endregion-->
         </DockPanel>
-
+        <!--#endregion-->
     </Grid>
 </UserControl>

@@ -13,5 +13,6 @@
         </Grid.ColumnDefinitions>
         <!-- Left side interactive element -->
         <!-- Right side content -->
+        <TextBlock Grid.Column="1" Text="{Binding PlainText}" TextWrapping="Wrap" />
     </Grid>
 </UserControl>
