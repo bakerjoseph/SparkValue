@@ -48,8 +48,8 @@
             <StackPanel DockPanel.Dock="Right" Margin="20">
                 <TextBlock Text="{Binding Title}"/>
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Content="&lt;-" Command="{Binding PreviousPageCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Content="->" Command="{Binding NextPageCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button Content="&lt;-" Command="{Binding PreviousPageCommand}"/>
+                    <Button Content="->" Command="{Binding NextPageCommand}"/>
                     <TextBlock VerticalAlignment="Center" Text="{Binding Progress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <!--#region Lesson Content -->
