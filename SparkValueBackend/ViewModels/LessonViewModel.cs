@@ -5,6 +5,7 @@ using SparkValueBackend.Stores;
 using SparkValueBackend.ViewModels.LessonContent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace SparkValueBackend.ViewModels
@@ -111,6 +112,8 @@ namespace SparkValueBackend.ViewModels
 
             Progress = $"{targetProgress.Progress}/{_lesson.Content.Count}";
 
+            CreateContent(targetProgress.Progress);
+
             CloseCommand = new NavigateAwayFromLessonCommand(this, null, user);
             MenuNavigateCommand = new NavigateAwayFromLessonCommand(this, dashboardViewNavigationService, user);
             SettingsNavigateCommand = new NavigateAwayFromLessonCommand(this, userSettingsViewNavigationService, user);
@@ -139,6 +142,59 @@ namespace SparkValueBackend.ViewModels
         public bool CanGoForward()
         {
             return GetLessonProgress() < _lesson.Content.Count();
+        }
+
+        /// <summary>
+        /// Uses an index to create a lesson content template to set the displayed content
+        /// </summary>
+        /// <param name="index">Lesson page index</param>
+        public void CreateContent(int index)
+        {
+            int listIndex = index - 1;
+
+            LessonContentViewModelBase template = null;
+
+            // Are within the range of the lists in the lesson?
+            if (listIndex >= 0 && listIndex < _lesson.Content.Count && listIndex < _lesson.InteractiveElementTitles.Count && listIndex < _lesson.TemplateIds.Count())
+            {
+                string content = (string.IsNullOrEmpty(_lesson.Content[listIndex])) ? "No Text Found" : _lesson.Content[listIndex];
+                string interactiveElement = (string.IsNullOrEmpty(_lesson.InteractiveElementTitles[listIndex])) ? "No Interactive Element Found" : _lesson.InteractiveElementTitles[listIndex];
+                
+                // Create a template based on the id
+                switch (_lesson.TemplateIds[listIndex])
+                {
+                    default:
+                        // Falls into case 0, creates a default template
+                    case 0:
+                        // Default template, displays no interactive element
+                        template = new LessonContentTemplateDefaultViewModel(content, interactiveElement);
+                        break;
+                    case 1:
+                        // Template one
+                        template = new LessonContentTemplateOneViewModel(content, interactiveElement);
+                        break;
+                    case 2:
+                        // Template two
+                        template = new LessonContentTemplateTwoViewModel(content, interactiveElement);
+                        break;
+                    case 3:
+                        // Template three
+                        template = new LessonContentTemplateThreeViewModel(content, interactiveElement);
+                        break;
+                    case 4:
+                        // Template four
+                        template = new LessonContentTemplateFourViewModel(content, interactiveElement);
+                        break;
+                }
+            }
+            // If we are not within the range, set the content to a default template
+            else
+            {
+                Debug.WriteLine($"Index was out of range when trying to create content for {_lesson.Title}.");
+                template = new LessonContentTemplateDefaultViewModel("Out of bounds", null);
+            }
+
+            _displayedContent = template;
         }
     }
 }

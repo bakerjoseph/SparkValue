@@ -12,7 +12,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!-- Top interactive element -->
+        <TextBlock Grid.Row="0" Text="{Binding InteractiveElement}" TextWrapping="Wrap"/>
         <!-- Bottom content -->
-        <TextBlock Grid.Row="1" Text="{Binding PlainText}" TextWrapping="Wrap" />
+        <TextBlock Grid.Row="1" Text="{Binding PlainText}" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

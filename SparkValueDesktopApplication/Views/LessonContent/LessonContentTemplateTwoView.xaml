@@ -12,7 +12,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!-- Left side interactive element -->
+        <TextBlock Grid.Column="0" Text="{Binding InteractiveElement}" TextWrapping="Wrap"/>
         <!-- Right side content -->
-        <TextBlock Grid.Column="1" Text="{Binding PlainText}" TextWrapping="Wrap" />
+        <TextBlock Grid.Column="1" Text="{Binding PlainText}" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>
