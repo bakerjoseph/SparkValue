@@ -328,7 +328,7 @@ namespace SparkValueBackend.Services
             InitializeUnits();
         }
 
-        private void InitializeUnits()
+        private async void InitializeUnits()
         {
             IMongoCollection<UnitModel> unitCollection = ConnectToMongo<UnitModel>(_unitCollection);
             if (unitCollection.CountDocuments(new BsonDocument()) > 0) return;
@@ -336,7 +336,7 @@ namespace SparkValueBackend.Services
             // If there are no documents in the units collection add the default units
             foreach (UnitModel unit in _defaultUnits)
             {
-                _unitCreator.CreateUnit(unit);
+                await _unitCreator.CreateUnit(unit);
             }
         }
     }
