@@ -71,7 +71,7 @@
                             <lv:LessonContentTemplateFourView/>
                         </DataTemplate>
                     </Grid.Resources>
-                    <ContentControl Content="{Binding DisplayedContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ContentControl Content="{Binding DisplayedContent}"/>
                 </Grid>
                 <!--#endregion-->
             </StackPanel>

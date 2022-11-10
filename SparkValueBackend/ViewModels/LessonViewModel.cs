@@ -70,6 +70,7 @@ namespace SparkValueBackend.ViewModels
 
         private LessonModel _lesson;
 
+        #region Displayed Content
         private LessonContentViewModelBase _displayedContent;
         public LessonContentViewModelBase DisplayedContent 
         { 
@@ -79,10 +80,18 @@ namespace SparkValueBackend.ViewModels
             }
             set
             {
+                _displayedContent?.Dispose();
                 _displayedContent = value;
-                OnPropertyChanged(nameof(DisplayedContent));
+                OnCurrentDisplayedContentChanged();
             }
         }
+
+        public event Action CurrentDisplayedContentChanged;
+        private void OnCurrentDisplayedContentChanged()
+        {
+            CurrentDisplayedContentChanged?.Invoke();
+        }
+        #endregion
 
         public ICommand CloseCommand { get; }
         public ICommand MenuNavigateCommand { get; }
@@ -171,7 +180,7 @@ namespace SparkValueBackend.ViewModels
         /// <returns>A bool: True = yes | False = no</returns>
         public bool CanGoBack()
         {
-            return GetLessonProgress() > _lesson.Content.Count();
+            return GetLessonProgress() > 0;
         }
 
         /// <summary>
