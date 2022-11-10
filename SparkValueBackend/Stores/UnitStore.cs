@@ -32,6 +32,14 @@ namespace SparkValueBackend.Stores
         private async Task InitializeUnits()
         {
             IEnumerable<UnitModel> units = await _unitProvider.GetAllUnits();
+            // Sort the units
+            units = units.OrderBy(u => u.OrderNumber);
+
+            // Sort the lessons
+            foreach (UnitModel unit in units)
+            {
+                unit.Lessons.Sort((x, y) => x.OrderNumber.CompareTo(y.OrderNumber));
+            }
 
             _units.Clear();
             _units.AddRange(units);

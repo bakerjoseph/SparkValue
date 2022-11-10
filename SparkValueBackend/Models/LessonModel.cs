@@ -9,6 +9,7 @@ namespace SparkValueBackend.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; private set; }
         public string Title { get; private set; }
+        public int OrderNumber { get; private set; }
         public string Description { get; private set; }
         public List<string> Content { get; private set; }
         public List<string> InteractiveElementTitles { get; private set; }
@@ -16,9 +17,10 @@ namespace SparkValueBackend.Models
 
         public LessonModel() { }
 
-        public LessonModel(string title, string description, IEnumerable<string> content, IEnumerable<string> interactiveElementTitles, List<int> templateIds)
+        public LessonModel(string title, int orderNumber, string description, IEnumerable<string> content, IEnumerable<string> interactiveElementTitles, List<int> templateIds)
         {
             Title = title;
+            OrderNumber = orderNumber;
             Description = description;
             Content = new List<string>(content);
             InteractiveElementTitles = new List<string>(interactiveElementTitles);

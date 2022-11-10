@@ -21,10 +21,12 @@ namespace SparkValueBackend.Services
         List<UnitModel> _defaultUnits = new List<UnitModel>()
         {
             new UnitModel("Shocking Introduction",
+                1,
                 "Basic concepts to explore.",
                 new List<LessonModel>
                 {
                     new LessonModel("Electricity Primer",
+                        1,
                         "An intro to electricity.", new List<string>
                         {
                             ""
@@ -38,6 +40,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Reading Circuit Diagrams",
+                        2,
                         "Learn how to read circuit diagrams so you can build your own.", new List<string>
                         {
                             ""
@@ -51,6 +54,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Discussion of Components",
+                        3,
                         "A brief introduction to the vast world of components.", new List<string>
                         {
                             ""
@@ -65,10 +69,12 @@ namespace SparkValueBackend.Services
                         })
                 }),
             new UnitModel("Components Galore",
+                2,
                 "Basic components and what they do.",
                 new List<LessonModel>
                 {
                     new LessonModel("Resistors",
+                        1,
                         "Resist that power, bring it down.", new List<string>
                         {
                             ""
@@ -82,6 +88,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Diodes",
+                        2,
                         "Manage the flow of electricity.", new List<string>
                         {
                             ""
@@ -95,6 +102,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Light Emitting Diodes",
+                        3,
                         "An indication of a lively circuit.", new List<string>
                         {
                             ""
@@ -108,6 +116,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Capacitors",
+                        4,
                         "Storing electricity like a champ.", new List<string>
                         {
                             ""
@@ -121,6 +130,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Transistors",
+                        5,
                         "An electrical checkpoint.", new List<string>
                         {
                             ""
@@ -134,6 +144,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Inductors",
+                        6,
                         "Magnetic fields of stored electricity.", new List<string>
                         {
                             ""
@@ -148,10 +159,12 @@ namespace SparkValueBackend.Services
                         })
                 }),
             new UnitModel("Miscellaneous Components",
+                3,
                 "Even more components and what they do.",
                 new List<LessonModel>
                 {
                     new LessonModel("Logic Gates",
+                        1,
                         "Logic at its finest.", new List<string>
                         {
                             ""
@@ -165,6 +178,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Integrated Circuits",
+                        2,
                         "Tiny circuits within circuits.", new List<string>
                         {
                             ""
@@ -178,6 +192,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Switches",
+                        3,
                         "Pull the lever.", new List<string>
                         {
                             ""
@@ -191,6 +206,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Buttons",
+                        4,
                         "Be careful what you press.", new List<string>
                         {
                             ""
@@ -205,10 +221,12 @@ namespace SparkValueBackend.Services
                         })
                 }),
             new UnitModel("Putting it Down",
+                4,
                 "A neat place for every little thing.",
                 new List<LessonModel>
                 {
                     new LessonModel("Breadboards",
+                        1,
                         "A board for bread and wires.", new List<string>
                         {
                             ""
@@ -222,6 +240,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Printed Circuit Boards",
+                        2,
                         "A green board with all those funky holes.", new List<string>
                         {
                             ""
@@ -235,6 +254,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Microcontrollers and Beyond",
+                        3,
                         "Pre-made circuits with even more possibilities.", new List<string>
                         {
                             ""
@@ -249,10 +269,12 @@ namespace SparkValueBackend.Services
                         })
                 }),
             new UnitModel("Common Tools",
+                5,
                 "Tools of the trade.",
                 new List<LessonModel>
                 {
                     new LessonModel("Multimeter",
+                        1,
                         "A way to monitor your ins and outs.", new List<string>
                         {
                             ""
@@ -266,6 +288,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Oscilloscope",
+                        2,
                         "Watching the waves of electricity.", new List<string>
                         {
                             ""
@@ -279,6 +302,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Power Supply",
+                        3,
                         "Unlimited POWER!", new List<string>
                         {
                             ""
@@ -292,6 +316,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Soldering Iron",
+                        4,
                         "Fusing metal together, making bonds that last.", new List<string>
                         {
                             ""
@@ -305,6 +330,7 @@ namespace SparkValueBackend.Services
                             0
                         }),
                     new LessonModel("Start Making",
+                        5,
                         "Show the world your new found skills.", new List<string>
                         {
                             ""
