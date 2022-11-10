@@ -50,7 +50,7 @@
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Content="&lt;-" Command="{Binding PreviousPageCommand}"/>
                     <Button Content="->" Command="{Binding NextPageCommand}"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Progress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Progress}"/>
                 </StackPanel>
                 <!--#region Lesson Content -->
                 <Grid>
@@ -71,7 +71,7 @@
                             <lv:LessonContentTemplateFourView/>
                         </DataTemplate>
                     </Grid.Resources>
-                    <ContentControl Content="{Binding DisplayedContent}"/>
+                    <ContentControl x:Name="LessonContainer" Content="{Binding DisplayedContent}"/>
                 </Grid>
                 <!--#endregion-->
             </StackPanel>

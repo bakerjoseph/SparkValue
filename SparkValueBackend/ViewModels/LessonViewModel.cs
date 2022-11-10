@@ -70,7 +70,6 @@ namespace SparkValueBackend.ViewModels
 
         private LessonModel _lesson;
 
-        #region Displayed Content
         private LessonContentViewModelBase _displayedContent;
         public LessonContentViewModelBase DisplayedContent 
         { 
@@ -82,16 +81,9 @@ namespace SparkValueBackend.ViewModels
             {
                 _displayedContent?.Dispose();
                 _displayedContent = value;
-                OnCurrentDisplayedContentChanged();
+                OnPropertyChanged(nameof(DisplayedContent));
             }
         }
-
-        public event Action CurrentDisplayedContentChanged;
-        private void OnCurrentDisplayedContentChanged()
-        {
-            CurrentDisplayedContentChanged?.Invoke();
-        }
-        #endregion
 
         public ICommand CloseCommand { get; }
         public ICommand MenuNavigateCommand { get; }
@@ -117,6 +109,7 @@ namespace SparkValueBackend.ViewModels
             // Check the progress on the lesson, if it is zero, set it to one and diplay it
             if (targetProgress.Progress == 0)
             {
+                // Will not update db with this progress until the lesson is exited
                 user.UpdateLessonProgress(targetProgress.ItemName, 1);
             }
 
@@ -155,7 +148,7 @@ namespace SparkValueBackend.ViewModels
         {
             // Increment progress
             int previousProgress = GetLessonProgress();
-            _progress = $"{previousProgress + 1}/{_lesson.Content.Count}";
+            Progress = $"{previousProgress + 1}/{_lesson.Content.Count}";
 
             // Generate new displayed content
             CreateContent(previousProgress + 1);
@@ -168,7 +161,7 @@ namespace SparkValueBackend.ViewModels
         {
             // Decrement progress
             int previousProgress = GetLessonProgress();
-            _progress = $"{previousProgress - 1}/{_lesson.Content.Count}";
+            Progress = $"{previousProgress - 1}/{_lesson.Content.Count}";
 
             // Generate new displayed content
             CreateContent(previousProgress - 1);
@@ -180,7 +173,7 @@ namespace SparkValueBackend.ViewModels
         /// <returns>A bool: True = yes | False = no</returns>
         public bool CanGoBack()
         {
-            return GetLessonProgress() > 0;
+            return GetLessonProgress() > 1;
         }
 
         /// <summary>
@@ -242,7 +235,7 @@ namespace SparkValueBackend.ViewModels
                 template = new LessonContentTemplateDefaultViewModel("Out of bounds", null);
             }
 
-            _displayedContent = template;
+            DisplayedContent = template;
         }
     }
 }
