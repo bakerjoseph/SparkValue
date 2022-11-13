@@ -86,43 +86,43 @@ namespace SparkValueBackend.Services
                         1,
                         "Resist that power, bring it down.", new List<string>
                         {
-                            ""
+                            "Resistors are a fundamental component that is widely used for many different purposes. Its main goal is to limit the flow of electrons flowing through a circuit. Resistors are measured in Ohms, seen as the greek capital letter omega. Through-hole resistor values are derived from the colored bands that encircle them. You will see four to six colored bands, each with a separate meaning. Below you will find a more in-depth color chart and calculator that you can play around with and get a better understanding of resistors."
                         },
                         new List<string>
                         {
-                            ""
+                            "ResistorsGalore"
                         },
                         new List<int>
                         {
-                            0
+                            3
                         }),
                     new LessonModel("Diodes",
                         2,
                         "Manage the flow of electricity.", new List<string>
                         {
-                            ""
+                            "Diodes have a couple of important usages that are common in many circuits. At the bare minimum, a diode controls the direction of current flow in a circuit based on its polarity. The polarity of diodes only allows current to flow from the positive anode to the negative cathode. To tell the pins apart on a through-hole diode, a colored band is present on the cathode end of the component. One common thing that uses diodes is power supplies, acting as a rectifier and reverse current protection. There are other specialized diodes that I will not discuss here but we will discuss the all-important light-emitting diodes in the next lesson."
                         },
                         new List<string>
                         {
-                            ""
+                            "CurrentCheckPoints"
                         },
                         new List<int>
                         {
-                            0
+                            2
                         }),
                     new LessonModel("Light Emitting Diodes",
                         3,
                         "An indication of a lively circuit.", new List<string>
                         {
-                            ""
+                            "This niche type of diode is an excellent addition to any circuit. As the name implies this diode emits light when current is passed through it. They also have the same polarity rules as a diode, this time though it is about the length of the lead on the component. The longer lead or leg is the anode and the shorter one is the cathode. More current passing through an LED means that the light will be brighter, but be warned that too much power will damage the LED. You will also see many subtypes of LEDs, like RGB addressable LEDs, UV LEDs, Infrared LEDs, and so much more. Now go out there and light up your projects!"
                         },
                         new List<string>
                         {
-                            ""
+                            "LightsOfLEDs"
                         },
                         new List<int>
                         {
-                            0
+                            2
                         }),
                     new LessonModel("Capacitors",
                         4,
