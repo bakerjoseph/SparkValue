@@ -128,43 +128,46 @@ namespace SparkValueBackend.Services
                         4,
                         "Storing electricity like a champ.", new List<string>
                         {
-                            ""
+                            "Another common component is the capacitor. This bad boy is like a rechargeable battery. His main goal is to store energy locally in your circuit. Capacitors have a capacitance that is a measure of charge capacity. This value is measured in farads, F, and is commonly used with metric prefixes since a single farad is a lot of capacitance. This is why you see capacitors with pico, nano, micro, and milli-farads commonly. These are used in a variety of circuits to act as signal filters, decoupling/bypass capacitors, and many other applications. Continue reading to learn how to choose capacitors for your projects and some common types of them.",
+                            "There are a lot of factors that affect your choice of capacitors. First, the size matters, both the volume and the capacitance. Second, the max voltage rating is extremely important, you do not want your capacitors to explode or pop. Third, the leakage current, the tiny amount of current that leaks through your capacitor. Fourth, the equivalent series resistance, a value of internal resistance that dissipates energy. Lastly, tolerance, a capacitor is noted by a nominal value, but can be plus or minus one percent to twenty percent. Knowing those factors let's look at common capacitor types. The most common type is ceramic-based capacitors. They are small, both in size and capacitance, but offer low ESR and leakage current. The next common type of capacitor is an electrolytic capacitor. They are more commonly used in high-voltage circuits due to their high maximum voltage rating and high capacitance. Although, they suffer higher average current leakage making them unsuitable for energy storage. There are even capacitors called supercapacitors that have super high capacitance but low maximum voltage ratings. And so many more but those are just some of the types of capacitors you will see and hear about."
                         },
                         new List<string>
                         {
-                            ""
+                            "ElectricityStore",
+                            "CapacitorTypes"
                         },
                         new List<int>
                         {
-                            0
+                            1,
+                            3
                         }),
                     new LessonModel("Transistors",
                         5,
                         "An electrical checkpoint.", new List<string>
                         {
-                            ""
+                            "Transistors are versatile components that are used in almost every circuit. There are two main types of them, bi-polar junction, BJT, and metal-oxide field-effect, MOSFET. In this lesson, we will be covering BJT and more specifically the NPN version. The visual guide below will walk you through what an NPN transistor is and what it can be used for. Beyond that transistors are used to make integrated circuits and act as signal amplification. I have not included a lot of details here due to the complex nature of transistors. However, I encourage you to tinker with them and learn more about them."
                         },
                         new List<string>
                         {
-                            ""
+                            "NPNInAction"
                         },
                         new List<int>
                         {
-                            0
+                            3
                         }),
                     new LessonModel("Inductors",
                         6,
                         "Magnetic fields of stored electricity.", new List<string>
                         {
-                            ""
+                            "Inductors are a less common component but they are used in many signal filtering and power circuits. Inductors are complicated for what they are. Even though the most simple inductor is a loop of coiled wire, the inductance value can be hard to compute. This value is measured in Henry and is generally associated with a prefix like milli, micro, or nano. I will not be discussing how to do the math for inductance because there are multiple variables, like how many coils, what is the core made of, and several others items. Does this inductance matter? Why yes, it does. In signal filtering a low inductance value filters and smooths out high-frequency noise. On the opposite end, a high inductance value filters and smooths out low-frequency noise. There are many more components to discuss through the next unit, so have fun and keep learning!"
                         },
                         new List<string>
                         {
-                            ""
+                            "InductorMagic"
                         },
                         new List<int>
                         {
-                            0
+                            4
                         })
                 }),
             new UnitModel("Miscellaneous Components",
