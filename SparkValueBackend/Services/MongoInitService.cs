@@ -202,43 +202,43 @@ namespace SparkValueBackend.Services
                         2,
                         "Tiny circuits within circuits.", new List<string>
                         {
-                            ""
+                            "Everything up to this point has been about singular components or gates, but that is about to change. Your world is about to be rocked by integrated circuits. These black boxes with pins are unassuming, but under the hood, they pack a lot of circuitry to condense your circuits into one chip. That one chip can have many different uses, like logic gates, timers, shift registers, sensors, and microcontrollers. Besides uses, integrated circuits come in a variety of package types. These range from usable with very few tools to specialized tools required. The most common through-hole package type is called DIP or Dual In-Line Package. These are great to work with for beginners and fit perfectly on breadboards and other prototyping boards. There are a lot of SMD packages available, however, most are difficult to work with without specialized tools. Due to the variety in pin layouts, I suggest that you read the documentation on your chosen IC to better understand its details. With this knowledge, I challenge you to go and find integrated circuits in your electronics and learn about them. After this lesson on integrated circuits, it is about time we start talking about circuit inputs."
                         },
                         new List<string>
                         {
-                            ""
+                            "BlackBoxCircuitry"
                         },
                         new List<int>
                         {
-                            0
+                            4
                         }),
                     new LessonModel("Switches",
                         3,
                         "Pull the lever.", new List<string>
                         {
-                            ""
+                            "Pulling levers, actuating sliders, or rocking switches are all great ways to get user input into a circuit. Switches are commonly seen in action when you are turning on the lights or turning on the power to your favorite electronic device or circuit. Switches have two important terms that you will need to know. First, you have poles, which are the number of circuits the switch can control. Then you have throws, these represent the number of states that each pole can connect to. With this knowledge, you now have a basic understanding of switches and how they are categorized. Next, we move to buttons."
                         },
                         new List<string>
                         {
-                            ""
+                            "SwitchingSwitches"
                         },
                         new List<int>
                         {
-                            0
+                            1
                         }),
                     new LessonModel("Buttons",
                         4,
                         "Be careful what you press.", new List<string>
                         {
-                            ""
+                            "Buttons are an even more common way of getting user input. Think of what is in front of you right now. That keyboard or mouse use buttons to translate human input into what the computer can understand. This concept directly translates to the circuit level too. A reset button here or a keypad of buttons there are basic usages of buttons in circuits. A button has two different natural or resting states, naturally open and closed. The naturally open state is more commonly seen in buttons. It dictates that a button will act as an open circuit until it is actuated. Then you have the opposite state, naturally closed, which dictates that a button will act as a closed circuit until it is actuated. Now that we have covered user input, components, and basic circuit knowledge in the next unit we will finally talk about putting all this knowledge to use and putting it down!"
                         },
                         new List<string>
                         {
-                            ""
+                            "ButtonPress"
                         },
                         new List<int>
                         {
-                            0
+                            1
                         })
                 }),
             new UnitModel("Putting it Down",
