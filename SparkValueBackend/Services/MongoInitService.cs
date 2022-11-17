@@ -281,15 +281,15 @@ namespace SparkValueBackend.Services
                         3,
                         "Pre-made circuits with even more possibilities.", new List<string>
                         {
-                            ""
+                            "Our circuits, up until this point, only react to our input, but what if we gave them a brain? This is where microcontrollers or microprocessors come into play. Both are similar but different. A microcontroller is an all-in-one computer that can be pre-programmed to execute a single task. In comparison, a microprocessor is only a single part of a computer and needs extra external integrated circuits to function. This is like comparing an Arduino to a Raspberry PI. For those that do not know, an Arduino acts as a development board that can be used alongside your circuits for additional control. Then you have a Raspberry PI, which is a full computer with the same potential as an Arduino with extra bells and whistles, like multitasking. Using a microcontroller unlocks a lot more potential in your circuits. I will not be going into details on programming your microcontroller here, however, there are many great tutorials out there that describe the whole process from start to finish. There are also many kits available that walk you through basic circuits and how they work with an Arduino or other microcontroller. Have fun exploring, the sky is the limit now, you know almost everything when it comes to basic electronics, congrats! In the next unit, we will cover some common tools and items that will aid your journey."
                         },
                         new List<string>
                         {
-                            ""
+                            "MicrocontrollersShowAndTell"
                         },
                         new List<int>
                         {
-                            0
+                            4
                         })
                 }),
             new UnitModel("Common Tools",
