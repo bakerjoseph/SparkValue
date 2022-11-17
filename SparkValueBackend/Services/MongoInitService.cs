@@ -250,29 +250,32 @@ namespace SparkValueBackend.Services
                         1,
                         "A board for bread and wires.", new List<string>
                         {
-                            ""
+                            "As a beginner, using a breadboard is an excellent way to start putting down your components. Even if you are not a beginner breadboards are an essential way to test and prototype your circuits. The most common type of breadboard you will see is called a solderless breadboard. You may also see its less common brother solderable breadboard or perf board. For this lesson, we will be talking about solderless breadboards because of their ease of use. It is also important to note that breadboards are expandable! Just use the notches found on every side to connect another breadboard. Read on to learn more about breadboards and how to place components on them.",
+                            "With a breadboard in hand, it may be a little confusing as to where you should place your components. One of the first things you will notice is a gap down the center of your breadboard. This gap allows you to place Dual In-Line Package integrated circuits while keeping the leads separated on different rows. Speaking of rows, they usually consist of five holes to accept component leads. Any components placed in the same row will be connected and share current. However, the different rows are isolated from each other, even across the gap. You may also see a combination of numbering or lettering to help denote hole locations. Then what are these vertical-colored strips? These denote the power rails that run the height of the breadboard. These holes are interconnected vertically, unlike the rows. Know that you know all about breadboards, get out there and practice, tinker with them or use the built-in breadboard that comes with a selection of common components."
                         },
                         new List<string>
                         {
-                            ""
+                            "",
+                            "ExampleBoard"
                         },
                         new List<int>
                         {
-                            0
+                            0,
+                            2
                         }),
                     new LessonModel("Printed Circuit Boards",
                         2,
                         "A green board with all those funky holes.", new List<string>
                         {
-                            ""
+                            "Take a step up from a breadboard and you end up at printed circuit boards or PCBs for short. A PCB is a layered circuit, you can get anywhere from two to a hundred or more layers. Using the diagrams on the left, let’s decode what a PCB is. The substrate acts as a separating layer, typically made of a non-conductive material. Then you have thin layers of copper foil that can have holes drilled or traces routed through them. Side note traces act as paths from place to place. On top of the copper comes an iconic green layer called the soldermask. This protects the copper underlayer, covers traces, and identifies solder points to the user. The soldermask can come in almost any color, green is just the most commonly used. On top of the soldermask, a silkscreen can be printed to add lettering, numbers, or other identifiable markings to your PCB. There are other terms that you will see when it comes to PCBs, however, they are not essential to gain a basic idea of what a PCB is. A great way to explore PCBs even further is to take a look into older electronics and explore their PCBs."
                         },
                         new List<string>
                         {
-                            ""
+                            "PCBExplodedView"
                         },
                         new List<int>
                         {
-                            0
+                            2
                         }),
                     new LessonModel("Microcontrollers and Beyond",
                         3,
