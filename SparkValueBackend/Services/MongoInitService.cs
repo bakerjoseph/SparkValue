@@ -301,29 +301,32 @@ namespace SparkValueBackend.Services
                         1,
                         "A way to monitor your ins and outs.", new List<string>
                         {
-                            ""
+                            "Multimeters are a simple tool useful for troubleshooting your circuits. A basic multimeter can measure voltage, resistance, and current. Another common feature is continuity checking. This is the ability to check if two components are connected electrically. A multimeter is made of three main parts. A display for displaying the reading. A selection knob to switch between different modes of reading values. And at least two ports for connecting probes too. One port should be labeled com for common ground, you should plug in the black probe here. Then plug in the other probe in the other port. If the ports are labeled with symbols insert the probe into the port with the matching symbols for the operation you want. Many types of probes are available and can be used for a variety of use cases, like clips to hold wires or needle-like points to get into tight places.",
+                            "To measure voltage or resistance across a component, place one prob on either side to get your reading. If the value is negative, that is okay, just flip the position of the probe. For current, you will need to interrupt the circuit and direct current flow through the meter and then back through your circuit. Use the diagram on the right to get a better understanding of to use a multimeter."
                         },
                         new List<string>
                         {
-                            ""
+                            "MultimeterParts",
+                            "MultimeterMeasuringValues"
                         },
                         new List<int>
                         {
-                            0
+                            1,
+                            2
                         }),
                     new LessonModel("Oscilloscope",
                         2,
                         "Watching the waves of electricity.", new List<string>
                         {
-                            ""
+                            "If you find your multimeter lacking the functionality you need to troubleshoot your circuits, then you have come to the right place. An oscilloscope is more advanced and offers even more features to troubleshoot variables over a period. They may look very confusing with all their knobs and sliders and you would be right. To explain all the different functions here would be insane. I highly suggest watching videos on how to use an oscilloscope if you decide you need one. That being said, why would you need one? Their biggest appeal is to have the ability to measure electrical waves or signals and accurately diagnose values like amplitude, frequency, and noise. As a beginner, it is unlikely that you will need one right away unless you work with oscillators or timers extensively."
                         },
                         new List<string>
                         {
-                            ""
+                            "OscilloscopeOverview"
                         },
                         new List<int>
                         {
-                            0
+                            4
                         }),
                     new LessonModel("Power Supply",
                         3,
