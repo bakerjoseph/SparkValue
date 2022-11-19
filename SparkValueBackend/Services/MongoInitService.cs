@@ -332,35 +332,44 @@ namespace SparkValueBackend.Services
                         3,
                         "Unlimited POWER!", new List<string>
                         {
-                            ""
+                            "Providing power to your circuits is critical to their function. There are several options that you can choose depending on your use case. For many using a USB port is a great option that allows direct connection to a development board or a breadboard power supply. Another common thing is to use wall adapters, most wall adapters end in a barrel plug or act as a USB outlet. Barrel plugs are commonly used for finished circuits and manufactured circuit boards. If you are wanting to get a little more advanced, you can get a dedicated benchtop variable power supply. Getting a benchtop power supply is great if you do a lot of testing with your circuits. In addition, it allows fine control over voltage values and current limits. The last common thing is to use batteries. The usage of batteries is great for mobile projects or other projects that are far from wall outlets. However, you will need to do research into batteries because of the many types, form factors, and capacity.",
+                            "For beginners, I recommend that you use either a wall adapter, with a barrel plug or a USB outlet, or a USB cable. This allows you to work with development boards, like the Arduino Uno, and connect to a breadboard power supply easily, with little hassle. If you are looking to upgrade and get seriously into electronics, that is when I would recommend getting a desktop power supply."
                         },
                         new List<string>
                         {
-                            ""
+                            "PowerOptions",
+                            "BeginnerPowerOption"
                         },
                         new List<int>
                         {
-                            0
+                            1,
+                            4
                         }),
                     new LessonModel("Soldering Iron",
                         4,
                         "Fusing metal together, making bonds that last.", new List<string>
                         {
-                            ""
+                            "Learning how to solder is a big step that opens many avenues for future projects. There are a lot of things that you may need while you are learning the basics of soldering. Some basic items you may need are flush cutters for trimming leads, a vise or a pair of helping hands to hold your circuits or wires, a heatproof mat to protect your workbench, a solder wick and or a solder vacuum to remove solder, a flux pen if you are using lead-free solder, and most importantly safety glasses. Wait there are different types of solder? Yes, there are two types of solder, their main difference is one contains lead, while the other does not. Often referred to as leaded and lead-free solder. On the next page, we will discuss the anatomy of a soldering iron.",
+                            "A soldering iron can be thought of as a hot pen. You have an interchangeable tip that directs the heat into whatever you are working on. A wand that transfers heat to the tip and away from your hand. The control box or base adjusts the temperature of the tip through a digital or analog interface. It is also important to have a stand to rest your soldering iron so it does not roll away from you. Then you need a way to clean your tip, a brass sponge is recommended, but a cool, damp sponge will work too. Now we know the ins and outs of a soldering iron and some accessories, let’s put it into practice.",
+                            "The following are some good tips on how to solder. Use the side of your tip to solder, this is considered the sweet spot. Tin your tip with a little bit of solder before heating the piece. Apply your solder to the piece you are heating with the soldering iron. Use a sponge frequently to clean your tip. There are plenty more tips you can find online, and in addition to this lesson’s content, I highly suggest you watch a demonstration first before trying to solder for your first time. Practice makes perfect or at least better joints."
                         },
                         new List<string>
                         {
-                            ""
+                            "SolderingExtras",
+                            "SolderingAnatomy",
+                            "SolderingPractice"
                         },
                         new List<int>
                         {
-                            0
+                            3,
+                            2,
+                            3
                         }),
                     new LessonModel("Start Making",
                         5,
                         "Show the world your new found skills.", new List<string>
                         {
-                            ""
+                            "Now, this is not a tool per se, this is more of a final soap box, a call to action. If you have made it through all these units and lessons, I congratulate you. There has been a ton of information to learn, however, this is only the beginning of your journey. You will learn more as you go on. Through trial and error, you will make projects that test your limits. It is all about practice, learning, and stretching your boundaries. Start simple and build up to more complex projects, all while learning new skills and programs. I have only provided the basics here to guide you along, but now it is time to take off the training wheels and get out there and make cool stuff! I am stepping off my soap box now. I wish you good luck and know that there are many resources you can turn to in times of need or inspiration."
                         },
                         new List<string>
                         {
