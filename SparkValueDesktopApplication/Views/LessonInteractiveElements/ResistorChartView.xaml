@@ -20,7 +20,7 @@
                     <ComboBoxItem Content="6-Bands"/>
                 </ComboBox>
 
-                <StackPanel Orientation="Horizontal" Margin="90 0 0 0">
+                <StackPanel Orientation="Horizontal" Margin="120 0 0 0">
                     <Canvas Height="80" Width="200" HorizontalAlignment="Center">
                         <Canvas Canvas.Left="27.5" Canvas.Top="15">
                             <Ellipse Height="50" Width="50" Fill="AntiqueWhite"/>
@@ -51,7 +51,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <!--#region Digits -->
-                    <ComboBox x:Name="DigitOne" Margin="8" Width="55" ToolTip="Digit 1" SelectedIndex="0" Foreground="White">
+                    <ComboBox x:Name="DigitOne" Margin="8" Width="55" ToolTip="Digit 1" SelectedIndex="0" Foreground="White" SelectionChanged="Band_SelectionChanged">
                         <ComboBoxItem>
                             <Grid>
                                 <Rectangle Fill="Black"/>
@@ -113,7 +113,7 @@
                             </Grid>
                         </ComboBoxItem>
                     </ComboBox>
-                    <ComboBox x:Name="DigitTwo" Margin="8" Width="55" ToolTip="Digit 2" SelectedIndex="0" Foreground="White">
+                    <ComboBox x:Name="DigitTwo" Margin="8" Width="55" ToolTip="Digit 2" SelectedIndex="0" Foreground="White" SelectionChanged="Band_SelectionChanged">
                         <ComboBoxItem>
                             <Grid>
                                 <Rectangle Fill="Black"/>
@@ -175,7 +175,7 @@
                             </Grid>
                         </ComboBoxItem>
                     </ComboBox>
-                    <ComboBox x:Name="DigitThree" Margin="8" Width="55" ToolTip="Digit 3" SelectedIndex="0" Foreground="White">
+                    <ComboBox x:Name="DigitThree" Margin="8" Width="55" ToolTip="Digit 3" SelectedIndex="0" Foreground="White" SelectionChanged="Band_SelectionChanged">
                         <ComboBox.Visibility>
                             <MultiBinding Converter="{StaticResource ComboBoxVisibilityConverter}" ConverterParameter="three">
                                 <Binding ElementName="BandMode"/>
@@ -245,7 +245,7 @@
                     <!--#endregion-->
                     
                     <!--#region Multiplier -->
-                    <ComboBox x:Name="Mult" Margin="8" Width="70" ToolTip="Multiplier" SelectedIndex="0" Foreground="White">
+                    <ComboBox x:Name="Mult" Margin="8" Width="70" ToolTip="Multiplier" SelectedIndex="0" Foreground="White" SelectionChanged="Band_SelectionChanged">
                         <ComboBoxItem>
                             <Grid>
                                 <Rectangle Fill="Silver"/>
@@ -310,7 +310,7 @@
                     <!--#endregion-->
                     
                     <!--#region Tolerance -->
-                    <ComboBox x:Name="Toler" Margin="8" Width="90" ToolTip="Tolerance" SelectedIndex="0" Foreground="White">
+                    <ComboBox x:Name="Toler" Margin="8" Width="90" ToolTip="Tolerance" SelectedIndex="0" Foreground="White" SelectionChanged="Band_SelectionChanged">
                         <ComboBoxItem>
                             <Grid>
                                 <Rectangle Fill="Silver"/>
@@ -357,7 +357,7 @@
                     <!--#endregion-->
                     
                     <!--#region Tempature Coefficient -->
-                    <ComboBox x:Name="Tempa" Margin="8" Width="95" ToolTip="Tempature Coefficient" SelectedIndex="0" Foreground="White">
+                    <ComboBox x:Name="Tempa" Margin="8" Width="95" ToolTip="Tempature Coefficient" SelectedIndex="0" Foreground="White" SelectionChanged="Band_SelectionChanged">
                         <ComboBox.Visibility>
                             <MultiBinding Converter="{StaticResource ComboBoxVisibilityConverter}" ConverterParameter="six">
                                 <Binding ElementName="BandMode"/>

@@ -19,7 +19,7 @@
         <Grid Grid.Row="1">
             <Grid.Resources>
                 <DataTemplate DataType="{x:Type vms:ResistorChartViewModel}">
-                    <views:ResistorChartView/>
+                    <views:ResistorChartView UpdateBandCommand="{Binding ChangeBand}"/>
                 </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>

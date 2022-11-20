@@ -20,6 +20,15 @@ namespace SparkValueDesktopApplication.Views.LessonInteractiveElements
     /// </summary>
     public partial class ResistorChartView : UserControl
     {
+        public static readonly DependencyProperty UpdateBandCommandProperty =
+            DependencyProperty.Register("UpdateBandCommand", typeof(ICommand), typeof(ResistorChartView), new PropertyMetadata(null));
+
+        public ICommand UpdateBandCommand
+        {
+            get { return (ICommand)GetValue(UpdateBandCommandProperty); }
+            set { SetValue(UpdateBandCommandProperty, value); }
+        }
+
         public ResistorChartView()
         {
             InitializeComponent();
@@ -53,6 +62,58 @@ namespace SparkValueDesktopApplication.Views.LessonInteractiveElements
                     MultiBindingExpression bindTempaBand = BindingOperations.GetMultiBindingExpression(TempaBand, VisibilityProperty);
                     bindTempaBand.UpdateTarget();
                 }
+            }
+        }
+
+        private void Band_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (UpdateBandCommand != null && UpdateBandCommand.CanExecute(null) && sender is ComboBox)
+            {
+                ComboBox selector = sender as ComboBox;
+
+                if (selector?.SelectedItem is ComboBoxItem)
+                {
+                    ComboBoxItem selected = selector.SelectedItem as ComboBoxItem;
+
+                    if (selected?.Content is Grid)
+                    {
+                        Grid selectedItem = selected.Content as Grid;
+
+                        if (selectedItem?.Children[0] is Rectangle && selectedItem?.Children[1] is TextBlock)
+                        {
+                            Rectangle background = selectedItem.Children[0] as Rectangle;
+                            TextBlock content = selectedItem.Children[1] as TextBlock;
+
+                            ExecuteBandUpdateCommand(selector.Name, background.Fill, content.Text);
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        private void ExecuteBandUpdateCommand(string bandName, Brush color, string value)
+        {
+            switch (bandName)
+            {
+                case "DigitOne":
+                    UpdateBandCommand.Execute((1, color, value));
+                    break;
+                case "DigitTwo":
+                    UpdateBandCommand.Execute((2, color, value));
+                    break;
+                case "DigitThree":
+                    UpdateBandCommand.Execute((3, color, value));
+                    break;
+                case "Mult":
+                    UpdateBandCommand.Execute((4, color, value));
+                    break;
+                case "Toler":
+                    UpdateBandCommand.Execute((5, color, value));
+                    break;
+                case "Tempa":
+                    UpdateBandCommand.Execute((6, color, value));
+                    break;
             }
         }
     }
