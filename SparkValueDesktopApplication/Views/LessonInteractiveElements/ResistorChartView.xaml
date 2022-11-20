@@ -1,0 +1,396 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.ResistorChartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             xmlns:converters="clr-namespace:SparkValueDesktopApplication.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:ComboBoxVisibilityConverter x:Key="ComboBoxVisibilityConverter"/>
+        <converters:ResistorColorBandVisibilityConverter x:Key="ResistorColorBandVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel>
+                <ComboBox x:Name="BandMode" Margin="5" Width="100" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="BandMode_SelectionChanged">
+                    <ComboBoxItem Content="4-Bands"/>
+                    <ComboBoxItem Content="5-Bands"/>
+                    <ComboBoxItem Content="6-Bands"/>
+                </ComboBox>
+
+                <StackPanel Orientation="Horizontal" Margin="90 0 0 0">
+                    <Canvas Height="80" Width="200" HorizontalAlignment="Center">
+                        <Canvas Canvas.Left="27.5" Canvas.Top="15">
+                            <Ellipse Height="50" Width="50" Fill="AntiqueWhite"/>
+                            <Ellipse Canvas.Left="110" Height="50" Width="50" Fill="AntiqueWhite"/>
+                            <Rectangle Canvas.Left="25" Height="50" Width="110" Fill="AntiqueWhite"/>
+                            <Rectangle Width="10" Height="50" Canvas.Left="30" Fill="{Binding BandOne}"/>
+                            <Rectangle Width="10" Height="50" Canvas.Left="45" Fill="{Binding BandTwo}"/>
+                            <Rectangle x:Name="DigitThreeBand" Width="10" Height="50" Canvas.Left="60" Fill="{Binding BandThree}">
+                                <Rectangle.Visibility>
+                                    <MultiBinding Converter="{StaticResource ResistorColorBandVisibilityConverter}">
+                                        <Binding ElementName="DigitThree"/>
+                                    </MultiBinding>
+                                </Rectangle.Visibility>
+                            </Rectangle>
+                            <Rectangle Width="10" Height="50" Canvas.Left="75" Fill="{Binding BandFour}"/>
+                            <Rectangle Width="10" Height="50" Canvas.Left="105" Fill="{Binding BandFive}"/>
+                            <Rectangle x:Name="TempaBand" Width="10" Height="50" Canvas.Left="120" Fill="{Binding BandSix}">
+                                <Rectangle.Visibility>
+                                    <MultiBinding Converter="{StaticResource ResistorColorBandVisibilityConverter}">
+                                        <Binding ElementName="Tempa"/>
+                                    </MultiBinding>
+                                </Rectangle.Visibility>
+                            </Rectangle>
+                        </Canvas>
+                    </Canvas>
+                    <TextBlock Text="Result:" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <!--#region Digits -->
+                    <ComboBox x:Name="DigitOne" Margin="8" Width="55" ToolTip="Digit 1" SelectedIndex="0" Foreground="White">
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Black"/>
+                                <TextBlock Text="0"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="SaddleBrown"/>
+                                <TextBlock Text="1"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Red"/>
+                                <TextBlock Text="2"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Orange"/>
+                                <TextBlock Text="3"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Yellow"/>
+                                <TextBlock Foreground="Black" Text="4"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Green"/>
+                                <TextBlock Text="5"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Blue"/>
+                                <TextBlock Text="6"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="DarkViolet"/>
+                                <TextBlock Text="7"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Gray"/>
+                                <TextBlock Text="8"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="White"/>
+                                <TextBlock Foreground="Black" Text="9"/>
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox x:Name="DigitTwo" Margin="8" Width="55" ToolTip="Digit 2" SelectedIndex="0" Foreground="White">
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Black"/>
+                                <TextBlock Text="0"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="SaddleBrown"/>
+                                <TextBlock Text="1"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Red"/>
+                                <TextBlock Text="2"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Orange"/>
+                                <TextBlock Text="3"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Yellow"/>
+                                <TextBlock Foreground="Black" Text="4"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Green"/>
+                                <TextBlock Text="5"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Blue"/>
+                                <TextBlock Text="6"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="DarkViolet"/>
+                                <TextBlock Text="7"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Gray"/>
+                                <TextBlock Text="8"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="White"/>
+                                <TextBlock Foreground="Black" Text="9"/>
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox x:Name="DigitThree" Margin="8" Width="55" ToolTip="Digit 3" SelectedIndex="0" Foreground="White">
+                        <ComboBox.Visibility>
+                            <MultiBinding Converter="{StaticResource ComboBoxVisibilityConverter}" ConverterParameter="three">
+                                <Binding ElementName="BandMode"/>
+                            </MultiBinding>
+                        </ComboBox.Visibility>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Black"/>
+                                <TextBlock Text="0"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="SaddleBrown"/>
+                                <TextBlock Text="1"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Red"/>
+                                <TextBlock Text="2"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Orange"/>
+                                <TextBlock Text="3"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Yellow"/>
+                                <TextBlock Foreground="Black" Text="4"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Green"/>
+                                <TextBlock Text="5"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Blue"/>
+                                <TextBlock Text="6"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="DarkViolet"/>
+                                <TextBlock Text="7"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Gray"/>
+                                <TextBlock Text="8"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="White"/>
+                                <TextBlock Foreground="Black" Text="9"/>
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <!--#endregion-->
+                    
+                    <!--#region Multiplier -->
+                    <ComboBox x:Name="Mult" Margin="8" Width="70" ToolTip="Multiplier" SelectedIndex="0" Foreground="White">
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Silver"/>
+                                <TextBlock Foreground="Black" Text="0.01"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Gold"/>
+                                <TextBlock Text="0.1"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Black"/>
+                                <TextBlock Text="1"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="SaddleBrown"/>
+                                <TextBlock Text="10"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Red"/>
+                                <TextBlock Text="100"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Orange"/>
+                                <TextBlock Text="1K"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Yellow"/>
+                                <TextBlock Foreground="Black" Text="10K"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Green"/>
+                                <TextBlock Text="100K"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Blue"/>
+                                <TextBlock Text="1M"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="DarkViolet"/>
+                                <TextBlock Text="10M"/>
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <!--#endregion-->
+                    
+                    <!--#region Tolerance -->
+                    <ComboBox x:Name="Toler" Margin="8" Width="90" ToolTip="Tolerance" SelectedIndex="0" Foreground="White">
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Silver"/>
+                                <TextBlock Foreground="Black" Text="&#x00B1;10%"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Gold"/>
+                                <TextBlock Text="&#x00B1;5%"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="SaddleBrown"/>
+                                <TextBlock Text="&#x00B1;1%"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Red"/>
+                                <TextBlock Text="&#x00B1;2%"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Green"/>
+                                <TextBlock Text="&#x00B1;0.5%"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Blue"/>
+                                <TextBlock Text="&#x00B1;0.25%"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="DarkViolet"/>
+                                <TextBlock Text="&#x00B1;0.1%"/>
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <!--#endregion-->
+                    
+                    <!--#region Tempature Coefficient -->
+                    <ComboBox x:Name="Tempa" Margin="8" Width="95" ToolTip="Tempature Coefficient" SelectedIndex="0" Foreground="White">
+                        <ComboBox.Visibility>
+                            <MultiBinding Converter="{StaticResource ComboBoxVisibilityConverter}" ConverterParameter="six">
+                                <Binding ElementName="BandMode"/>
+                            </MultiBinding>
+                        </ComboBox.Visibility>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="SaddleBrown"/>
+                                <TextBlock Text="100 PPM"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Red"/>
+                                <TextBlock Text="50 PPM"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Orange"/>
+                                <TextBlock Text="15 PPM"/>
+                            </Grid>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Grid>
+                                <Rectangle Fill="Yellow"/>
+                                <TextBlock Foreground="Black" Text="25 PPM"/>
+                            </Grid>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <!--#endregion-->
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

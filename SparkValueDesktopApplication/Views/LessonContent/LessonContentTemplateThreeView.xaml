@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonContent"
+             xmlns:vms="clr-namespace:SparkValueBackend.ViewModels.LessonInteractiveElements;assembly=SparkValueBackend"
+             xmlns:views="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -14,6 +16,13 @@
         <!-- Top content -->
         <TextBlock Grid.Row="0" Text="{Binding PlainText}" TextWrapping="Wrap"/>
         <!-- Bottom interactive element -->
-        <TextBlock Grid.Row="1" Text="{Binding InteractiveElement}" TextWrapping="Wrap"/>
+        <Grid Grid.Row="1">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:ResistorChartViewModel}">
+                    <views:ResistorChartView/>
+                </DataTemplate>
+            </Grid.Resources>
+            <ContentControl Content="{Binding Element}"/>
+        </Grid>
     </Grid>
 </UserControl>

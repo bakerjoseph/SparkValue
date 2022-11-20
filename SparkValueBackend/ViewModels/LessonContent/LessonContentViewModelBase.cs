@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparkValueBackend.ViewModels.LessonInteractiveElements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,10 +37,31 @@ namespace SparkValueBackend.ViewModels.LessonContent
             }
         }
 
+        private ViewModelBase _element;
+        public ViewModelBase Element
+        {
+            get { return _element; }
+            set
+            {
+                _element = value;
+                OnPropertyChanged(nameof(Element));
+            }
+        }
+
         public LessonContentViewModelBase(string plainText, string? interactiveElement)
         {
             PlainText = plainText;
             InteractiveElement = interactiveElement;
+
+            if (interactiveElement != null)
+            {
+                switch (interactiveElement)
+                {
+                    case "ResistorsGalore":
+                        Element = new ResistorChartViewModel();
+                        break;
+                }
+            }
         }
     }
 }
