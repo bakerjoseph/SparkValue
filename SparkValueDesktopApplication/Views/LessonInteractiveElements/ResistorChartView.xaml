@@ -12,7 +12,7 @@
         <converters:ResistorColorBandVisibilityConverter x:Key="ResistorColorBandVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Border Background="WhiteSmoke" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Border Width="550" Background="WhiteSmoke" CornerRadius="5" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel>
                 <ComboBox x:Name="BandMode" Margin="5" Width="100" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="BandMode_SelectionChanged">
                     <ComboBoxItem Content="4-Bands"/>
@@ -46,7 +46,7 @@
                             </Rectangle>
                         </Canvas>
                     </Canvas>
-                    <TextBlock Text="Result:" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="TotalResistance" Text="{Binding Result}" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">

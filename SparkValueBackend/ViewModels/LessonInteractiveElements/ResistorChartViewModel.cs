@@ -177,6 +177,8 @@ namespace SparkValueBackend.ViewModels.LessonInteractiveElements
         }
         #endregion
 
+        public string Result => CalculateResistance();
+
         public ICommand ChangeBand { get; }
 
         public ResistorChartViewModel()
@@ -186,16 +188,102 @@ namespace SparkValueBackend.ViewModels.LessonInteractiveElements
             // 5 Band is 0 Ohms plus or minus 10 percent
             // 6 Band is 0 Ohms plus or minus 10 percent with 100 ppm
             BandOne = Brushes.Black;
+            BandOneValue = "0";
             BandTwo = Brushes.Black;
+            BandTwoValue = "0";
             BandThree = Brushes.Black;
+            BandThreeValue = "0";
 
-            BandFour = Brushes.Black;
+            BandFour = Brushes.Silver;
+            BandFourValue = "0.01";
 
             BandFive = Brushes.Silver;
+            BandFiveValue = "\u00B1 10%";
 
             BandSix = Brushes.SaddleBrown;
+            BandSixValue = "100 PPM";
 
             ChangeBand = new ChangeResistorBandCommand(this);
+        }
+
+        private string CalculateResistance()
+        {
+            // Concat the digits and parse them to a double
+            string startString = BandOneValue + BandTwoValue + ((BandThreeVisible) ? BandThreeValue : string.Empty);
+            double resultNum = double.Parse(startString);
+
+            // Calculate the value multiplier
+            double multiplier = 0;
+            // Does the value of band four contain a suffix already?
+            if (double.TryParse(BandFourValue, out double mult))
+            {
+                multiplier = mult;
+            }
+            else
+            {
+                // Find the appropriate multiplier value
+                switch (BandFourValue)
+                {
+                    case "1K":
+                        multiplier = 1000;
+                        break;
+                    case "10K":
+                        multiplier = 10000;
+                        break;
+                    case "100K":
+                        multiplier = 100000;
+                        break;
+                    case "1M":
+                        multiplier = 1000000;
+                        break;
+                    case "10M":
+                        multiplier = 10000000;
+                        break;
+                }
+            }
+
+            // Return the whole sequence
+            return $"Result: {GetFormattedResistance(resultNum, multiplier)} {BandFiveValue} {((BandSixVisible)? BandSixValue : string.Empty) }";
+        }
+
+        private string GetFormattedResistance(double baseNum, double multiplier)
+        {
+            double resultNum = (double)decimal.Multiply((decimal)baseNum, (decimal)multiplier);
+            string result = "";
+            string resultNumString = resultNum.ToString();
+            string suffix = string.Empty;
+
+            // Billions Ohm Range
+            if (resultNum > 999999999)
+            {
+                suffix = "G";
+                result = ResistanceFormater(resultNumString, 9);
+            }
+            // Millions Ohm Range
+            else if (resultNum > 999999)
+            {
+                suffix = "M";
+                result = ResistanceFormater(resultNumString, 6);
+            }
+            // Thousands Ohm Range
+            else if (resultNum > 999)
+            {
+                suffix = "K";
+                result = ResistanceFormater(resultNumString, 3);
+            }
+            // Hundreds or Less Than Zero Ohm Range
+            else
+            {
+                result = resultNum.ToString();
+            }
+
+            return $"{result} {suffix}\u03A9";
+        }
+
+        private string ResistanceFormater(string number, int offsetValue)
+        {
+            string lesserPart = number.Substring(number.Length - offsetValue);
+            return number.Substring(0, number.Length - offsetValue) + ((double.Parse(lesserPart) > 0) ? $".{double.Parse(lesserPart.Replace("0", string.Empty))}" : string.Empty);
         }
     }
 }

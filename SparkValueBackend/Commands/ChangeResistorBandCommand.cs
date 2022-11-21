@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace SparkValueBackend.Commands
@@ -19,9 +20,9 @@ namespace SparkValueBackend.Commands
 
         public override void Execute(object? parameter)
         {
-            if (parameter != null && parameter is (int, Brush, string))
+            if (parameter != null && parameter is (int, Brush, string, Visibility))
             {
-                (int BandNum, Brush TargetColor, string BandValue) param = ((int, Brush, string))parameter;
+                (int BandNum, Brush TargetColor, string BandValue, Visibility BandVisibility) param = ((int, Brush, string, Visibility))parameter;
 
                 switch (param.BandNum)
                 {
@@ -36,6 +37,7 @@ namespace SparkValueBackend.Commands
                     case 3:
                         _resistorViewModel.BandThree = param.TargetColor;
                         _resistorViewModel.BandThreeValue = param.BandValue;
+                        _resistorViewModel.BandThreeVisible = param.BandVisibility.Equals(Visibility.Visible);
                         break;
                     case 4:
                         _resistorViewModel.BandFour = param.TargetColor;
@@ -48,6 +50,7 @@ namespace SparkValueBackend.Commands
                     case 6:
                         _resistorViewModel.BandSix = param.TargetColor;
                         _resistorViewModel.BandSixValue = param.BandValue;
+                        _resistorViewModel.BandSixVisible = param.BandVisibility.Equals(Visibility.Visible);
                         break;
                 }
             }
