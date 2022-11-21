@@ -249,9 +249,9 @@ namespace SparkValueBackend.ViewModels.LessonInteractiveElements
         private string GetFormattedResistance(double baseNum, double multiplier)
         {
             double resultNum = (double)decimal.Multiply((decimal)baseNum, (decimal)multiplier);
-            string result = "";
             string resultNumString = resultNum.ToString();
-            string suffix = string.Empty;
+            string result;
+            string suffix;
 
             // Billions Ohm Range
             if (resultNum > 999999999)
@@ -274,6 +274,7 @@ namespace SparkValueBackend.ViewModels.LessonInteractiveElements
             // Hundreds or Less Than Zero Ohm Range
             else
             {
+                suffix = string.Empty;
                 result = resultNum.ToString();
             }
 
@@ -282,8 +283,19 @@ namespace SparkValueBackend.ViewModels.LessonInteractiveElements
 
         private string ResistanceFormater(string number, int offsetValue)
         {
+            // Formats the resistance from a full number to a condensed format, suffix is already taken care of
+            // 27,000 becomes 27 
+            // 1,500 becomes 1.5
             string lesserPart = number.Substring(number.Length - offsetValue);
-            return number.Substring(0, number.Length - offsetValue) + ((double.Parse(lesserPart) > 0) ? $".{double.Parse(lesserPart.Replace("0", string.Empty))}" : string.Empty);
+            return number.Substring(0, number.Length - offsetValue) + ((double.Parse(lesserPart) > 0) ? $".{ReplaceTrailingZeros(lesserPart)}" : string.Empty);
+        }
+        
+        private string ReplaceTrailingZeros(string number)
+        {
+            // Removes all trailing zeros, leaving leading zeros
+            // 010 becomes 01
+            // 100 becomes 1
+            return number.Substring(0, number.IndexOfAny("123456789".ToCharArray()) + 1);
         }
     }
 }
