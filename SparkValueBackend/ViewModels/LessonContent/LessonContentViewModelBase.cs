@@ -63,6 +63,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "CurrentCheckPoints":
                         Element = new DiodeCheckpointViewModel();
                         break;
+                    case "LightsOfLEDs":
+                        Element = new LEDViewModel();
+                        break;
                 }
             }
         }

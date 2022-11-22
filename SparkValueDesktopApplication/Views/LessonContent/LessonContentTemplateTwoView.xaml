@@ -19,6 +19,9 @@
                 <DataTemplate DataType="{x:Type vms:DiodeCheckpointViewModel}">
                     <views:DiodeCheckpointView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:LEDViewModel}">
+                    <views:LEDView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>
