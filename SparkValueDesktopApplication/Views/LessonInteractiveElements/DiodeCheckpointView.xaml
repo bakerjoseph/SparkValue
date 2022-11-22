@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.DiodeCheckpointView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             mc:Ignorable="d" 
+             d:DesignHeight="280" d:DesignWidth="300">
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <Canvas Width="300" Height="80">
+                    <TextBlock Text="5 Volts (+)" Canvas.Left="10" Canvas.Top="20"/>
+                    <Polygon Points="25,25 10,17 10,22 0,22 0,26 10,26 10,31 25,25" Stroke="Black" StrokeThickness="1.5" Canvas.Left="33" Canvas.Top="-4"/>
+                    <Line X1="10" Y1="50" X2="120" Y2="50" Stroke="Black" StrokeThickness="2"/>
+                    <Rectangle Canvas.Left="120" Canvas.Top="25" Width="65" Height="40" Fill="Black"/>
+                    <Rectangle Canvas.Left="169.5" Canvas.Top="25.5" Width="15" Height="39" Fill="Gray"/>
+                    <Line Canvas.Left="175" X1="10" Y1="50" X2="120" Y2="50" Stroke="Black" StrokeThickness="2"/>
+                    <Polyline Points="0,0 8,10 28,-10" Stroke="LightGreen" StrokeThickness="3" Canvas.Left="198" Canvas.Top="23"/>
+                    <TextBlock Text="Ground (-)" Canvas.Left="210" Canvas.Top="20"/>
+                </Canvas>
+                <Canvas Width="300" Height="80">
+                    <Line Canvas.Left="19" X1="40" Y1="50" X2="100" Y2="50" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Center" StrokeThickness="2"/>
+                    <Polyline Points="120,25 180,50 120,75 120,25 180,50" Stroke="Black" StrokeThickness="2"/>
+                    <Line Canvas.Left="61" X1="120" Y1="22" X2="120" Y2="77" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Center" StrokeThickness="2"/>
+                    <Line Canvas.Left="182" X1="0" Y1="50" X2="65" Y2="50" Stroke="Black" HorizontalAlignment="Left" VerticalAlignment="Center" StrokeThickness="2"/>
+                    <TextBlock Canvas.Left="60" Canvas.Top="20" Text="Anode"/>
+                    <TextBlock Canvas.Left="185" Canvas.Top="20" Text="Cathode"/>
+                </Canvas>
+                <Canvas Width="300" Height="80">
+                    <TextBlock Text="Ground (-)" Canvas.Left="10" Canvas.Top="20"/>
+                    <Polyline Points="0,0 -1,-1 0,0 1,1 0,0 -1,1 0,0 1,-1 0,0" Stroke="Salmon" StrokeThickness="3" Canvas.Left="102" Canvas.Top="29" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Line X1="10" Y1="50" X2="120" Y2="50" Stroke="Black" StrokeThickness="2"/>
+                    <Rectangle Canvas.Left="120" Canvas.Top="25" Width="65" Height="40" Fill="Black"/>
+                    <Rectangle Canvas.Left="169.5" Canvas.Top="25.5" Width="15" Height="39" Fill="Gray"/>
+                    <Line Canvas.Left="175" X1="10" Y1="50" X2="120" Y2="50" Stroke="Black" StrokeThickness="2"/>
+                    <Polygon Points="190,40 205,32 205,37 215,37 215,41 205,41 205,46 190,40" Stroke="Black" StrokeThickness="1.5" Canvas.Left="40" Canvas.Top="-16"/>
+                    <TextBlock Text="5 Volts (+)" Canvas.Left="210" Canvas.Top="20"/>
+                </Canvas>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

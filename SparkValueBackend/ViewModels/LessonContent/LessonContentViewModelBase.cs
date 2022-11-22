@@ -60,6 +60,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "ResistorsGalore":
                         Element = new ResistorChartViewModel();
                         break;
+                    case "CurrentCheckPoints":
+                        Element = new DiodeCheckpointViewModel();
+                        break;
                 }
             }
         }
