@@ -21,6 +21,9 @@
                 <DataTemplate DataType="{x:Type vms:CapacitorOverviewViewModel}">
                     <views:CapacitorOverviewView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:SwitchingViewModel}">
+                    <views:SwitchingView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>
