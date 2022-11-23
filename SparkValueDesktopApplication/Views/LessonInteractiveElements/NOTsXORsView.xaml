@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.NOTsXORsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300">
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <Canvas Width="300" Height="120">
+                    <StackPanel Panel.ZIndex="1" Canvas.Left="40" Canvas.Top="42">
+                        <ToggleButton Content="Input 1" IsChecked="{Binding InputOneStateNOT}" Checked="NOTToggleButton_Changed" Unchecked="NOTToggleButton_Changed"/>
+                    </StackPanel>
+                    <Image Canvas.Left="120" Canvas.Top="28" Width="100" Source="\Images\NOTGate.png"/>
+                    <Line X1="0" Y1="0" X2="28" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="96" Canvas.Top="60"/>
+                    <Line X1="0" Y1="0" X2="17" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="217" Canvas.Top="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="NOTOutput" Canvas.Left="233" Canvas.Top="48" Width="25" Height="25" Fill="{Binding NOTOutput}" Stroke="Black" StrokeThickness="0.5"/>
+                </Canvas>
+                <Canvas Width="300" Height="120">
+                    <StackPanel Panel.ZIndex="1" Canvas.Left="20" Canvas.Top="16">
+                        <ToggleButton Margin="0 0 0 20" Content="Input 1" IsChecked="{Binding InputOneStateXOR}" Checked="XORToggleButton_Changed" Unchecked="XORToggleButton_Changed"/>
+                        <ToggleButton Content="Input 2" IsChecked="{Binding InputTwoStateXOR}" Checked="XORToggleButton_Changed" Unchecked="XORToggleButton_Changed"/>
+                    </StackPanel>
+                    <Image Canvas.Left="100" Canvas.Top="10" Height="100" Source="\Images\XORGate.png"/>
+                    <Line X1="0" Y1="0" X2="31" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="75" Canvas.Top="35"/>
+                    <Line X1="0" Y1="0" X2="31" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="75" Canvas.Top="88"/>
+                    <Line X1="0" Y1="0" X2="12" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="222" Canvas.Top="60" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="XOROutput" Canvas.Left="233" Canvas.Top="48" Width="25" Height="25" Fill="{Binding XOROutput}" Stroke="Black" StrokeThickness="0.5"/>
+                </Canvas>
+                <StackPanel Orientation="Horizontal">
+                    <!--#region NOT Truth Table -->
+                    <StackPanel Margin="3 3 3 5">
+                        <TextBlock HorizontalAlignment="Center" Text="NOT Truth Table"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <!--#region Row One -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Text="Input 1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Text="Output"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Two -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Text="0"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Three -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" Text="1"/>
+                            <!--#endregion-->
+                        </Grid>
+                    </StackPanel>
+                    <!--#endregion-->
+                    <!--#region XOR Truth Table -->
+                    <StackPanel Margin="3 3 3 5">
+                        <TextBlock HorizontalAlignment="Center" Text="XOR Truth Table"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <!--#region Row One -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Text="Input 1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Text="Input 2"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="3" Grid.Row="0" Text="Output"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Two -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1" Text="1"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Three -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Text="0"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Four -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="3" Text="0"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Five -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="4" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="4" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="4" Text="1"/>
+                            <!--#endregion-->
+                        </Grid>
+                    </StackPanel>
+                    <!--#endregion-->
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

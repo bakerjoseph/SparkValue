@@ -78,6 +78,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "ANDsORs":
                         Element = new ANDsORsViewModel();
                         break;
+                    case "NOTsXORs":
+                        Element = new NOTsXORsViewModel();
+                        break;
                 }
             }
         }
