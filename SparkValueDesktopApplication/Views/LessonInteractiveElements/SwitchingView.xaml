@@ -12,7 +12,7 @@
                 <Canvas Height="50" Width="300">
                     <Line Canvas.Left="50" Canvas.Top="24" X1="0" Y1="0" X2="200" Y2="0" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                     <ToggleButton Canvas.Left="103" Canvas.Top="8" Content="1P 1T" IsChecked="{Binding InputOneState}" Checked="ToggleButton_Changed" Unchecked="ToggleButton_Changed"/>
-                    <Ellipse Canvas.Left="208" Canvas.Top="12" x:Name="SwitchOutput" Height="26" Width="25" Fill="{Binding SwitchOutput}" Stroke="Black" StrokeThickness="0.5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Ellipse Canvas.Left="208" Canvas.Top="12" x:Name="SwitchOutput" Height="25" Width="25" Fill="{Binding SwitchOutput}" Stroke="Black" StrokeThickness="0.5"/>
                 </Canvas>
                 <Canvas Height="80" Width="300">
                     <TextBlock Canvas.Left="130" Text="1P 1T"/>
