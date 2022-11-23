@@ -129,16 +129,19 @@ namespace SparkValueBackend.Services
                         "Storing electricity like a champ.", new List<string>
                         {
                             "Another common component is the capacitor. This bad boy is like a rechargeable battery. His main goal is to store energy locally in your circuit. Capacitors have a capacitance that is a measure of charge capacity. This value is measured in farads, F, and is commonly used with metric prefixes since a single farad is a lot of capacitance. This is why you see capacitors with pico, nano, micro, and milli-farads commonly. These are used in a variety of circuits to act as signal filters, decoupling/bypass capacitors, and many other applications. Continue reading to learn how to choose capacitors for your projects and some common types of them.",
-                            "There are a lot of factors that affect your choice of capacitors. First, the size matters, both the volume and the capacitance. Second, the max voltage rating is extremely important, you do not want your capacitors to explode or pop. Third, the leakage current, the tiny amount of current that leaks through your capacitor. Fourth, the equivalent series resistance, a value of internal resistance that dissipates energy. Lastly, tolerance, a capacitor is noted by a nominal value, but can be plus or minus one percent to twenty percent. Knowing those factors let's look at common capacitor types. The most common type is ceramic-based capacitors. They are small, both in size and capacitance, but offer low ESR and leakage current. The next common type of capacitor is an electrolytic capacitor. They are more commonly used in high-voltage circuits due to their high maximum voltage rating and high capacitance. Although, they suffer higher average current leakage making them unsuitable for energy storage. There are even capacitors called supercapacitors that have super high capacitance but low maximum voltage ratings. And so many more but those are just some of the types of capacitors you will see and hear about."
+                            "There are a lot of factors that affect your choice of capacitors. First, the size matters, both the volume and the capacitance. Second, the max voltage rating is extremely important, you do not want your capacitors to explode or pop. Third, the leakage current, the tiny amount of current that leaks through your capacitor. Fourth, the equivalent series resistance, a value of internal resistance that dissipates energy. Lastly, tolerance, a capacitor is noted by a nominal value, but can be plus or minus one percent to twenty percent. Knowing those factors let's look at common capacitor types next.",
+                            "The most common type is ceramic-based capacitors. They are small, both in size and capacitance, but offer low ESR and leakage current. The next common type of capacitor is an electrolytic capacitor. They are more commonly used in high-voltage circuits due to their high maximum voltage rating and high capacitance. Although, they suffer higher average current leakage making them unsuitable for energy storage. There are even capacitors called supercapacitors that have super high capacitance but low maximum voltage ratings. And so many more but those are just some of the types of capacitors you will see and hear about."
                         },
                         new List<string>
                         {
                             "ElectricityStore",
+                            "",
                             "CapacitorTypes"
                         },
                         new List<int>
                         {
                             1,
+                            0,
                             3
                         }),
                     new LessonModel("Transistors",

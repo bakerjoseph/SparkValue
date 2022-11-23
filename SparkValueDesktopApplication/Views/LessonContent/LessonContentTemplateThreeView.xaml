@@ -21,6 +21,9 @@
                 <DataTemplate DataType="{x:Type vms:ResistorChartViewModel}">
                     <views:ResistorChartView UpdateBandCommand="{Binding ChangeBand}"/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:CapacitorTypesViewModel}">
+                    <views:CapacitorTypesView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>

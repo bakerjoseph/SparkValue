@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonContent"
+             xmlns:vms="clr-namespace:SparkValueBackend.ViewModels.LessonInteractiveElements;assembly=SparkValueBackend"
+             xmlns:views="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -14,6 +16,13 @@
         <!-- Left side content -->
         <TextBlock Grid.Column="0" Text="{Binding PlainText}" TextWrapping="Wrap"/>
         <!-- Right side interactive element -->
-        <TextBlock Grid.Column="1" Text="{Binding InteractiveElement}" TextWrapping="Wrap"/>
+        <Grid Grid.Column="1">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:CapacitorOverviewViewModel}">
+                    <views:CapacitorOverviewView/>
+                </DataTemplate>
+            </Grid.Resources>
+            <ContentControl Content="{Binding Element}"/>
+        </Grid>
     </Grid>
 </UserControl>

@@ -66,6 +66,12 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "LightsOfLEDs":
                         Element = new LEDViewModel();
                         break;
+                    case "ElectricityStore":
+                        Element = new CapacitorOverviewViewModel();
+                        break;
+                    case "CapacitorTypes":
+                        Element = new CapacitorTypesViewModel();
+                        break;
                 }
             }
         }
