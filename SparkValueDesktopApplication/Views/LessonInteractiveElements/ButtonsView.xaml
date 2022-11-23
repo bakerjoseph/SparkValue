@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.ButtonsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             xmlns:converters="clr-namespace:SparkValueDesktopApplication.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="280" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:ButtonLightConverter x:Key="ButtonLightConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <Canvas Height="80" Width="300">
+                    <Line Canvas.Left="50" Canvas.Top="40" X1="0" Y1="0" X2="200" Y2="0" Stroke="Black" StrokeThickness="2"/>
+                    <RepeatButton Canvas.Left="78" Canvas.Top="23" x:Name="ButtonInput"  Content="Button" Click="Button_Click" PreviewMouseUp="Button_ChangeState" Delay="500" Interval="100"/>
+                    <Ellipse Canvas.Left="170" Canvas.Top="28" x:Name="ButtonOutput" Height="24" Width="25" Stroke="Black" StrokeThickness="0.5">
+                        <Ellipse.Fill>
+                            <MultiBinding Converter="{StaticResource ButtonLightConverter}">
+                                <Binding ElementName="ButtonInput"/>
+                                <Binding ElementName="ButtonOutput"/>
+                            </MultiBinding>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Canvas>
+                <Canvas Height="80" Width="300">
+                    <TextBlock Canvas.Left="95" Canvas.Top="-4" Text="Naturally Open"/>
+                    <Line Canvas.Left="75" Canvas.Top="40" X1="0" Y1="0" X2="50" Y2="0" Stroke="Black" StrokeThickness="2"/>
+                    <Ellipse Canvas.Left="123" Canvas.Top="35" Height="10" Width="10" Stroke="Black" StrokeThickness="2"/>
+                    <Line Canvas.Left="128" Canvas.Top="30" X1="0" Y1="0" X2="43" Y2="0" Stroke="Black" StrokeThickness="2"/>
+                    <Rectangle Canvas.Left="130" Canvas.Top="25" Height="5" Width="39" Stroke="Black" StrokeThickness="0.5"/>
+                    <Line Canvas.Left="175" Canvas.Top="40" X1="0" Y1="0" X2="50" Y2="0" Stroke="Black" StrokeThickness="2"/>
+                    <Ellipse Canvas.Left="167" Canvas.Top="35" Height="10" Width="10" Stroke="Black" StrokeThickness="2"/>
+                </Canvas>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

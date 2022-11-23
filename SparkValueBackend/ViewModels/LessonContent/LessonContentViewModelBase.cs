@@ -87,6 +87,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "SwitchingSwitches":
                         Element = new SwitchingViewModel();
                         break;
+                    case "ButtonPress":
+                        Element = new ButtonsViewModel();
+                        break;
                 }
             }
         }

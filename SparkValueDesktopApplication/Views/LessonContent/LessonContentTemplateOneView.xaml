@@ -16,16 +16,19 @@
         <!-- Left side content -->
         <TextBlock Grid.Column="0" Text="{Binding PlainText}" TextWrapping="Wrap"/>
         <!-- Right side interactive element -->
-        <Grid Grid.Column="1">
-            <Grid.Resources>
+        <Viewbox Grid.Column="1" MaxWidth="255">
+            <Viewbox.Resources>
                 <DataTemplate DataType="{x:Type vms:CapacitorOverviewViewModel}">
                     <views:CapacitorOverviewView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:SwitchingViewModel}">
                     <views:SwitchingView/>
                 </DataTemplate>
-            </Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:ButtonsViewModel}">
+                    <views:ButtonsView/>
+                </DataTemplate>
+            </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>
-        </Grid>
+        </Viewbox>
     </Grid>
 </UserControl>
