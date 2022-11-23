@@ -12,11 +12,16 @@
     <None Remove="Images\capacitor.png" />
     <None Remove="Images\diode.png" />
     <None Remove="Images\led.png" />
+    <None Remove="Images\LogicGateSymbols.PNG" />
     <None Remove="Images\potentiometer.png" />
     <None Remove="Images\resistor.png" />
     <None Remove="Images\Rotation.png" />
     <None Remove="Images\SettingsGear.png" />
     <None Remove="Images\transistor.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\LogicGateSymbols.PNG" />
   </ItemGroup>
 
   <ItemGroup>

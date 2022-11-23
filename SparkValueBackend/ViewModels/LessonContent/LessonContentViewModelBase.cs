@@ -72,6 +72,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "CapacitorTypes":
                         Element = new CapacitorTypesViewModel();
                         break;
+                    case "GateSymbols":
+                        Element = new LogicGateSymbolsViewModel();
+                        break;
                 }
             }
         }
