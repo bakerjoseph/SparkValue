@@ -14,17 +14,20 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!-- Left side interactive element -->
-        <Grid Grid.Column="0">
-            <Grid.Resources>
+        <Viewbox Grid.Column="0" MaxWidth="300" MaxHeight="320">
+            <Viewbox.Resources>
                 <DataTemplate DataType="{x:Type vms:DiodeCheckpointViewModel}">
                     <views:DiodeCheckpointView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:LEDViewModel}">
                     <views:LEDView/>
                 </DataTemplate>
-            </Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:ANDsORsViewModel}">
+                    <views:ANDsORsView/>
+                </DataTemplate>
+            </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>
-        </Grid>
+        </Viewbox>
         <!-- Right side content -->
         <TextBlock Grid.Column="1" Text="{Binding PlainText}" TextWrapping="Wrap"/>
     </Grid>

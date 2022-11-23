@@ -75,6 +75,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "GateSymbols":
                         Element = new LogicGateSymbolsViewModel();
                         break;
+                    case "ANDsORs":
+                        Element = new ANDsORsViewModel();
+                        break;
                 }
             }
         }
