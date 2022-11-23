@@ -28,6 +28,9 @@
                 <DataTemplate DataType="{x:Type vms:NOTsXORsViewModel}">
                     <views:NOTsXORsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:NANDsNORsViewModel}">
+                    <views:NANDsNORsView/>
+                </DataTemplate>
             </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Viewbox>

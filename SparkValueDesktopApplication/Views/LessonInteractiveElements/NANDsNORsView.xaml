@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.NANDsNORsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="330">
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <Canvas Width="300" Height="120">
+                    <StackPanel Panel.ZIndex="1" Canvas.Left="40" Canvas.Top="16">
+                        <ToggleButton Margin="0 0 0 20" Content="Input 1" IsChecked="{Binding InputOneStateNAND}" Checked="NANDToggleButton_Changed" Unchecked="NANDToggleButton_Changed"/>
+                        <ToggleButton Content="Input 2" IsChecked="{Binding InputTwoStateNAND}" Checked="NANDToggleButton_Changed" Unchecked="NANDToggleButton_Changed"/>
+                    </StackPanel>
+                    <Image Canvas.Left="110" Canvas.Top="14" Height="90" Source="\Images\NANDGate.png"/>
+                    <Line X1="0" Y1="0" X2="18" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="95" Canvas.Top="35"/>
+                    <Line X1="0" Y1="0" X2="18" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="95" Canvas.Top="84"/>
+                    <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="215" Canvas.Top="60"/>
+                    <Ellipse x:Name="NANDOutput" Canvas.Left="233" Canvas.Top="48" Width="25" Height="25" Fill="{Binding NANDOutput}" Stroke="Black" StrokeThickness="0.5"/>
+                </Canvas>
+                <Canvas Width="300" Height="120">
+                    <StackPanel Panel.ZIndex="1" Canvas.Left="40" Canvas.Top="16">
+                        <ToggleButton Margin="0 0 0 20" Content="Input 1" IsChecked="{Binding InputOneStateNOR}" Checked="NORToggleButton_Changed" Unchecked="NORToggleButton_Changed"/>
+                        <ToggleButton Content="Input 2" IsChecked="{Binding InputTwoStateNOR}" Checked="NORToggleButton_Changed" Unchecked="NORToggleButton_Changed"/>
+                    </StackPanel>
+                    <Image Canvas.Left="110" Canvas.Top="14" Height="90" Source="\Images\NORGate.png"/>
+                    <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="95" Canvas.Top="34"/>
+                    <Line X1="0" Y1="0" X2="20" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="95" Canvas.Top="85"/>
+                    <Line X1="0" Y1="0" X2="12" Y2="0" Stroke="Black" StrokeThickness="2" Canvas.Left="222" Canvas.Top="60"/>
+                    <Ellipse x:Name="NOROutput" Canvas.Left="233" Canvas.Top="48" Width="25" Height="25" Fill="{Binding NOROutput}" Stroke="Black" StrokeThickness="0.5"/>
+                </Canvas>
+                <StackPanel Orientation="Horizontal">
+                    <!--#region NAND Truth Table -->
+                    <StackPanel Margin="3 3 3 5">
+                        <TextBlock HorizontalAlignment="Center" Text="NAND Truth Table"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <!--#region Row One -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Text="Input 1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Text="Input 2"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="3" Grid.Row="0" Text="Output"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Two -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1" Text="1"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Three -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Text="0"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Four -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="3" Text="1"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Five -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="4" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="4" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="4" Text="1"/>
+                            <!--#endregion-->
+                        </Grid>
+                    </StackPanel>
+                    <!--#endregion-->
+                    <!--#region NOR Truth Table -->
+                    <StackPanel Margin="3 3 3 5">
+                        <TextBlock HorizontalAlignment="Center" Text="NOR Truth Table"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <!--#region Row One -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Text="Input 1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Text="Input 2"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="0"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="3" Grid.Row="0" Text="Output"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Two -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="1"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1" Text="0"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Three -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Text="0"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Four -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="3"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="3" Text="1"/>
+                            <!--#endregion-->
+
+                            <!--#region Row Five -->
+                            <Rectangle Stroke="Black" Grid.Column="0" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="0" Grid.Row="4" Text="0"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="1" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="1" Grid.Row="4" Text="1"/>
+
+                            <Rectangle Stroke="Black" Grid.Column="2" Grid.Row="4"/>
+                            <TextBlock HorizontalAlignment="Center" Grid.Column="2" Grid.Row="4" Text="0"/>
+                            <!--#endregion-->
+                        </Grid>
+                    </StackPanel>
+                    <!--#endregion-->
+                </StackPanel>
+            </StackPanel>
+        </Border>  
+    </Grid>
+</UserControl>
