@@ -27,6 +27,9 @@
                 <DataTemplate DataType="{x:Type vms:BlackBoxMiniCircuitsViewModel}">
                     <views:BlackBoxMiniCircuitsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:TransistorWalkthroughViewModel}">
+                    <views:TransistorWalkthroughView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>

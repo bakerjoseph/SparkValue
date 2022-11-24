@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.TransistorWalkthroughView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             mc:Ignorable="d" 
+             d:DesignHeight="180" d:DesignWidth="800">
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Canvas Height="170" Width="100">
+                    <TextBlock Canvas.Left="32" Canvas.Top="19" Text="Collector"/>
+                    <TextBlock Canvas.Top="57" Text="Base"/>
+                    <TextBlock Canvas.Left="40" Canvas.Top="122" Text="Emitter"/>
+                    <Polygon Canvas.Left="59" Canvas.Top="93.5" Points="0,0 10,5 0,10" Fill="Black">
+                        <Polygon.RenderTransform>
+                            <RotateTransform Angle="41"/>
+                        </Polygon.RenderTransform>
+                    </Polygon>
+                    <Polyline Canvas.Left="63" Canvas.Top="41" Points="0,0 0,25 -15,35" Stroke="Black" StrokeThickness="2"/>
+                    <Polyline Canvas.Left="63" Canvas.Top="128" Points="0,0 0,-25 -15,-35" Stroke="Black" StrokeThickness="2"/>
+                    <Line Canvas.Left="15" Canvas.Top="85" X1="0" Y1="0" X2="25" Y2="0" Stroke="Black" StrokeThickness="2"/>
+                    <Rectangle Canvas.Left="40" Canvas.Top="65" Height="40" Width="10" Fill="Black"/>
+                </Canvas>
+                <Canvas Height="170" Width="130">
+                    <Polyline Canvas.Left="65" Canvas.Top="67" Points="0,0 0,20 -10,30" Stroke="Silver" StrokeThickness="2"/>
+                    <Polyline Canvas.Left="71" Canvas.Top="67" Points="0,0 0,50 -15,60" Stroke="Silver" StrokeThickness="2"/>
+                    <Polyline Canvas.Left="77" Canvas.Top="67" Points="0,0 0,30 30,40" Stroke="Silver" StrokeThickness="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Height="40" Width="20" Fill="Black" Canvas.Left="60" Canvas.Top="27"/>
+                    <ToggleButton  Canvas.Left="-15" Canvas.Top="78" Content="Collector" IsChecked="{Binding CollectorPin}" Checked="ToggleButton_Changed" Unchecked="ToggleButton_Changed"/>
+                    <ToggleButton Canvas.Left="15" Canvas.Top="118" Content="Base" IsChecked="{Binding BasePin}" Checked="ToggleButton_Changed" Unchecked="ToggleButton_Changed"/>
+                    <Ellipse Canvas.Left="95" Canvas.Top="104" x:Name="EmitterPin" Height="26" Width="25" Fill="{Binding EmitterPin}" Stroke="Black" StrokeThickness="0.5"/>
+                </Canvas>
+                <TextBlock MaxWidth="250" Text="Base must be powered to pass a signal through from the collector to the emitter. &#x0d;&#x0a;&#x0d;&#x0a;Works nicely with digital logic and microcontrollers." TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
