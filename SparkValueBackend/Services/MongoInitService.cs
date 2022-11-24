@@ -205,7 +205,7 @@ namespace SparkValueBackend.Services
                         2,
                         "Tiny circuits within circuits.", new List<string>
                         {
-                            "Everything up to this point has been about singular components or gates, but that is about to change. Your world is about to be rocked by integrated circuits. These black boxes with pins are unassuming, but under the hood, they pack a lot of circuitry to condense your circuits into one chip. That one chip can have many different uses, like logic gates, timers, shift registers, sensors, and microcontrollers. Besides uses, integrated circuits come in a variety of package types. These range from usable with very few tools to specialized tools required. The most common through-hole package type is called DIP or Dual In-Line Package. These are great to work with for beginners and fit perfectly on breadboards and other prototyping boards. There are a lot of SMD packages available, however, most are difficult to work with without specialized tools. Due to the variety in pin layouts, I suggest that you read the documentation on your chosen IC to better understand its details. With this knowledge, I challenge you to go and find integrated circuits in your electronics and learn about them. After this lesson on integrated circuits, it is about time we start talking about circuit inputs."
+                            "Everything up to this point has been about singular components or gates, but that is about to change. Your world is about to be rocked by integrated circuits. These black boxes with pins are unassuming, but under the hood, they pack a lot of circuitry to condense your circuits into one chip. That one chip can have many different uses, like logic gates, timers, shift registers, sensors, and microcontrollers. Besides uses, integrated circuits come in a variety of package types. These range from usable with very few tools to specialized tools required. The most common through-hole package type is called DIP or Dual In-Line Package. These are great to work with for beginners and fit perfectly on breadboards and other prototyping boards. There are a lot of SMD packages available, however, most are difficult to work with without specialized tools. Due to the variety in pin layouts, I suggest that you read the documentation on your chosen IC to better understand its details. After this lesson on integrated circuits, it is about time we start talking about circuit inputs."
                         },
                         new List<string>
                         {
@@ -213,7 +213,7 @@ namespace SparkValueBackend.Services
                         },
                         new List<int>
                         {
-                            4
+                            3
                         }),
                     new LessonModel("Switches",
                         3,

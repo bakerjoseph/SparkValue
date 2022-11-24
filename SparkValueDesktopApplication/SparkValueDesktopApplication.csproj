@@ -22,6 +22,9 @@
     <None Remove="Images\resistor.png" />
     <None Remove="Images\Rotation.png" />
     <None Remove="Images\SettingsGear.png" />
+    <None Remove="Images\SMDPackage1.png" />
+    <None Remove="Images\SMDPackage2.png" />
+    <None Remove="Images\THTPackage1.png" />
     <None Remove="Images\transistor.png" />
     <None Remove="Images\XORGate.png" />
   </ItemGroup>
@@ -52,6 +55,9 @@
     <Resource Include="Images\resistor.png" />
     <Resource Include="Images\Rotation.png" />
     <Resource Include="Images\SettingsGear.png" />
+    <Resource Include="Images\SMDPackage1.png" />
+    <Resource Include="Images\SMDPackage2.png" />
+    <Resource Include="Images\THTPackage1.png" />
     <Resource Include="Images\transistor.png" />
     <Resource Include="Images\XORGate.png" />
   </ItemGroup>

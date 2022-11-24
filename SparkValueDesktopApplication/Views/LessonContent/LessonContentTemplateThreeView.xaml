@@ -24,6 +24,9 @@
                 <DataTemplate DataType="{x:Type vms:CapacitorTypesViewModel}">
                     <views:CapacitorTypesView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:BlackBoxMiniCircuitsViewModel}">
+                    <views:BlackBoxMiniCircuitsView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>

@@ -84,6 +84,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "NANDsNORs":
                         Element = new NANDsNORsViewModel();
                         break;
+                    case "BlackBoxCircuitry":
+                        Element = new BlackBoxMiniCircuitsViewModel();
+                        break;
                     case "SwitchingSwitches":
                         Element = new SwitchingViewModel();
                         break;
