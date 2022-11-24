@@ -9,8 +9,8 @@
     <Grid>
         <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Margin="2" Orientation="Horizontal">
-                <Image Height="85" Source="\Images\THTPackage1.png"/>
-                <Image Height="85" Source="\Images\SMDPackage1.png"/>
+                <Image Height="83" Source="\Images\THTPackage1.png"/>
+                <Image Height="83" Source="\Images\SMDPackage1.png"/>
             </StackPanel>
         </Border>  
     </Grid>
