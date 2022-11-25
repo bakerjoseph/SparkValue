@@ -31,6 +31,9 @@
                 <DataTemplate DataType="{x:Type vms:NANDsNORsViewModel}">
                     <views:NANDsNORsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:CircuitDiagramsViewModel}">
+                    <views:CircuitDiagramsView/>
+                </DataTemplate>
             </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Viewbox>

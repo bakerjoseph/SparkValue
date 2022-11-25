@@ -57,6 +57,12 @@ namespace SparkValueBackend.ViewModels.LessonContent
             {
                 switch (interactiveElement)
                 {
+                    case "LoadsAndNodes":
+                        Element = new CircuitDiagramTermsViewModel();
+                        break;
+                    case "ExampleDiagrams":
+                        Element = new CircuitDiagramsViewModel();
+                        break;
                     case "ComponentDifferences":
                         Element = new ComponentPackagesViewModel();
                         break;

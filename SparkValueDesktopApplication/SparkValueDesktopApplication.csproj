@@ -11,6 +11,7 @@
     <None Remove="Cursors\Eraser.cur" />
     <None Remove="Images\ANDGate.png" />
     <None Remove="Images\capacitor.png" />
+    <None Remove="Images\ComponentSymbolLibrary.png" />
     <None Remove="Images\diode.png" />
     <None Remove="Images\ExampleInductors.png" />
     <None Remove="Images\InductorSymbols.png" />
@@ -35,6 +36,7 @@
 
   <ItemGroup>
     <Resource Include="Images\ANDGate.png" />
+    <Resource Include="Images\ComponentSymbolLibrary.png" />
     <Resource Include="Images\ExampleInductors.png" />
     <Resource Include="Images\InductorSymbols.png" />
     <Resource Include="Images\LogicGateSymbols.PNG" />
