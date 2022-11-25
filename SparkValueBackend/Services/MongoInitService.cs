@@ -70,11 +70,11 @@ namespace SparkValueBackend.Services
                         },
                         new List<string>
                         {
-                            ""
+                            "ComponentDifferences"
                         },
                         new List<int>
                         {
-                            0
+                            3
                         })
                 }),
             new UnitModel("Components Galore",

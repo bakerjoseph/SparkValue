@@ -57,6 +57,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
             {
                 switch (interactiveElement)
                 {
+                    case "ComponentDifferences":
+                        Element = new ComponentPackagesViewModel();
+                        break;
                     case "ResistorsGalore":
                         Element = new ResistorChartViewModel();
                         break;

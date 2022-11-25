@@ -30,6 +30,9 @@
                 <DataTemplate DataType="{x:Type vms:TransistorWalkthroughViewModel}">
                     <views:TransistorWalkthroughView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ComponentPackagesViewModel}">
+                    <views:ComponentPackagesView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>
