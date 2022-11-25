@@ -75,6 +75,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "NPNInAction":
                         Element = new TransistorWalkthroughViewModel();
                         break;
+                    case "InductorMagic":
+                        Element = new InductorDiagramViewModel();
+                        break;
                     case "GateSymbols":
                         Element = new LogicGateSymbolsViewModel();
                         break;

@@ -12,6 +12,8 @@
     <None Remove="Images\ANDGate.png" />
     <None Remove="Images\capacitor.png" />
     <None Remove="Images\diode.png" />
+    <None Remove="Images\ExampleInductors.png" />
+    <None Remove="Images\InductorSymbols.png" />
     <None Remove="Images\led.png" />
     <None Remove="Images\LogicGateSymbols.PNG" />
     <None Remove="Images\NANDGate.png" />
@@ -31,6 +33,8 @@
 
   <ItemGroup>
     <Resource Include="Images\ANDGate.png" />
+    <Resource Include="Images\ExampleInductors.png" />
+    <Resource Include="Images\InductorSymbols.png" />
     <Resource Include="Images\LogicGateSymbols.PNG" />
   </ItemGroup>
 

@@ -19,6 +19,9 @@
                 <DataTemplate DataType="{x:Type vms:LogicGateSymbolsViewModel}">
                     <views:LogicGateSymbolsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:InductorDiagramViewModel}">
+                    <views:InductorDiagramView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>
