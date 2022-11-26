@@ -129,6 +129,15 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "BeginnerPowerOption":
                         Element = new CircuitPowerForBeginnersViewModel();
                         break;
+                    case "SolderingExtras":
+                        Element = new SolderingExtrasViewModel();
+                        break;
+                    case "SolderingAnatomy":
+                        Element = new SolderingStationViewModel();
+                        break;
+                    case "SolderingPractice":
+                        Element = new SolderingPracticeViewModel();
+                        break;
                 }
             }
         }

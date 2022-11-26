@@ -34,6 +34,9 @@
                 <DataTemplate DataType="{x:Type vms:CircuitDiagramsViewModel}">
                     <views:CircuitDiagramsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:SolderingStationViewModel}">
+                    <views:SolderingStationView/>
+                </DataTemplate>
             </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Viewbox>

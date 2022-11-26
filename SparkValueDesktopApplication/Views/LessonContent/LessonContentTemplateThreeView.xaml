@@ -36,6 +36,12 @@
                 <DataTemplate DataType="{x:Type vms:OhmsLawBasicViewModel}">
                     <views:OhmsLawBasicView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:SolderingExtrasViewModel}">
+                    <views:SolderingExtrasView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:SolderingPracticeViewModel}">
+                    <views:SolderingPracticeView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>
