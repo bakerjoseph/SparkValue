@@ -25,6 +25,9 @@
                 <DataTemplate DataType="{x:Type vms:CircuitDiagramTermsViewModel}">
                     <views:CircuitDiagramTermsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:OscilloscopeOverviewViewModel}">
+                    <views:OscilloscopeOverviewView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>

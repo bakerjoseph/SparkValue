@@ -120,6 +120,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "MultimeterMeasuringValues":
                         Element = new MultimeterMeasuringViewModel();
                         break;
+                    case "OscilloscopeOverview":
+                        Element = new OscilloscopeOverviewViewModel();
+                        break;
                 }
             }
         }
