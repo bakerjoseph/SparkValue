@@ -123,6 +123,12 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "OscilloscopeOverview":
                         Element = new OscilloscopeOverviewViewModel();
                         break;
+                    case "PowerOptions":
+                        Element = new CircuitPowerOptionsViewModel();
+                        break;
+                    case "BeginnerPowerOption":
+                        Element = new CircuitPowerForBeginnersViewModel();
+                        break;
                 }
             }
         }

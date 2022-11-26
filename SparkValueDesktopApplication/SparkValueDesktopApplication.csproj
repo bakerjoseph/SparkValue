@@ -10,6 +10,8 @@
   <ItemGroup>
     <None Remove="Cursors\Eraser.cur" />
     <None Remove="Images\ANDGate.png" />
+    <None Remove="Images\Battery.png" />
+    <None Remove="Images\BenchtopPowerSupply.png" />
     <None Remove="Images\capacitor.png" />
     <None Remove="Images\ComponentSymbolLibrary.png" />
     <None Remove="Images\diode.png" />
@@ -35,11 +37,15 @@
     <None Remove="Images\THTComponents.png" />
     <None Remove="Images\THTPackage1.png" />
     <None Remove="Images\transistor.png" />
+    <None Remove="Images\USBCable.png" />
+    <None Remove="Images\WallAdapter.png" />
     <None Remove="Images\XORGate.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\ANDGate.png" />
+    <Resource Include="Images\Battery.png" />
+    <Resource Include="Images\BenchtopPowerSupply.png" />
     <Resource Include="Images\ComponentSymbolLibrary.png" />
     <Resource Include="Images\ExampleInductors.png" />
     <Resource Include="Images\InductorSymbols.png" />
@@ -77,6 +83,8 @@
     <Resource Include="Images\THTComponents.png" />
     <Resource Include="Images\THTPackage1.png" />
     <Resource Include="Images\transistor.png" />
+    <Resource Include="Images\USBCable.png" />
+    <Resource Include="Images\WallAdapter.png" />
     <Resource Include="Images\XORGate.png" />
   </ItemGroup>
 
