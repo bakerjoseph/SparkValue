@@ -114,6 +114,12 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "ButtonPress":
                         Element = new ButtonsViewModel();
                         break;
+                    case "MultimeterParts":
+                        Element = new MultimeterOverviewViewModel();
+                        break;
+                    case "MultimeterMeasuringValues":
+                        Element = new MultimeterMeasuringViewModel();
+                        break;
                 }
             }
         }

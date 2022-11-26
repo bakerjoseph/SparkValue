@@ -16,7 +16,7 @@
         <!-- Left side content -->
         <TextBlock Grid.Column="0" Text="{Binding PlainText}" TextWrapping="Wrap"/>
         <!-- Right side interactive element -->
-        <Viewbox Grid.Column="1" MaxWidth="255">
+        <Viewbox Grid.Column="1" MaxHeight="300" MaxWidth="255">
             <Viewbox.Resources>
                 <DataTemplate DataType="{x:Type vms:CapacitorOverviewViewModel}">
                     <views:CapacitorOverviewView/>
@@ -29,6 +29,12 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vms:OhmsLawAdvancedViewModel}">
                     <views:OhmsLawAdvancedView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:MultimeterOverviewViewModel}">
+                    <views:MultimeterOverviewView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:MultimeterMeasuringViewModel}">
+                    <views:MultimeterMeasuringView/>
                 </DataTemplate>
             </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>

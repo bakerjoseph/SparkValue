@@ -18,6 +18,9 @@
     <None Remove="Images\led.png" />
     <None Remove="Images\LogicGateSymbols.PNG" />
     <None Remove="Images\MountingComponentDifference.png" />
+    <None Remove="Images\Multimeter.png" />
+    <None Remove="Images\MultimeterResistanceTest.png" />
+    <None Remove="Images\MultimeterVoltageTest.png" />
     <None Remove="Images\NANDGate.png" />
     <None Remove="Images\NORGate.png" />
     <None Remove="Images\NOTGate.png" />
@@ -56,6 +59,9 @@
     <Resource Include="Images\diode.png" />
     <Resource Include="Images\led.png" />
     <Resource Include="Images\MountingComponentDifference.png" />
+    <Resource Include="Images\Multimeter.png" />
+    <Resource Include="Images\MultimeterResistanceTest.png" />
+    <Resource Include="Images\MultimeterVoltageTest.png" />
     <Resource Include="Images\NANDGate.png" />
     <Resource Include="Images\NORGate.png" />
     <Resource Include="Images\NOTGate.png" />

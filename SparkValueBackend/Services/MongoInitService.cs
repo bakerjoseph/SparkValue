@@ -315,7 +315,7 @@ namespace SparkValueBackend.Services
                         new List<int>
                         {
                             1,
-                            2
+                            1
                         }),
                     new LessonModel("Oscilloscope",
                         2,
