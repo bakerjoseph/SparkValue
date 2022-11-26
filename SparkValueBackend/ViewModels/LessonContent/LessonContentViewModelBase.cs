@@ -57,6 +57,12 @@ namespace SparkValueBackend.ViewModels.LessonContent
             {
                 switch (interactiveElement)
                 {
+                    case "OhmsLawCollective":
+                        Element = new OhmsLawBasicViewModel();
+                        break;
+                    case "OhmsLawAdvanced":
+                        Element = new OhmsLawAdvancedViewModel();
+                        break;
                     case "LoadsAndNodes":
                         Element = new CircuitDiagramTermsViewModel();
                         break;

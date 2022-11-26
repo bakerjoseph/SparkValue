@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.OhmsLawBasicView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             xmlns:vr="clr-namespace:SparkValueDesktopApplication.ValidationRules.OhmsLaw"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Canvas Height="95" Width="60">
+                    <Line Canvas.Left="31" Canvas.Top="48" X1="0" Y1="0" X2="34" Y2="0" Stroke="Black" StrokeThickness="1"/>
+                    <Line Canvas.Left="48" Canvas.Top="48" X1="0" Y1="0" X2="0" Y2="22" Stroke="Black" StrokeThickness="1"/>
+                    <Polygon Canvas.Left="18" Canvas.Top="20" Points="30,0 60,50 0,50" Stroke="Black" StrokeThickness="0.75"/>
+                    <TextBlock Canvas.Left="37" Canvas.Top="21" Text="V"/>
+                    <TextBlock Canvas.Left="30" Canvas.Top="42" Text="I"/>
+                    <TextBlock Canvas.Left="48" Canvas.Top="42" Text="R"/>
+                </Canvas>
+                <StackPanel Margin="4" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="0.5 A * 250 &#x03A9; ="/>
+                    <TextBox Height="30" Width="30" Style="{StaticResource ControlInError}" VerticalAlignment="Top">
+                        <TextBox.Text>
+                            <Binding Path="QuestionOneAnswer" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vr:OhmsLawBasicOneRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock Text="V"/>
+                </StackPanel>
+                <StackPanel Margin="4" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="5 A * 100 &#x03A9; ="/>
+                    <TextBox Height="30"  Width="30" Style="{StaticResource ControlInError}" VerticalAlignment="Top">
+                        <TextBox.Text>
+                            <Binding Path="QuestionTwoAnswer" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vr:OhmsLawBasicTwoRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock Text="V"/>
+                </StackPanel>
+                <StackPanel Margin="4" Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="8 V"/>
+                        <Separator/>
+                        <TextBlock Text="3.2 A"/>
+                    </StackPanel>
+                    <TextBlock Text="="/>
+                    <TextBox  Height="30"  Width="30" Style="{StaticResource ControlInError}" VerticalAlignment="Top">
+                        <TextBox.Text>
+                            <Binding Path="QuestionThreeAnswer" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vr:OhmsLawBasicThreeRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock Text="&#x03A9;"/>
+                </StackPanel>
+                <StackPanel Margin="4" Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="120 V"/>
+                        <Separator/>
+                        <TextBlock Text="240 &#x03A9;"/>
+                    </StackPanel>
+                    <TextBlock Text="="/>
+                    <TextBox  Height="30"  Width="30" Style="{StaticResource ControlInError}" VerticalAlignment="Top">
+                        <TextBox.Text>
+                            <Binding Path="QuestionFourAnswer" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <vr:OhmsLawBasicFourRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBlock Text="A"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
