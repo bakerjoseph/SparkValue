@@ -42,6 +42,9 @@
                 <DataTemplate DataType="{x:Type vms:SolderingPracticeViewModel}">
                     <views:SolderingPracticeView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ElectronicsInspirationViewModel}">
+                    <views:ElectronicsInspirationView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>

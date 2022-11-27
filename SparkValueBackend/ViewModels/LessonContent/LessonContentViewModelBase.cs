@@ -138,6 +138,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "SolderingPractice":
                         Element = new SolderingPracticeViewModel();
                         break;
+                    case "ProjectInspiration":
+                        Element = new ElectronicsInspirationViewModel();
+                        break;
                 }
             }
         }

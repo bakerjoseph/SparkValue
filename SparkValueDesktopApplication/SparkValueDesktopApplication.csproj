@@ -33,6 +33,11 @@
     <None Remove="Images\ORGate.png" />
     <None Remove="Images\Oscilloscope.png" />
     <None Remove="Images\potentiometer.png" />
+    <None Remove="Images\ProjectIdeaFive.png" />
+    <None Remove="Images\ProjectIdeaFour.png" />
+    <None Remove="Images\ProjectIdeaOne.png" />
+    <None Remove="Images\ProjectIdeaThree.png" />
+    <None Remove="Images\ProjectIdeaTwo.png" />
     <None Remove="Images\resistor.png" />
     <None Remove="Images\Rotation.png" />
     <None Remove="Images\SafetyGlasses.png" />
@@ -92,6 +97,11 @@
     <Resource Include="Images\ORGate.png" />
     <Resource Include="Images\Oscilloscope.png" />
     <Resource Include="Images\potentiometer.png" />
+    <Resource Include="Images\ProjectIdeaFive.png" />
+    <Resource Include="Images\ProjectIdeaFour.png" />
+    <Resource Include="Images\ProjectIdeaOne.png" />
+    <Resource Include="Images\ProjectIdeaThree.png" />
+    <Resource Include="Images\ProjectIdeaTwo.png" />
     <Resource Include="Images\resistor.png" />
     <Resource Include="Images\Rotation.png" />
     <Resource Include="Images\SafetyGlasses.png" />
