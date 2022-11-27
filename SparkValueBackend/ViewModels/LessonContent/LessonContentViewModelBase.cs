@@ -123,6 +123,9 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "MultimeterParts":
                         Element = new MultimeterOverviewViewModel();
                         break;
+                    case "PCBExplodedView":
+                        Element = new PCBDiagramViewModel();
+                        break;
                     case "MultimeterMeasuringValues":
                         Element = new MultimeterMeasuringViewModel();
                         break;

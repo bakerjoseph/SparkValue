@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.PCBDiagramView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="330">
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" Text="Single Layer PCB"/>
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="0" Width="190" Fill="Gainsboro"/>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Silkscreen"/>
+                    
+                    <Rectangle Grid.Row="1" Width="190" Fill="YellowGreen"/>
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Solder Mask"/>
+                    
+                    <Rectangle Grid.Row="2" Width="190" Fill="DarkOrange"/>
+                    <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="Copper Layer"/>
+                    
+                    <Rectangle Grid.Row="3" Width="190" Height="45" Fill="Khaki"/>
+                    <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Substrate"/>
+                </Grid>
+                <Separator/>
+                <TextBlock HorizontalAlignment="Center" Text="Double Layer PCB"/>
+                <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="0" Width="190" Fill="Gainsboro"/>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Silkscreen"/>
+
+                    <Rectangle Grid.Row="1" Width="190" Fill="YellowGreen"/>
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="Solder Mask"/>
+
+                    <Rectangle Grid.Row="2" Width="190" Fill="DarkOrange"/>
+                    <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="Copper Layer"/>
+
+                    <Rectangle Grid.Row="3" Width="190" Height="45" Fill="Khaki"/>
+                    <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Substrate"/>
+
+                    <Rectangle Grid.Row="4" Width="190" Fill="DarkOrange"/>
+                    <TextBlock Grid.Row="4" HorizontalAlignment="Center" Text="Copper Layer"/>
+
+                    <Rectangle Grid.Row="5" Width="190" Fill="YellowGreen"/>
+                    <TextBlock Grid.Row="5" HorizontalAlignment="Center" Text="Solder Mask"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

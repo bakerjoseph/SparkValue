@@ -37,6 +37,9 @@
                 <DataTemplate DataType="{x:Type vms:SolderingStationViewModel}">
                     <views:SolderingStationView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:PCBDiagramViewModel}">
+                    <views:PCBDiagramView/>
+                </DataTemplate>
             </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Viewbox>
