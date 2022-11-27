@@ -254,17 +254,17 @@ namespace SparkValueBackend.Services
                         "A board for bread and wires.", new List<string>
                         {
                             "As a beginner, using a breadboard is an excellent way to start putting down your components. Even if you are not a beginner breadboards are an essential way to test and prototype your circuits. The most common type of breadboard you will see is called a solderless breadboard. You may also see its less common brother solderable breadboard or perf board. For this lesson, we will be talking about solderless breadboards because of their ease of use. It is also important to note that breadboards are expandable! Just use the notches found on every side to connect another breadboard. Read on to learn more about breadboards and how to place components on them.",
-                            "With a breadboard in hand, it may be a little confusing as to where you should place your components. One of the first things you will notice is a gap down the center of your breadboard. This gap allows you to place Dual In-Line Package integrated circuits while keeping the leads separated on different rows. Speaking of rows, they usually consist of five holes to accept component leads. Any components placed in the same row will be connected and share current. However, the different rows are isolated from each other, even across the gap. You may also see a combination of numbering or lettering to help denote hole locations. Then what are these vertical-colored strips? These denote the power rails that run the height of the breadboard. These holes are interconnected vertically, unlike the rows. Know that you know all about breadboards, get out there and practice, tinker with them or use the built-in breadboard that comes with a selection of common components."
+                            "With a breadboard in hand, it may be a little confusing as to where you should place your components. One of the first things you will notice is a gap down the center of your breadboard. This gap allows you to place Dual In-Line Package integrated circuits while keeping the leads separated on different rows. Speaking of rows, they usually consist of five holes to accept component leads. Any components placed in the same row will be connected and share current. However, the different rows are isolated from each other, even across the gap. You may also see a combination of numbering or lettering to help denote hole locations. Then what are these vertical-colored strips? These denote the power rails that run the height of the breadboard. These holes are interconnected vertically, unlike the rows."
                         },
                         new List<string>
                         {
-                            "",
+                            "DifferentBoards",
                             "ExampleBoard"
                         },
                         new List<int>
                         {
-                            0,
-                            2
+                            3,
+                            1
                         }),
                     new LessonModel("Printed Circuit Boards",
                         2,

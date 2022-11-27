@@ -39,6 +39,9 @@
                 <DataTemplate DataType="{x:Type vms:CircuitPowerOptionsViewModel}">
                     <views:CircuitPowerOptionsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:BreadboardAnatomyViewModel}">
+                    <views:BreadboardAnatomyView/>
+                </DataTemplate>
             </Viewbox.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Viewbox>

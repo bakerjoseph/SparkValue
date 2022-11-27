@@ -12,6 +12,9 @@
     <None Remove="Images\ANDGate.png" />
     <None Remove="Images\Battery.png" />
     <None Remove="Images\BenchtopPowerSupply.png" />
+    <None Remove="Images\BreadboardOne.png" />
+    <None Remove="Images\BreadboardThree.png" />
+    <None Remove="Images\BreadboardTwo.png" />
     <None Remove="Images\capacitor.png" />
     <None Remove="Images\ComponentSymbolLibrary.png" />
     <None Remove="Images\diode.png" />
@@ -32,6 +35,7 @@
     <None Remove="Images\NOTGate.png" />
     <None Remove="Images\ORGate.png" />
     <None Remove="Images\Oscilloscope.png" />
+    <None Remove="Images\Perfboard.png" />
     <None Remove="Images\potentiometer.png" />
     <None Remove="Images\ProjectIdeaFive.png" />
     <None Remove="Images\ProjectIdeaFour.png" />
@@ -64,6 +68,9 @@
     <Resource Include="Images\ANDGate.png" />
     <Resource Include="Images\Battery.png" />
     <Resource Include="Images\BenchtopPowerSupply.png" />
+    <Resource Include="Images\BreadboardOne.png" />
+    <Resource Include="Images\BreadboardThree.png" />
+    <Resource Include="Images\BreadboardTwo.png" />
     <Resource Include="Images\ComponentSymbolLibrary.png" />
     <Resource Include="Images\ExampleInductors.png" />
     <Resource Include="Images\FlushCutters.png" />
@@ -96,6 +103,7 @@
     <Resource Include="Images\NOTGate.png" />
     <Resource Include="Images\ORGate.png" />
     <Resource Include="Images\Oscilloscope.png" />
+    <Resource Include="Images\Perfboard.png" />
     <Resource Include="Images\potentiometer.png" />
     <Resource Include="Images\ProjectIdeaFive.png" />
     <Resource Include="Images\ProjectIdeaFour.png" />

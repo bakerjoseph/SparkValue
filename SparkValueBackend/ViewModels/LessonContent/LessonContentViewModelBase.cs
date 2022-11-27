@@ -114,6 +114,12 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "ButtonPress":
                         Element = new ButtonsViewModel();
                         break;
+                    case "DifferentBoards":
+                        Element = new BreadboardTypesViewModel();
+                        break;
+                    case "ExampleBoard":
+                        Element = new BreadboardAnatomyViewModel();
+                        break;
                     case "MultimeterParts":
                         Element = new MultimeterOverviewViewModel();
                         break;
