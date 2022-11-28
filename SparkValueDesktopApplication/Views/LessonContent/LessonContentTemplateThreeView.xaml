@@ -48,6 +48,9 @@
                 <DataTemplate DataType="{x:Type vms:BreadboardTypesViewModel}">
                     <views:BreadboardTypesView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ArduinoExtrasViewModel}">
+                    <views:ArduinoExtrasView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>

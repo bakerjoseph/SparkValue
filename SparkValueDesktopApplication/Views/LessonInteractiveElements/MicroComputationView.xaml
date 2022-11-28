@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="SparkValueDesktopApplication.Views.LessonInteractiveElements.MicroComputationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SparkValueDesktopApplication.Views.LessonInteractiveElements"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border Background="WhiteSmoke" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Arduino"/>
+                <Image Margin="2 2 25 2" Height="120" Source="\Images\Arduino.png"/>
+                <Image Margin="25 2 2 2" Height="120" Source="\Images\RaspberryPi.png"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Raspberry Pi"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

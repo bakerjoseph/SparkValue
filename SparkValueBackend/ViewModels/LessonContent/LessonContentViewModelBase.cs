@@ -120,11 +120,17 @@ namespace SparkValueBackend.ViewModels.LessonContent
                     case "ExampleBoard":
                         Element = new BreadboardAnatomyViewModel();
                         break;
-                    case "MultimeterParts":
-                        Element = new MultimeterOverviewViewModel();
-                        break;
                     case "PCBExplodedView":
                         Element = new PCBDiagramViewModel();
+                        break;
+                    case "MicrocontrollersShowAndTell":
+                        Element = new MicroComputationViewModel();
+                        break;
+                    case "ArduinoExpansion":
+                        Element = new ArduinoExtrasViewModel();
+                        break;
+                    case "MultimeterParts":
+                        Element = new MultimeterOverviewViewModel();
                         break;
                     case "MultimeterMeasuringValues":
                         Element = new MultimeterMeasuringViewModel();

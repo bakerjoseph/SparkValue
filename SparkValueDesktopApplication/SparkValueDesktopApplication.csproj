@@ -10,6 +10,9 @@
   <ItemGroup>
     <None Remove="Cursors\Eraser.cur" />
     <None Remove="Images\ANDGate.png" />
+    <None Remove="Images\Arduino.png" />
+    <None Remove="Images\ArduinoIDE.png" />
+    <None Remove="Images\ArduinoKit.png" />
     <None Remove="Images\Battery.png" />
     <None Remove="Images\BenchtopPowerSupply.png" />
     <None Remove="Images\BreadboardOne.png" />
@@ -26,6 +29,7 @@
     <None Remove="Images\InsulatedMat.png" />
     <None Remove="Images\led.png" />
     <None Remove="Images\LogicGateSymbols.PNG" />
+    <None Remove="Images\MicrocontrollerOverview.png" />
     <None Remove="Images\MountingComponentDifference.png" />
     <None Remove="Images\Multimeter.png" />
     <None Remove="Images\MultimeterResistanceTest.png" />
@@ -42,6 +46,7 @@
     <None Remove="Images\ProjectIdeaOne.png" />
     <None Remove="Images\ProjectIdeaThree.png" />
     <None Remove="Images\ProjectIdeaTwo.png" />
+    <None Remove="Images\RaspberryPi.png" />
     <None Remove="Images\resistor.png" />
     <None Remove="Images\Rotation.png" />
     <None Remove="Images\SafetyGlasses.png" />
@@ -66,6 +71,9 @@
 
   <ItemGroup>
     <Resource Include="Images\ANDGate.png" />
+    <Resource Include="Images\Arduino.png" />
+    <Resource Include="Images\ArduinoIDE.png" />
+    <Resource Include="Images\ArduinoKit.png" />
     <Resource Include="Images\Battery.png" />
     <Resource Include="Images\BenchtopPowerSupply.png" />
     <Resource Include="Images\BreadboardOne.png" />
@@ -94,6 +102,7 @@
     <Resource Include="Images\capacitor.png" />
     <Resource Include="Images\diode.png" />
     <Resource Include="Images\led.png" />
+    <Resource Include="Images\MicrocontrollerOverview.png" />
     <Resource Include="Images\MountingComponentDifference.png" />
     <Resource Include="Images\Multimeter.png" />
     <Resource Include="Images\MultimeterResistanceTest.png" />
@@ -110,6 +119,7 @@
     <Resource Include="Images\ProjectIdeaOne.png" />
     <Resource Include="Images\ProjectIdeaThree.png" />
     <Resource Include="Images\ProjectIdeaTwo.png" />
+    <Resource Include="Images\RaspberryPi.png" />
     <Resource Include="Images\resistor.png" />
     <Resource Include="Images\Rotation.png" />
     <Resource Include="Images\SafetyGlasses.png" />

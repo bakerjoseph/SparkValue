@@ -31,6 +31,9 @@
                 <DataTemplate DataType="{x:Type vms:CircuitPowerForBeginnersViewModel}">
                     <views:CircuitPowerForBeginnersView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:MicroComputationViewModel}">
+                    <views:MicroComputationView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding Element}"/>
         </Grid>
