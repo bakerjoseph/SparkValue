@@ -62,7 +62,11 @@
                             <Border Width="550" Margin="1.5" Background="LightSlateGray" CornerRadius="5">
                                 <Expander HorizontalAlignment="Right" FlowDirection="RightToLeft" Margin="5">
                                     <Expander.Header>
-                                        <TextBlock Text="{Binding Title}" FlowDirection="LeftToRight" ToolTip="{Binding Description}"/>
+                                        <TextBlock Width="520" HorizontalAlignment="Left" Text="{Binding Title}">
+                                            <TextBlock.ToolTip>
+                                                <ToolTip FlowDirection="LeftToRight" Content="{Binding Description}"/>
+                                            </TextBlock.ToolTip>
+                                        </TextBlock>
                                     </Expander.Header>
                                     <ItemsControl ItemsSource="{Binding Lessons}">
                                         <ItemsControl.ItemsPanel>
