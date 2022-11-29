@@ -64,7 +64,7 @@ namespace SparkValueDesktopApplication
 
         private BreadboardViewModel CreateBreadboardViewModel()
         {
-            return new BreadboardViewModel(new NavigationService(_navigationStore, CreateSignInViewModel), _componentCategories);
+            return new BreadboardViewModel(new NavigationService(_navigationStore, CreateSignInViewModel), new NavigationService(_navigationStore, CreateDashboardViewModel), _userStore, _componentCategories);
         }
 
         private NewAccountViewModel CreateNewAccountViewModel()

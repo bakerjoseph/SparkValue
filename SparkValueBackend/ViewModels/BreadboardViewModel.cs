@@ -1,6 +1,7 @@
 ﻿using SparkValueBackend.Commands;
 using SparkValueBackend.Models;
 using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -104,7 +105,7 @@ namespace SparkValueBackend.ViewModels
         public ICommand UpdateCurrentComponentCommand { get; }
         public IEnumerable<ComponentCategoryViewModel> ComponentCategories => _componentCategories;
 
-        public BreadboardViewModel(NavigationService signInViewNavigationService, IEnumerable<ComponentCategoryViewModel> categories)
+        public BreadboardViewModel(NavigationService signInViewNavigationService, NavigationService dashboardViewNavigationService, UserStore userStore, IEnumerable<ComponentCategoryViewModel> categories)
         {
             PlacedComponents = new List<ComponentViewModel>();
             PlacedWires = new List<WireModel>();
@@ -124,7 +125,7 @@ namespace SparkValueBackend.ViewModels
                 }
             }
 
-            MenuNavigateCommand = new NavigateCommand(signInViewNavigationService);
+            MenuNavigateCommand = new NavigateAwayFromBreadboardCommand(userStore, signInViewNavigationService, dashboardViewNavigationService);
             ClearCommand = new ClearBreadboardCommand(this);
             FilterComponentsCommand = new FilterCompCommand(this);
             FilterValuesCommand = new FilterValCommand(this);
