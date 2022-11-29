@@ -27,6 +27,7 @@ namespace SparkValueDesktopApplication.Views
     {
         private Point startPoint = new Point();
         private Point currentPoint = new Point();
+        private bool drawing = false;
 
         private const double EraserMargin = 2;
 
@@ -163,12 +164,13 @@ namespace SparkValueDesktopApplication.Views
             {
                 startPoint = e.GetPosition(breadboard);
                 currentPoint = e.GetPosition(breadboard);
+                drawing = true;
             }
         }
 
         private void breadboard_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed && breadboard.Cursor == Cursors.Pen)
+            if (e.LeftButton == MouseButtonState.Pressed && breadboard.Cursor == Cursors.Pen && drawing)
             {
                 Line line = new Line();
                 if (!(bool)wireVis.IsChecked) line.Visibility = Visibility.Hidden;
@@ -187,7 +189,7 @@ namespace SparkValueDesktopApplication.Views
 
         private void breadboard_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (WirePlaceCommand.CanExecute(null) && breadboard.Cursor == Cursors.Pen && startPoint != e.GetPosition(breadboard))
+            if (WirePlaceCommand.CanExecute(null) && breadboard.Cursor == Cursors.Pen && startPoint != e.GetPosition(breadboard) && drawing)
             {
                 WireModel wire = new WireModel(startPoint, e.GetPosition(breadboard), 
                     (width: positiveRail.ActualWidth, height: positiveRail.ActualHeight, offset: positiveBorder.Margin, borderThickness: positiveBorder.BorderThickness),
@@ -199,6 +201,8 @@ namespace SparkValueDesktopApplication.Views
                 (Point start, Point end)? removed = RemoveLine(e.GetPosition(breadboard));
                 if (removed != null) WirePlaceCommand?.Execute(removed);
             }
+
+            drawing = false;
         }
 
         private void NumericBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
