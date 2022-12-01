@@ -20,6 +20,13 @@
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="New Username:"/>
                         <TextBox Text="{Binding Username}" MinWidth="150" MaxWidth="150"/>
+                        <Grid Margin="8 0">
+                            <Grid.ToolTip>
+                                <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="Username must be 8 to 25 characters long and contain no special characters."/>
+                            </Grid.ToolTip>
+                            <Ellipse Height="25" Width="25" Fill="Gainsboro"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="?"/>
+                        </Grid>
                     </StackPanel>
                     
                     <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">

@@ -31,6 +31,13 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
+                        <Grid Margin="8 0">
+                            <Grid.ToolTip>
+                                <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="Username must be 8 to 25 characters long and contain no special characters."/>
+                            </Grid.ToolTip>
+                            <Ellipse Height="25" Width="25" Fill="Gainsboro"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="?"/>
+                        </Grid>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Email Address:"/>
@@ -43,6 +50,13 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
+                        <Grid Margin="8 0">
+                            <Grid.ToolTip>
+                                <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="Email address must be valid."/>
+                            </Grid.ToolTip>
+                            <Ellipse Height="25" Width="25" Fill="Gainsboro"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="?"/>
+                        </Grid>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Password:"/>
@@ -57,6 +71,13 @@
                                 </Binding>
                             </AP:PasswordBoxAttachedProperty.EncryptedPassword>
                         </PasswordBox>
+                        <Grid Margin="8 0">
+                            <Grid.ToolTip>
+                                <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="Password must be 8 or more characters and contain at least 1 uppercase and lowercase character, 1 numerical character, and 1 special character."/>
+                            </Grid.ToolTip>
+                            <Ellipse Height="25" Width="25" Fill="Gainsboro"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="?"/>
+                        </Grid>
                     </StackPanel>
 
                     <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">

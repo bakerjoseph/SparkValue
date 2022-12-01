@@ -34,12 +34,12 @@ namespace SparkValueDesktopApplication.ValidationRules
                 return new ValidationResult(false, "Password must contain at least one uppercase letter.");
             }
 
-            // Does the password contain at least one lower case character?
+            // Does the password contain at least one lowercase character?
             Regex inverseLowerCaseRegex = new Regex(AntiLowerCaseRegex);
             if (inverseLowerCaseRegex.IsMatch((value is SecureString) ? ConvertSecureString((SecureString)value) : (string)value))
             {
                 // Will match if there are no lower case letters
-                return new ValidationResult(false, "Password must contain at least one lower case letter.");
+                return new ValidationResult(false, "Password must contain at least one lowercase letter.");
             }
 
             // Does the password contain at least one numerical character?
