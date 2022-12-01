@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\SparkValueLogoFinal.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -60,6 +61,8 @@
     <None Remove="Images\SolderingStationExampleTwo.png" />
     <None Remove="Images\SolderSucker.png" />
     <None Remove="Images\SolderWick.png" />
+    <None Remove="Images\SparkValueLogoFinal.ico" />
+    <None Remove="Images\SparkValueLogoFinal.png" />
     <None Remove="Images\THTComponents.png" />
     <None Remove="Images\THTPackage1.png" />
     <None Remove="Images\THTSolderingProcedure.png" />
@@ -67,6 +70,10 @@
     <None Remove="Images\USBCable.png" />
     <None Remove="Images\WallAdapter.png" />
     <None Remove="Images\XORGate.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\SparkValueLogoFinal.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -133,6 +140,8 @@
     <Resource Include="Images\SolderingStationExampleTwo.png" />
     <Resource Include="Images\SolderSucker.png" />
     <Resource Include="Images\SolderWick.png" />
+    <Resource Include="Images\SparkValueLogoFinal.ico" />
+    <Resource Include="Images\SparkValueLogoFinal.png" />
     <Resource Include="Images\THTComponents.png" />
     <Resource Include="Images\THTPackage1.png" />
     <Resource Include="Images\THTSolderingProcedure.png" />
