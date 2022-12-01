@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Background="LightSlateGray">
+    <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Style="{DynamicResource BackgroundColorBorder}">
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -15,7 +15,7 @@
 
             <TextBlock HorizontalAlignment="Center" Padding="15" Grid.Row="0" MinHeight="50" FontSize="22" FontWeight="Bold" Text="Update your Email Address"/>
 
-            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1">
+            <Border Grid.Row="1" Style="{DynamicResource AccentColorBorder}" BorderThickness="1">
                 <StackPanel VerticalAlignment="Center" Margin="10">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
                         <TextBlock Text="New Email Address:"/>

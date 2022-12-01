@@ -27,7 +27,7 @@
         </Grid>
 
         <DockPanel Grid.Row="1">
-            <Border DockPanel.Dock="Left" Background="LightSlateGray" MaxWidth="200">
+            <Border DockPanel.Dock="Left" Style="{DynamicResource BackgroundColorBorder}" MaxWidth="200">
                 <DockPanel LastChildFill="False">
                     <StackPanel DockPanel.Dock="Top" MinWidth="150">
                         <Button Content="General" Command="{Binding SwitchToGeneralCommand}"/>

@@ -47,8 +47,6 @@
                 <views:UsernameEmailRequestView/>
             </DataTemplate>
         </Viewbox.Resources>
-        <Border BorderBrush="Black" BorderThickness="0.25">
-            <ContentControl x:Name="ViewModelContainer" Content="{Binding CurrentViewModel}"/>
-        </Border>
+        <ContentControl x:Name="ViewModelContainer" Content="{Binding CurrentViewModel}"/>
     </Viewbox>
 </Window>

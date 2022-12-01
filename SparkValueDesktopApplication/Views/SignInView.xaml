@@ -7,7 +7,7 @@
              xmlns:AP="clr-namespace:SparkValueDesktopApplication.AttachedProperties"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
-    <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Background="LightSlateGray">
+    <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Style="{DynamicResource BackgroundColorBorder}">
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -21,13 +21,13 @@
             <TextBlock HorizontalAlignment="Center" Padding="15" Grid.Row="0" Grid.ColumnSpan="2" MinHeight="50" FontSize="22" FontWeight="Bold" Text="Welcome to Spark Value"/>
             
             <!--#region Left Side Menu -->
-            <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" Style="{DynamicResource AccentColorBorder}">
                 <StackPanel  VerticalAlignment="Center" Margin="10 20">
                     
                     <TextBlock HorizontalAlignment="Center" Text="New to Spark Value?"/>
                     <Button Content="Create a free account here" Command="{Binding CreateAccountCommand}" Margin="10 0 10 10" />
                     
-                    <Separator  Margin="0 5"/>
+                    <Separator Style="{DynamicResource AccentColorControl}" Margin="0 5"/>
                     
                     <TextBlock HorizontalAlignment="Center" Text="Not interested in our lessons?"/>
                     <Button Content="Try our virtual breadboard here" Command="{Binding BreadboardNavigateCommand}" Margin="10 0 10 10"/>
@@ -37,7 +37,7 @@
             <!--#endregion-->
 
             <!--#region Right Side Menu -->
-            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0,1,1,1">
+            <Border Grid.Row="1" Grid.Column="1" BorderThickness="0,1,1,1" Style="{DynamicResource AccentColorBorder}">
                 <StackPanel VerticalAlignment="Center" Margin="10 20">
                     
                     <!--#region Form Inputs -->

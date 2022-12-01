@@ -8,75 +8,77 @@
              xmlns:lv="clr-namespace:SparkValueDesktopApplication.Views.LessonContent"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
-    <Grid Height="500" Width="850">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Border BorderBrush="Black" BorderThickness="0.25">
+        <Grid Height="500" Width="850">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <!--#region Top Bar -->
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
+            <!--#region Top Bar -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Spark Value"/>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Spark Value"/>
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Text="{Binding Username}"/>
-                <Button Command="{Binding SettingsNavigateCommand}" Background="White" BorderThickness="0.1">
-                    <Image Source="/Images/SettingsGear.png" Width="25"/>
-                </Button>
-            </StackPanel>
-        </Grid>
-        <!--#endregion-->
-
-        <!--#region Page Body -->
-        <DockPanel Grid.Row="1">
-            <!--#region Left Menu Bar -->
-            <Border DockPanel.Dock="Left" Background="LightSlateGray" MaxWidth="200">
-                <DockPanel LastChildFill="False">
-                    <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command="{Binding MenuNavigateCommand}"/>
-                </DockPanel>
-
-            </Border>
-            <!--#endregion-->
-
-            <!--#region Lesson -->
-            <StackPanel DockPanel.Dock="Right" Margin="20">
-                <TextBlock Text="{Binding Title}"/>
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Content="&lt;-" Command="{Binding PreviousPageCommand}"/>
-                    <Button Content="->" Command="{Binding NextPageCommand}"/>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Progress}"/>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Username}"/>
+                    <Button Command="{Binding SettingsNavigateCommand}" Background="White" BorderThickness="0.1">
+                        <Image Source="/Images/SettingsGear.png" Width="25"/>
+                    </Button>
                 </StackPanel>
-                <!--#region Lesson Content -->
-                <Grid>
-                    <Grid.Resources>
-                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateDefaultViewModel}">
-                            <lv:LessonContentTemplateDefaultView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateOneViewModel}">
-                            <lv:LessonContentTemplateOneView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateTwoViewModel}">
-                            <lv:LessonContentTemplateTwoView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateThreeViewModel}">
-                            <lv:LessonContentTemplateThreeView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type lvms:LessonContentTemplateFourViewModel}">
-                            <lv:LessonContentTemplateFourView/>
-                        </DataTemplate>
-                    </Grid.Resources>
-                    <ContentControl x:Name="LessonContainer" Content="{Binding DisplayedContent}"/>
-                </Grid>
-                <!--#endregion-->
-            </StackPanel>
+            </Grid>
             <!--#endregion-->
-        </DockPanel>
-        <!--#endregion-->
-    </Grid>
+
+            <!--#region Page Body -->
+            <DockPanel Grid.Row="1">
+                <!--#region Left Menu Bar -->
+                <Border DockPanel.Dock="Left" Style="{DynamicResource BackgroundColorBorder}" MaxWidth="200">
+                    <DockPanel LastChildFill="False">
+                        <Button DockPanel.Dock="Bottom" Content="Back to Menu" Command="{Binding MenuNavigateCommand}"/>
+                    </DockPanel>
+
+                </Border>
+                <!--#endregion-->
+
+                <!--#region Lesson -->
+                <StackPanel DockPanel.Dock="Right" Margin="20">
+                    <TextBlock Text="{Binding Title}"/>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Content="&lt;-" Command="{Binding PreviousPageCommand}"/>
+                        <Button Content="->" Command="{Binding NextPageCommand}"/>
+                        <TextBlock VerticalAlignment="Center" Text="{Binding Progress}"/>
+                    </StackPanel>
+                    <!--#region Lesson Content -->
+                    <Grid>
+                        <Grid.Resources>
+                            <DataTemplate DataType="{x:Type lvms:LessonContentTemplateDefaultViewModel}">
+                                <lv:LessonContentTemplateDefaultView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type lvms:LessonContentTemplateOneViewModel}">
+                                <lv:LessonContentTemplateOneView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type lvms:LessonContentTemplateTwoViewModel}">
+                                <lv:LessonContentTemplateTwoView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type lvms:LessonContentTemplateThreeViewModel}">
+                                <lv:LessonContentTemplateThreeView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type lvms:LessonContentTemplateFourViewModel}">
+                                <lv:LessonContentTemplateFourView/>
+                            </DataTemplate>
+                        </Grid.Resources>
+                        <ContentControl x:Name="LessonContainer" Content="{Binding DisplayedContent}"/>
+                    </Grid>
+                    <!--#endregion-->
+                </StackPanel>
+                <!--#endregion-->
+            </DockPanel>
+            <!--#endregion-->
+        </Grid>
+    </Border>
 </UserControl>

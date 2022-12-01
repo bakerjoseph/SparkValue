@@ -20,5 +20,17 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="BackgroundColorControl" TargetType="{x:Type Control}">
+            <Setter Property="Background" Value="#408f00"/>
+        </Style>
+        <Style x:Key="BackgroundColorBorder" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="#408f00"/>
+        </Style>
+        <Style x:Key="AccentColorControl" TargetType="{x:Type Control}">
+            <Setter Property="Background" Value="#e5ab26"/>
+        </Style>
+        <Style x:Key="AccentColorBorder" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="#e5ab26"/>
+        </Style>
     </Application.Resources>
 </Application>

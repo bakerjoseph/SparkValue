@@ -6,91 +6,93 @@
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
-    <Grid Height="500" Width="850">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <!--#region Top Bar -->
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Spark Value"/>
-            
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Text="{Binding Username}"/>
-                <Button Command="{Binding SettingsNavigateCommand}" Background="White" BorderThickness="0.1">
-                    <Image Source="/Images/SettingsGear.png" Width="25"/>
-                </Button>
-            </StackPanel>
-        </Grid>
-        <!--#endregion-->
+    <Border BorderBrush="Black" BorderThickness="0.25">
+        <Grid Height="500" Width="850">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="1">
+            <!--#region Top Bar -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
 
-            <!--#region Left Side Bar -->
-            <Border DockPanel.Dock="Left" Background="LightSlateGray" MaxWidth="200">
-                <DockPanel LastChildFill="False" MinWidth="150">
-                    <StackPanel DockPanel.Dock="Top" >
-                        <Button Content="Virtual Breadboard" Command="{Binding BreadboardNavigateCommand}"/>
-                    </StackPanel>
-                    <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Spark Value"/>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Username}"/>
+                    <Button Command="{Binding SettingsNavigateCommand}" Background="White" BorderThickness="0.1">
+                        <Image Source="/Images/SettingsGear.png" Width="25"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <!--#endregion-->
+
+            <DockPanel Grid.Row="1">
+
+                <!--#region Left Side Bar -->
+                <Border DockPanel.Dock="Left" Style="{DynamicResource BackgroundColorBorder}" MaxWidth="200">
+                    <DockPanel LastChildFill="False" MinWidth="150">
+                        <StackPanel DockPanel.Dock="Top" >
+                            <Button Content="Virtual Breadboard" Command="{Binding BreadboardNavigateCommand}"/>
+                        </StackPanel>
+                        <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Center">
                         <Hyperlink Command="{Binding LogOutCommand}">
                             Log Out
                         </Hyperlink>
-                    </TextBlock>
-                </DockPanel>
-            </Border>
-            <!--#endregion-->
+                        </TextBlock>
+                    </DockPanel>
+                </Border>
+                <!--#endregion-->
 
-            <!--#region Unit Selection Menu -->
-            <ScrollViewer DockPanel.Dock="Right" MinWidth="350">
-                <ItemsControl ItemsSource="{Binding Units}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Width="550" IsItemsHost="True">
-                            </StackPanel>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="550" Margin="1.5" Background="LightSlateGray" CornerRadius="5">
-                                <Expander HorizontalAlignment="Right" FlowDirection="RightToLeft" Margin="5">
-                                    <Expander.Header>
-                                        <TextBlock Width="520" HorizontalAlignment="Left" Text="{Binding Title}">
-                                            <TextBlock.ToolTip>
-                                                <ToolTip FlowDirection="LeftToRight" Content="{Binding Description}"/>
-                                            </TextBlock.ToolTip>
-                                        </TextBlock>
-                                    </Expander.Header>
-                                    <ItemsControl ItemsSource="{Binding Lessons}">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel FlowDirection="LeftToRight" IsItemsHost="True" ItemWidth="260">
-                                                </WrapPanel>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" ToolTip="{Binding Description}">
-                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Title}" MaxWidth="120" TextWrapping="WrapWithOverflow"/>
-                                                    <Button Content="Go to lesson" Command="{Binding LessonNavigateCommand}"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </Expander>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-            <!--#endregion-->
-        </DockPanel>
-    </Grid>
+                <!--#region Unit Selection Menu -->
+                <ScrollViewer DockPanel.Dock="Right" MinWidth="350">
+                    <ItemsControl ItemsSource="{Binding Units}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Width="550" IsItemsHost="True">
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="550" Margin="1.5" Style="{DynamicResource BackgroundColorBorder}" CornerRadius="5">
+                                    <Expander HorizontalAlignment="Right" FlowDirection="RightToLeft" Margin="5">
+                                        <Expander.Header>
+                                            <TextBlock Width="520" HorizontalAlignment="Left" Text="{Binding Title}">
+                                                <TextBlock.ToolTip>
+                                                    <ToolTip FlowDirection="LeftToRight" Content="{Binding Description}"/>
+                                                </TextBlock.ToolTip>
+                                            </TextBlock>
+                                        </Expander.Header>
+                                        <ItemsControl ItemsSource="{Binding Lessons}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel FlowDirection="LeftToRight" IsItemsHost="True" ItemWidth="260">
+                                                    </WrapPanel>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal" ToolTip="{Binding Description}">
+                                                        <TextBlock VerticalAlignment="Center" Text="{Binding Title}" MaxWidth="120" TextWrapping="WrapWithOverflow"/>
+                                                        <Button Content="Go to lesson" Command="{Binding LessonNavigateCommand}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Expander>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+                <!--#endregion-->
+            </DockPanel>
+        </Grid>
+    </Border>
 </UserControl>
