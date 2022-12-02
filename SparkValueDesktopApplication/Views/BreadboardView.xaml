@@ -42,7 +42,19 @@
                     <Border MinWidth="200" Style="{DynamicResource BackgroundColorBorder}" DragLeave="expander_DragLeave">
                         <StackPanel>
                             <!--#region Component Menu-->
-                            <TextBlock HorizontalAlignment="Center" Text="Components"/>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock Text="Components"/>
+                                <Grid Margin="10 0">
+                                    <Grid.ToolTip>
+                                        <TextBlock MaxWidth="250" TextWrapping="Wrap" Text="Drag a component out onto the breadboard and you can hover over any component to get more information.
+                                                   To rotate a component, right click on it and drag to rotate.
+                                                   Capacitors and resistors have an extra right click menu to alter their specific values."/>
+                                    </Grid.ToolTip>
+                                    <Ellipse Height="25" Width="25" Fill="Gainsboro"/>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="?"/>
+                                </Grid>
+                            </StackPanel>
+                            
                             <Separator Style="{DynamicResource AccentColorControl}"/>
                             <ItemsControl x:Name="categoryList" ItemsSource="{Binding ComponentCategories}">
                                 <ItemsControl.ItemsPanel>
