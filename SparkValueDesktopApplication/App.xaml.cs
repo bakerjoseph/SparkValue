@@ -140,7 +140,7 @@ namespace SparkValueDesktopApplication
 
         private ResetEmailAddressViewModel CreateResetEmailAddressViewModel()
         {
-            return new ResetEmailAddressViewModel(_userStore, new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
+            return new ResetEmailAddressViewModel(new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
         }
 
         private ResetPasswordViewModel CreateResetPasswordViewModelToSettings()

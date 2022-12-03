@@ -2,7 +2,7 @@
 
 namespace SparkValueBackend.Commands
 {
-    public class ChangeUsernameCommand : AsyncCommandBase
+    public class ChangeUsernameCommand : CommandBase
     {
         private readonly NavigationService _userSettingsViewNavigationService;
 
@@ -11,9 +11,9 @@ namespace SparkValueBackend.Commands
             _userSettingsViewNavigationService = userSettingsViewNavigationService;
         }
 
-        public override async Task ExecuteAsync(object? parameter)
+        public override void Execute(object? parameter)
         {
-
+            // Change a user's username here!!
 
             _userSettingsViewNavigationService.Navigate();
         }
