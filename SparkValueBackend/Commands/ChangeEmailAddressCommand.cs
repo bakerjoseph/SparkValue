@@ -1,21 +1,61 @@
-﻿using SparkValueBackend.Services;
+﻿using SparkValueBackend.Models;
+using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
+using SparkValueBackend.ViewModels;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace SparkValueBackend.Commands
 {
-    public class ChangeEmailAddressCommand : CommandBase
+    public class ChangeEmailAddressCommand : AsyncCommandBase
     {
+        private readonly UserAccountModel _userAccount;
+
+        private readonly ResetEmailAddressViewModel _resetEmailAddressViewModel;
+
         private readonly NavigationService _userSettingsViewNavigationService;
 
-        public ChangeEmailAddressCommand(NavigationService userSettingsViewNavigationService)
+        private readonly UserStore _userStore;
+
+        public ChangeEmailAddressCommand(ResetEmailAddressViewModel resetEmailAddressViewModel, NavigationService userSettingsViewNavigationService, UserStore userStore)
         {
+            _userAccount = userStore.LoggedInUser;
+
+            _resetEmailAddressViewModel = resetEmailAddressViewModel;
+            resetEmailAddressViewModel.PropertyChanged += OnViewModelPropertyChanged;
+
             _userSettingsViewNavigationService = userSettingsViewNavigationService;
+
+            _userStore = userStore;
         }
 
-        public override void Execute(object? parameter)
+        public override bool CanExecute(object? parameter)
         {
-            // Edit a user's email address here!!
+            return !string.IsNullOrEmpty(_resetEmailAddressViewModel.EmailAddress) && base.CanExecute(parameter);
+        }
 
-            _userSettingsViewNavigationService.Navigate();
+        public override async Task ExecuteAsync(object? parameter)
+        {
+            try
+            {
+                // Change a user's email address
+                await _userStore.UpdateUsersEmailAddress(_userAccount, _resetEmailAddressViewModel.EmailAddress);
+
+                _userSettingsViewNavigationService.Navigate();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex, "Email Change");
+                _resetEmailAddressViewModel.ErrorText = "Problem occured while trying to change your email address, please try again later.";
+            }
+        }
+
+        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ResetEmailAddressViewModel.EmailAddress))
+            {
+                OnCanExecutedChanged();
+            }
         }
     }
 }
