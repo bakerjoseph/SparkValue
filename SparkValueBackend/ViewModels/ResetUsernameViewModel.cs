@@ -1,5 +1,6 @@
 ﻿using SparkValueBackend.Commands;
 using SparkValueBackend.Services;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,18 +26,32 @@ namespace SparkValueBackend.ViewModels
             }
         }
 
+        private string _errorText;
+        public string ErrorText
+        {
+            get
+            {
+                return _errorText;
+            }
+            set
+            {
+                _errorText = value;
+                OnPropertyChanged(nameof(ErrorText));
+            }
+        }
+
         public ICommand CancelCommand { get; }
         public ICommand ResetUsernameCommand { get; }
 
         /// <summary>
         /// Used in conjunction with UsernameChangeView.xaml
         /// </summary>
-        public ResetUsernameViewModel(NavigationService userSettingsViewNavigationService)
+        public ResetUsernameViewModel(UserStore userStore, NavigationService userSettingsViewNavigationService)
         {
             _username = string.Empty;
 
             CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
-            ResetUsernameCommand = new ChangeUsernameCommand(userSettingsViewNavigationService);
+            ResetUsernameCommand = new ChangeUsernameCommand(this, userSettingsViewNavigationService, userStore);
         }
     }
 }

@@ -135,7 +135,7 @@ namespace SparkValueDesktopApplication
 
         private ResetUsernameViewModel CreateResetUsernameViewModel()
         {
-            return new ResetUsernameViewModel(new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
+            return new ResetUsernameViewModel(_userStore, new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel));
         }
 
         private ResetEmailAddressViewModel CreateResetEmailAddressViewModel()
