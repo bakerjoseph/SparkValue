@@ -7,6 +7,47 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel HorizontalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center" Text="General Settings"/>
+        <TextBlock HorizontalAlignment="Center" Text="General Settings" FontWeight="Bold"/>
+        <Separator Style="{DynamicResource AccentColorControl}"/>
+        <TextBlock HorizontalAlignment="Center" Text="Accessibility"/>
+        <!--#region Language Selection -->
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="Language:"/>
+            <ComboBox Height="40" Width="200" VerticalAlignment="Center"
+                      SelectedValuePath="Language" SelectedValue="American English" ItemsSource="{Binding Languages}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="50" Source="{Binding CountryFlag}"/>
+                            <TextBlock Text="{Binding Language}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region Text Size -->
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="Font Size:"/>
+            <ComboBox Height="40" Width="80" VerticalAlignment="Center"
+                      SelectedItem="{Binding SelectedFontSize}" ItemsSource="{Binding FontSize}">
+            </ComboBox>
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region Text Color -->
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="Font Color:"/>
+            <ComboBox Height="40" Width="80" VerticalAlignment="Center"
+                      SelectedItem="{Binding SelectedFontColor}" ItemsSource="{Binding FontColor}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Height="25" Width="40" Fill="{Binding}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <!--#endregion-->
+        <Separator Style="{DynamicResource AccentColorControl}"/>
+        <TextBlock HorizontalAlignment="Center" Text="Theme Customization"/>
     </StackPanel>
 </UserControl>

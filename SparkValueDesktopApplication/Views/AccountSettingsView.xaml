@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel HorizontalAlignment="Center">
-        <TextBlock HorizontalAlignment="Center" Text="Account Settings"/>
+        <TextBlock HorizontalAlignment="Center" Text="Account Settings" FontWeight="Bold"/>
         <Separator Style="{DynamicResource AccentColorControl}"/>
         <Button Content="Change your Username" Command="{Binding ResetUsernameCommand}"/>
         <Button Content="Update your Email Address" Command="{Binding ResetEmailAddressCommand}"/>

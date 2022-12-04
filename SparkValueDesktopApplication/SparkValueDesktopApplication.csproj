@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Cursors\Eraser.cur" />
+    <None Remove="Images\AmericanFlag.png" />
     <None Remove="Images\ANDGate.png" />
     <None Remove="Images\Arduino.png" />
     <None Remove="Images\ArduinoIDE.png" />
@@ -77,6 +78,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\AmericanFlag.png" />
     <Resource Include="Images\ANDGate.png" />
     <Resource Include="Images\Arduino.png" />
     <Resource Include="Images\ArduinoIDE.png" />
