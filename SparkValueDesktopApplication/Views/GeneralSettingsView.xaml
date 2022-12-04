@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:conv="clr-namespace:SparkValueDesktopApplication.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:SettingsColorSelectorConverter x:Key="SettingsColorSelectorConverter"/>
+    </UserControl.Resources>
     <StackPanel HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" Text="General Settings" FontWeight="Bold"/>
         <Separator Style="{DynamicResource AccentColorControl}"/>
@@ -13,7 +17,7 @@
         <!--#region Language Selection -->
         <StackPanel Margin="5" Orientation="Horizontal">
             <TextBlock VerticalAlignment="Center" Text="Language:"/>
-            <ComboBox Height="40" Width="200" VerticalAlignment="Center"
+            <ComboBox Height="40" Width="200" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
                       SelectedValuePath="Language" SelectedValue="American English" ItemsSource="{Binding Languages}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -29,7 +33,7 @@
         <!--#region Text Size -->
         <StackPanel Margin="5" Orientation="Horizontal">
             <TextBlock VerticalAlignment="Center" Text="Font Size:"/>
-            <ComboBox Height="40" Width="80" VerticalAlignment="Center"
+            <ComboBox Height="40" Width="80" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                       SelectedItem="{Binding SelectedFontSize}" ItemsSource="{Binding FontSize}">
             </ComboBox>
         </StackPanel>
@@ -37,11 +41,11 @@
         <!--#region Text Color -->
         <StackPanel Margin="5" Orientation="Horizontal">
             <TextBlock VerticalAlignment="Center" Text="Font Color:"/>
-            <ComboBox Height="40" Width="80" VerticalAlignment="Center"
+            <ComboBox Height="40" Width="80" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                       SelectedItem="{Binding SelectedFontColor}" ItemsSource="{Binding FontColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <Rectangle Height="25" Width="40" Fill="{Binding}"/>
+                        <Rectangle Height="25" Width="40" Fill="{Binding Converter={StaticResource SettingsColorSelectorConverter}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -49,5 +53,31 @@
         <!--#endregion-->
         <Separator Style="{DynamicResource AccentColorControl}"/>
         <TextBlock HorizontalAlignment="Center" Text="Theme Customization"/>
+        <!--#region Primary Color -->
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="Primary Background Color:"/>
+            <ComboBox Height="50" Width="80" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                      SelectedItem="{Binding SelectedPrimaryColor}" ItemsSource="{Binding PrimaryColor}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle x:Name="PrimaryColor" Height="25" Width="40" Fill="{Binding Converter={StaticResource SettingsColorSelectorConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region Secondary Color -->
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="Secondary Accent Color:"/>
+            <ComboBox Height="50" Width="80" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                      SelectedItem="{Binding SelectedSecondaryColor}" ItemsSource="{Binding SecondaryColor}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Height="25" Width="40" Fill="{Binding Converter={StaticResource SettingsColorSelectorConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <!--#endregion-->
     </StackPanel>
 </UserControl>

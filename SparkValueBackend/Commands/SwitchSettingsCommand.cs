@@ -30,7 +30,17 @@ namespace SparkValueBackend.Commands
         {
             if (_settingsViewModel.CurrentSettingViewModel.GetType() == typeof(SettingsGeneralViewModel) && _desiredViewModel.Equals("General")) return;
             else if (_settingsViewModel.CurrentSettingViewModel.GetType() == typeof(SettingsAccountViewModel) && _desiredViewModel.Equals("Account")) return;
-            else _settingsViewModel.CurrentSettingViewModel = (_desiredViewModel.Equals("General"))? new SettingsGeneralViewModel(_navigationServices) : new SettingsAccountViewModel(_navigationServices, _userStore);
+            else _settingsViewModel.CurrentSettingViewModel = (_desiredViewModel.Equals("General"))? CreateGeneralSettings() : CreateAccountSettings();
+        }
+
+        private SettingsGeneralViewModel CreateGeneralSettings()
+        {
+            return new SettingsGeneralViewModel(_navigationServices);
+        }
+
+        private SettingsAccountViewModel CreateAccountSettings()
+        {
+            return new SettingsAccountViewModel(_navigationServices, _userStore);
         }
     }
 }

@@ -53,6 +53,42 @@ namespace SparkValueBackend.ViewModels
         }
         #endregion
 
+        #region Primary Color
+        private readonly ObservableCollection<SolidColorBrush> primaryColor;
+        public IEnumerable<SolidColorBrush> PrimaryColor => primaryColor;
+
+        private readonly SolidColorBrush DefaultPrimaryColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5E8C61"));
+
+        private SolidColorBrush _selectedPrimaryColor;
+        public SolidColorBrush SelectedPrimaryColor
+        {
+            get { return _selectedPrimaryColor; }
+            set
+            {
+                _selectedPrimaryColor = value;
+                OnPropertyChanged(nameof(SelectedPrimaryColor));
+            }
+        }
+        #endregion
+
+        #region Secondary Color
+        private readonly ObservableCollection<SolidColorBrush> secondaryColor;
+        public IEnumerable<SolidColorBrush> SecondaryColor => secondaryColor;
+
+        private readonly SolidColorBrush DefaultSecondaryColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#e5ab26"));
+
+        private SolidColorBrush _selectedSecondaryColor;
+        public SolidColorBrush SelectedSecondaryColor
+        {
+            get { return _selectedSecondaryColor; }
+            set
+            {
+                _selectedSecondaryColor = value;
+                OnPropertyChanged(nameof(SelectedSecondaryColor));
+            }
+        }
+        #endregion
+
         public SettingsGeneralViewModel(List<NavigationService> navigationServices)
         {
             languages = new ObservableCollection<LanguageModel>
@@ -73,6 +109,20 @@ namespace SparkValueBackend.ViewModels
             };
 
             SelectedFontColor = DefaultFontColor;
+
+            primaryColor = new ObservableCollection<SolidColorBrush>
+            {
+                DefaultPrimaryColor
+            };
+
+            SelectedPrimaryColor = DefaultPrimaryColor;
+
+            secondaryColor = new ObservableCollection<SolidColorBrush>
+            {
+               DefaultSecondaryColor
+            };
+
+            SelectedSecondaryColor = DefaultSecondaryColor;
         }
     }
 }

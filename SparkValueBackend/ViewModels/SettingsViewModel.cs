@@ -34,10 +34,19 @@ namespace SparkValueBackend.ViewModels
                 return _currentSettingViewModel; 
             }
             set 
-            { 
-                _currentSettingViewModel = value; 
-                OnPropertyChanged(nameof(CurrentSettingViewModel)); 
+            {
+                _currentSettingViewModel?.Dispose();
+                _currentSettingViewModel = value;
+                OnCurrentSettingViewModelChanged();
+                OnPropertyChanged(nameof(CurrentSettingViewModel));
             }
+        }
+
+        public Action CurrentSettingViewModelChanged;
+
+        private void OnCurrentSettingViewModelChanged()
+        {
+            CurrentSettingViewModelChanged?.Invoke();
         }
 
         public ICommand SwitchToGeneralCommand { get; }
