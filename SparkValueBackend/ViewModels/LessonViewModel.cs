@@ -119,6 +119,8 @@ namespace SparkValueBackend.ViewModels
 
         private LessonViewModel CreateLessonViewModel()
         {
+            // Has the unit been started?
+            // If it is zero that means this is the first time we are looking at the unit.
             if (GetLessonProgress() == 0) IncrementLessonProgress();
             else CreateContent(GetLessonProgress());
 
