@@ -47,7 +47,7 @@
 
                 <!--#region Lesson -->
                 <StackPanel DockPanel.Dock="Right" Margin="20">
-                    <TextBlock Text="{Binding Title}"/>
+                    <TextBlock Text="{Binding Title}" FontSize="20" TextDecorations="Underline"/>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Button Content="&lt;-" Command="{Binding PreviousPageCommand}"/>
                         <Button Content="->" Command="{Binding NextPageCommand}"/>
