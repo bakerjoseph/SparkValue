@@ -106,16 +106,7 @@ namespace SparkValueBackend.ViewModels
             Description = lesson.Description;
 
             ProgressModel targetProgress = user.LessonProgress.First(p => p.ItemName.Equals(lesson.Title));
-            // Check the progress on the lesson, if it is zero, set it to one and diplay it
-            if (targetProgress.Progress == 0)
-            {
-                // Will not update db with this progress until the lesson is exited
-                user.UpdateLessonProgress(targetProgress.ItemName, 1);
-            }
-
             Progress = $"{targetProgress.Progress}/{_lesson.Content.Count}";
-
-            CreateContent(targetProgress.Progress);
 
             CloseCommand = new NavigateAwayFromLessonCommand(this, null, userStore, user);
             MenuNavigateCommand = new NavigateAwayFromLessonCommand(this, dashboardViewNavigationService, userStore, user);
@@ -128,6 +119,9 @@ namespace SparkValueBackend.ViewModels
 
         private LessonViewModel CreateLessonViewModel()
         {
+            if (GetLessonProgress() == 0) IncrementLessonProgress();
+            else CreateContent(GetLessonProgress());
+
             return this;
         }
 

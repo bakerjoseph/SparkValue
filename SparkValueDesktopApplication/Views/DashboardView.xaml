@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:conv="clr-namespace:SparkValueDesktopApplication.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
+    <UserControl.Resources>
+        <conv:LessonProgressBarConverter x:Key="LessonProgressBarConverter"/>
+    </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="0.25">
         <Grid Height="500" Width="850">
             <Grid.RowDefinitions>
@@ -79,7 +83,10 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" ToolTip="{Binding Description}">
-                                                        <TextBlock VerticalAlignment="Center" Text="{Binding Title}" MaxWidth="120" TextWrapping="WrapWithOverflow"/>
+                                                        <StackPanel VerticalAlignment="Center">
+                                                            <TextBlock VerticalAlignment="Center" Text="{Binding Title}" MaxWidth="120" TextWrapping="WrapWithOverflow"/>
+                                                            <ProgressBar Height="5" Foreground="Goldenrod" Minimum="0" Maximum="100" Value="{Binding Progress, Converter={StaticResource LessonProgressBarConverter}}"/>
+                                                        </StackPanel>
                                                         <Button Content="Go to lesson" Command="{Binding LessonNavigateCommand}"/>
                                                     </StackPanel>
                                                 </DataTemplate>
