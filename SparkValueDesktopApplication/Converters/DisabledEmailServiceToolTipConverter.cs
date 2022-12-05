@@ -11,21 +11,22 @@ namespace SparkValueDesktopApplication.Converters
 {
     public class DisabledEmailServiceToolTipConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null && value is SignInViewModel)
             {
                 SignInViewModel viewModel = value as SignInViewModel;
-
-                return (!viewModel.EmailingStatus) ? "Email service is unavailable." : "";
+                // Null is intended, this prevents an empty tooltip
+                return (!viewModel.EmailingStatus) ? "Email service is unavailable." : null;
             }
             else if (value is SettingsAccountViewModel)
             {
                 SettingsAccountViewModel viewModel = value as SettingsAccountViewModel;
-
-                return (!viewModel.EmailingStatus) ? "Email service is unavailable." : "";
+                // Null is intended, this prevents an empty tooltip
+                return (!viewModel.EmailingStatus) ? "Email service is unavailable." : null;
             }
-            else return "";
+            // Null is intended, this prevents an empty tooltip
+            else return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
