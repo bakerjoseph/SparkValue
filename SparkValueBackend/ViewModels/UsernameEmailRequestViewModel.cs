@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SparkValueBackend.ViewModels
@@ -42,6 +43,7 @@ namespace SparkValueBackend.ViewModels
         public ICommand ResetPasswordCommand { get; }
 
         private readonly UserStore _userStore;
+        private readonly EmailStatusStore _emailStatusStore;
         private readonly EmailService _emailService;
         private readonly SecurityService _securityService;
         private readonly NavigationService _logInNavigationService;
@@ -49,9 +51,10 @@ namespace SparkValueBackend.ViewModels
         /// <summary>
         /// Used in conjunction with UsernameEmailRequestView.xaml
         /// </summary>
-        public UsernameEmailRequestViewModel(NavigationStore navigationStore, UserStore userStore, EmailService emailService, NavigationService logInViewNavigationService, SecurityService securityService)
+        public UsernameEmailRequestViewModel(NavigationStore navigationStore, EmailStatusStore emailStatusStore, UserStore userStore, EmailService emailService, NavigationService logInViewNavigationService, SecurityService securityService)
         {
             _userStore = userStore;
+            _emailStatusStore = emailStatusStore;
             _emailService = emailService;
             _logInNavigationService = logInViewNavigationService;
             _securityService = securityService;
@@ -63,7 +66,7 @@ namespace SparkValueBackend.ViewModels
         public ResetPasswordViewModel CreateResetPasswordViewModel()
         {
             UserAccountModel user = _userStore.GetUserByUsername(_username);
-            return new ResetPasswordViewModel(_userStore, _emailService, _logInNavigationService, _securityService, user);
+            return new ResetPasswordViewModel(_userStore, _emailStatusStore, _emailService, _logInNavigationService, _securityService, user);
         }
     }
 }

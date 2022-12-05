@@ -2,6 +2,7 @@
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using SparkValueBackend.Models;
+using SparkValueBackend.Stores;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -17,13 +18,17 @@ namespace SparkValueBackend.Services
         private readonly string APIKey;
         private readonly string SendingEmail;
 
-        public EmailService()
+        public EmailService(EmailStatusStore emailStatusStore)
         {
             var config = new ConfigurationBuilder().AddUserSecrets<EmailService>().Build();
 
             APIKey = config["Email:ApiKey"];
 
             SendingEmail = config["Email:SendingEmail"];
+
+            // Do we have the credentials to access the API?
+            if (APIKey == null || SendingEmail == null) emailStatusStore.Status = false; 
+            else emailStatusStore.Status = true;
         }
 
         /// <summary>

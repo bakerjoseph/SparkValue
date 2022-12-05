@@ -18,10 +18,11 @@ namespace SparkValueBackend.Commands
         private readonly SecurityService _securityService;
 
         private readonly UserStore _userStore;
+        private readonly EmailStatusStore _emailStatusStore;
 
         private readonly string _verificationString;
 
-        public ChangePasswordCommand(ResetPasswordViewModel resetPasswordViewModel, string verifyString, NavigationService userSettingsViewNavigationService, SecurityService securityService, UserStore userStore, UserAccountModel? user)
+        public ChangePasswordCommand(ResetPasswordViewModel resetPasswordViewModel, string verifyString, NavigationService userSettingsViewNavigationService, SecurityService securityService, UserStore userStore, EmailStatusStore emailStatusStore, UserAccountModel? user)
         {
             _userAccount = (user == null) ? userStore.LoggedInUser : user ;
             
@@ -32,6 +33,7 @@ namespace SparkValueBackend.Commands
             _securityService = securityService;
 
             _userStore = userStore;
+            _emailStatusStore = emailStatusStore;
 
             _verificationString = verifyString;
         }
@@ -41,6 +43,7 @@ namespace SparkValueBackend.Commands
             return !string.IsNullOrEmpty(_resetPasswordViewModel.PasswordVerification) &&
                 _resetPasswordViewModel.NewPassword != null &&
                 _resetPasswordViewModel.NewPassword.Length > 0 &&
+                _emailStatusStore.Status &&
                 base.CanExecute(parameter);
         }
 

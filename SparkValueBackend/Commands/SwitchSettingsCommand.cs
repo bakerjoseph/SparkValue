@@ -16,14 +16,16 @@ namespace SparkValueBackend.Commands
         private readonly List<NavigationService> _navigationServices;
 
         private readonly UserStore _userStore;
+        private readonly EmailStatusStore _emailStatusStore;
 
-        public SwitchSettingsCommand(string desiredViewModel, SettingsViewModel settingsViewModel, List<NavigationService> navigationServices, UserStore userStore)
+        public SwitchSettingsCommand(string desiredViewModel, SettingsViewModel settingsViewModel, List<NavigationService> navigationServices, UserStore userStore, EmailStatusStore emailStatusStore)
         {
             _desiredViewModel = desiredViewModel;
             _settingsViewModel = settingsViewModel;
             _navigationServices = navigationServices;
 
             _userStore = userStore;
+            _emailStatusStore = emailStatusStore;
         }
 
         public override void Execute(object? parameter)
@@ -40,7 +42,7 @@ namespace SparkValueBackend.Commands
 
         private SettingsAccountViewModel CreateAccountSettings()
         {
-            return new SettingsAccountViewModel(_navigationServices, _userStore);
+            return new SettingsAccountViewModel(_navigationServices, _userStore, _emailStatusStore);
         }
     }
 }

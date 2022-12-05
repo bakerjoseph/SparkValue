@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
              xmlns:AP="clr-namespace:SparkValueDesktopApplication.AttachedProperties"
+             xmlns:conv="clr-namespace:SparkValueDesktopApplication.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="850">
+    <UserControl.Resources>
+        <conv:DisabledEmailServiceToolTipConverter x:Key="DisabledEmailServiceToolTipConverter"/>
+    </UserControl.Resources>
     <Border Margin="10" MinWidth="550" BorderBrush="Black" BorderThickness="2" CornerRadius="25" Style="{DynamicResource BackgroundColorBorder}">
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40">
             <Grid.RowDefinitions>
@@ -46,7 +50,8 @@
                         <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" MinWidth="150" MaxWidth="150"/>
                     </StackPanel>
                     <TextBlock HorizontalAlignment="Right" FontSize="12" Margin="5 5 5 1">
-                        <Hyperlink Command="{Binding ForgotPasswordNavigateCommand}">
+                        <Hyperlink IsEnabled="{Binding EmailingStatus}" Command="{Binding ForgotPasswordNavigateCommand}" 
+                                   ToolTip="{Binding Converter={StaticResource DisabledEmailServiceToolTipConverter}}" ToolTipService.ShowOnDisabled="True">
                             Forgot your password?
                         </Hyperlink>
                     </TextBlock>

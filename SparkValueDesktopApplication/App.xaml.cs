@@ -22,6 +22,7 @@ namespace SparkValueDesktopApplication
         private const string UnitCollection = "units";
 
         private readonly NavigationStore _navigationStore;
+        private readonly EmailStatusStore _emailStatusStore;
         private readonly UserStore _userStore;
         private readonly UnitStore _unitStore;
         private readonly LocalComponentStore _componentStore;
@@ -36,7 +37,9 @@ namespace SparkValueDesktopApplication
         {
             _securityService = new SecurityService();
             _mongoInitService = new MongoInitService(ConnectionString, DatabaseName, UnitCollection);
-            _emailService = new EmailService();
+            
+            _emailStatusStore = new EmailStatusStore();
+            _emailService = new EmailService(_emailStatusStore);
 
             _navigationStore = new NavigationStore();
             _userStore = new UserStore(ConnectionString, DatabaseName, UserCollection);
@@ -69,13 +72,14 @@ namespace SparkValueDesktopApplication
 
         private NewAccountViewModel CreateNewAccountViewModel()
         {
-            return new NewAccountViewModel(_userStore, _unitStore, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService, _emailService);
+            return new NewAccountViewModel(_userStore, _unitStore, _emailStatusStore, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService, _emailService);
         }
 
         private SignInViewModel CreateSignInViewModel()
         {
             return new SignInViewModel(
                 _userStore,
+                _emailStatusStore,
                 new NavigationService(_navigationStore, CreateBreadboardViewModel),
                 new NavigationService(_navigationStore, CreateNewAccountViewModel),
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
@@ -99,6 +103,7 @@ namespace SparkValueDesktopApplication
         {
             return new SettingsViewModel(
                 _userStore,
+                _emailStatusStore,
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
                 new List<NavigationService>() 
                 { 
@@ -118,6 +123,7 @@ namespace SparkValueDesktopApplication
         {
             return new SettingsViewModel(
                 _userStore,
+                _emailStatusStore,
                 new NavigationService(_navigationStore, CreateDashboardViewModel),
                 new List<NavigationService>()
                 {
@@ -145,12 +151,12 @@ namespace SparkValueDesktopApplication
 
         private ResetPasswordViewModel CreateResetPasswordViewModelToSettings()
         {
-            return new ResetPasswordViewModel(_userStore, _emailService, new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel), _securityService);
+            return new ResetPasswordViewModel(_userStore, _emailStatusStore, _emailService, new NavigationService(_navigationStore, CreateUserSettingsAccountViewModel), _securityService);
         }
 
         private UsernameEmailRequestViewModel CreateUsernameRequestViewModel()
         {
-            return new UsernameEmailRequestViewModel(_navigationStore, _userStore, _emailService, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService);
+            return new UsernameEmailRequestViewModel(_navigationStore, _emailStatusStore, _userStore, _emailService, new NavigationService(_navigationStore, CreateSignInViewModel), _securityService);
         }
     }
 }

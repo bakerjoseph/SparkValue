@@ -75,13 +75,13 @@ namespace SparkValueBackend.ViewModels
         /// <summary>
         /// Used in conjunction with NewAccountView.xaml
         /// </summary>
-        public NewAccountViewModel(UserStore userStore, UnitStore unitStore, NavigationService signInViewNavigationService, SecurityService securityService, EmailService emailService)
+        public NewAccountViewModel(UserStore userStore, UnitStore unitStore, EmailStatusStore emailStatusStore, NavigationService signInViewNavigationService, SecurityService securityService, EmailService emailService)
         {
             _username = string.Empty;
             _emailAddress = string.Empty;
 
             CancelCommand = new NavigateCommand(signInViewNavigationService);
-            CreateAccountCommand = new NewAccountCommand(this, userStore, unitStore, signInViewNavigationService, securityService, emailService);
+            CreateAccountCommand = new NewAccountCommand(this, userStore, unitStore, emailStatusStore, signInViewNavigationService, securityService, emailService);
         }
     }
 }

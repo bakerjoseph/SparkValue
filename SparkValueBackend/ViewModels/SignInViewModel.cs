@@ -55,6 +55,17 @@ namespace SparkValueBackend.ViewModels
             }
         }
 
+        private bool _emailingStatus;
+        public bool EmailingStatus
+        {
+            get { return _emailingStatus; }
+            set
+            {
+                _emailingStatus = value;
+                OnPropertyChanged(nameof(EmailingStatus));
+            }
+        }
+
         public ICommand CreateAccountCommand { get; }
         public ICommand BreadboardNavigateCommand { get; }
         public ICommand SignInCommand { get; }
@@ -64,6 +75,7 @@ namespace SparkValueBackend.ViewModels
         /// Used in conjunction with SignInView.xaml
         /// </summary>
         public SignInViewModel(UserStore userStore,
+                            EmailStatusStore emailStatusStore,
                             NavigationService breadboardViewNavigationService,
                             NavigationService newAccountViewNavigationService,
                             NavigationService dashboardViewNavigationService,
@@ -71,6 +83,8 @@ namespace SparkValueBackend.ViewModels
                             SecurityService security)
         {
             _username = string.Empty;
+
+            EmailingStatus = emailStatusStore.Status;
 
             BreadboardNavigateCommand = new NavigateCommand(breadboardViewNavigationService);
             CreateAccountCommand = new NavigateCommand(newAccountViewNavigationService);

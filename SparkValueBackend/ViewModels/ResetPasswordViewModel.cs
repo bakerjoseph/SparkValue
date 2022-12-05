@@ -64,7 +64,7 @@ namespace SparkValueBackend.ViewModels
         /// Used in conjunction with PasswordChangeView.xaml
         /// Constructor for the settings page
         /// </summary>
-        public ResetPasswordViewModel(UserStore userStore, EmailService emailService, NavigationService userSettingsViewNavigationService, SecurityService securityService)
+        public ResetPasswordViewModel(UserStore userStore, EmailStatusStore emailStatusStore, EmailService emailService, NavigationService userSettingsViewNavigationService, SecurityService securityService)
         {
             string verificationString = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 10);
 
@@ -73,14 +73,14 @@ namespace SparkValueBackend.ViewModels
             MessageBox.Show("A email was sent to the address in your account. Use the code in that email to continue on the next screen");
 
             CancelCommand = new NavigateCommand(userSettingsViewNavigationService);
-            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, userSettingsViewNavigationService, securityService, userStore, null);
+            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, userSettingsViewNavigationService, securityService, userStore, emailStatusStore, null);
         }
 
         /// <summary>
         /// Used in conjunction with PasswordChangeView.xaml
         /// Constructor for the log in page
         /// </summary>
-        public ResetPasswordViewModel(UserStore userStore, EmailService emailService, NavigationService logInViewNavigationService, SecurityService securityService, UserAccountModel user)
+        public ResetPasswordViewModel(UserStore userStore, EmailStatusStore emailStatusStore, EmailService emailService, NavigationService logInViewNavigationService, SecurityService securityService, UserAccountModel user)
         {
             string verificationString = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 10);
 
@@ -89,7 +89,7 @@ namespace SparkValueBackend.ViewModels
             MessageBox.Show("A email was sent to the address in your account. Use the code in that email to continue on the next screen");
 
             CancelCommand = new NavigateCommand(logInViewNavigationService);
-            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, logInViewNavigationService, securityService, userStore, user);
+            ResetPasswordCommand = new ChangePasswordCommand(this, verificationString, logInViewNavigationService, securityService, userStore, emailStatusStore, user);
         }
 
         private async void SendResetEmail(EmailService emailService, UserAccountModel user, string verificationString)

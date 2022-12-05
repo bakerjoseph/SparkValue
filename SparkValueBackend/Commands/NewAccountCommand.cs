@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace SparkValueBackend.Commands
@@ -23,8 +24,9 @@ namespace SparkValueBackend.Commands
 
         private readonly UserStore _userStore;
         private readonly UnitStore _unitStore;
+        private readonly EmailStatusStore _emailStatusStore;
 
-        public NewAccountCommand(NewAccountViewModel accountVM, UserStore userStore, UnitStore unitStore, NavigationService signInViewNavigationService, SecurityService security, EmailService emailService)
+        public NewAccountCommand(NewAccountViewModel accountVM, UserStore userStore, UnitStore unitStore, EmailStatusStore emailStatusStore, NavigationService signInViewNavigationService, SecurityService security, EmailService emailService)
         {
             _signInViewNavigationService = signInViewNavigationService;
             _securityService = security;
@@ -35,6 +37,7 @@ namespace SparkValueBackend.Commands
 
             _userStore = userStore;
             _unitStore = unitStore;
+            _emailStatusStore = emailStatusStore;
         }
 
         public override bool CanExecute(object? parameter)
@@ -61,10 +64,20 @@ namespace SparkValueBackend.Commands
                 // Create account with the passed in view model values
                 (string salt, string hashed) outcome = _securityService.ProtectPassword(_newAccountViewModel.SecurePassword);
                 UserAccountModel newUser = new UserAccountModel(_newAccountViewModel.Username, outcome.hashed, _newAccountViewModel.EmailAddress, outcome.salt, GetDefaultUnitProgress(), GetDefaultLessonProgress());
-                await _userStore.CreateUser(newUser);
 
-                // Send a welcome email to the new user
-                await _emailService.SendWelcomeEmail(newUser);
+                if (_emailStatusStore.Status)
+                {
+                    // Send a welcome email to the new user
+                    await _emailService.SendWelcomeEmail(newUser);
+                }
+                else
+                {
+                    // Show a welcome message, email service is disabled
+                    MessageBox.Show("Welcome to Spark Value!");
+                }
+
+                // Create the account in the database
+                await _userStore.CreateUser(newUser);
 
                 _signInViewNavigationService.Navigate();
             }

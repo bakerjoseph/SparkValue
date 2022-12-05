@@ -4,14 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SparkValueDesktopApplication.Views"
+             xmlns:conv="clr-namespace:SparkValueDesktopApplication.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:DisabledEmailServiceToolTipConverter x:Key="DisabledEmailServiceToolTipConverter"/>
+    </UserControl.Resources>
     <StackPanel HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" Text="Account Settings" FontWeight="Bold"/>
         <Separator Style="{DynamicResource AccentColorControl}"/>
         <Button Content="Change your Username" Command="{Binding ResetUsernameCommand}"/>
         <Button Content="Update your Email Address" Command="{Binding ResetEmailAddressCommand}"/>
-        <Button Content="Reset your Password" Command="{Binding ResetPasswordCommand}"/>
+        <Button IsEnabled="{Binding EmailingStatus}" Content="Reset your Password" Command="{Binding ResetPasswordCommand}"
+                ToolTip="{Binding Converter={StaticResource DisabledEmailServiceToolTipConverter}}" ToolTipService.ShowOnDisabled="True"/>
         <Separator Style="{DynamicResource AccentColorControl}"/>
         <Button Content="Reset your Account" Command="{Binding ResetAccountCommand}" Background="PaleVioletRed"/>
     </StackPanel>
